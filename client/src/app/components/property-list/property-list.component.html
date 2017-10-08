@@ -1,0 +1,18 @@
+<h1>{{ title }}</h1>
+
+Search filters....<br>
+<br>
+<div class="row">
+  <div *ngIf="properties; else loading">
+    <div *ngFor="let property of properties;">
+      <div class="col-sm-2">
+        <h3><a routerLink='/properties/{{ property.slug }}' routerLinkActive="active">{{ property.name }}</a></h3>
+        {{ property.name }}<br>
+        {{ property.description }}<br>
+      </div>
+    </div>
+  </div>
+  <ng-template #loading>
+    <p class="text-center"><img src="static/ang/assets/images/loading.gif"><br>please wait...</p>
+  </ng-template>
+</div>

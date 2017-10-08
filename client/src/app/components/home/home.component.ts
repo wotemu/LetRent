@@ -1,0 +1,41 @@
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Router } from '@angular/router';
+import { Http } from '@angular/http';
+import { VideoService } from '../../services/video.service';
+import { Video } from '../../models/video';
+
+@Component({
+  selector: 'app-home',
+  templateUrl: './home.component.html',
+  styleUrls: ['./home.component.css']
+})
+export class HomeComponent implements OnInit, OnDestroy {
+  private req: any;
+  homeImageList: [Video] = [] as [Video];
+  videoListDefaultImage = 'https://angulardjango.s3-us-west-2.amazonaws.com/static/ang/assets/images/videos/1.jpg';
+
+  constructor(private http: Http,
+              private router: Router,
+              private _video: VideoService) {
+  }
+
+  ngOnInit() {
+    this.req = this._video.featured().subscribe((data) => {
+      this.homeImageList = data as [Video];
+    });
+  }
+
+  ngOnDestroy() {
+    this.req.unsubscribe();
+  }
+
+  preventNormal(event: MouseEvent, image: any) {
+    if (!image.prevented) {
+      event.preventDefault();
+      // image.setAttribute("href", "/videos")
+      // image.link = '/videos'
+      // image.prevented = true;
+      this.router.navigate(['./videos']);
+    }
+  }
+}

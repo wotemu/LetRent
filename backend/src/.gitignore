@@ -3,6 +3,7 @@ client/node_modules
 client/e2e
 client/bootstrap-overview
 
+tryangular/settings/local.py
 
 backend/bin
 backend/include
@@ -150,9 +151,5 @@ testem.log
 # System Files
 .DS_Store
 Thumbs.db
-backend/src/staticheroku
-backend/src/static-root
-backend/static-root
-backend/src/static/ang
 
 
