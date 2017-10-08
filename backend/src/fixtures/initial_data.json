@@ -1,0 +1,71 @@
+[
+{
+  "model": "letrent.account",
+  "pk": 36,
+  "fields": {
+    "password": "pbkdf2_sha256$36000$OSFLLoDmCHsr$p+jd3qqsjjFdDzluD1fuv+QW7N3n6SA8f6vr/8A1wvk=",
+    "last_login": null,
+    "email": "test@test.com",
+    "firstname": "Test first name",
+    "lastname": "Test last name",
+    "date_created": "2017-10-08T21:24:17.536Z",
+    "date_modified": "2017-10-08T21:24:17.536Z",
+    "is_admin": false
+  }
+},
+{
+  "model": "letrent.property",
+  "pk": 1,
+  "fields": {
+    "name": "Mobile phone Nokia N95",
+    "description": "Lend my mobile phone Nokia N95",
+    "address": "Helsinki, Finland",
+    "slug": "mobile-phone-nokia-n95",
+    "image": "",
+    "active": true,
+    "created_at": "2017-10-07T13:35:10.667Z",
+    "updated_at": null
+  }
+},
+{
+  "model": "letrent.property",
+  "pk": 2,
+  "fields": {
+    "name": "Laptop ThinkPad Yoga x1",
+    "description": "Lend my Laptop ThinkPad Yoga x1",
+    "address": "Espoo, Finland",
+    "slug": "thinkpad-yoga-x1",
+    "image": "",
+    "active": true,
+    "created_at": "2017-10-07T13:35:10.667Z",
+    "updated_at": null
+  }
+},
+{
+  "model": "letrent.propertycategory",
+  "pk": 1,
+  "fields": {
+    "name": "Laptops",
+    "parent_id": 0,
+    "active": true
+  }
+},
+{
+  "model": "letrent.propertycategory",
+  "pk": 2,
+  "fields": {
+    "name": "Mobile phones",
+    "parent_id": 0,
+    "active": true
+  }
+},
+{
+  "model": "letrent.propertycategory",
+  "pk": 3,
+  "fields": {
+    "name": "Other",
+    "parent_id": 0,
+    "active": true
+  }
+}
+]

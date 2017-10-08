@@ -155,4 +155,5 @@ backend/src/static-root
 backend/static-root
 backend/src/static/ang
 
-
+# Database
+backend/src/db.sqlite3
