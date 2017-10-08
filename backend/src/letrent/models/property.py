@@ -1,8 +1,8 @@
 from django.db import models
 from django.db.models import Q
 from django.db.models.signals import pre_save
+
 from ..utils import unique_slug_generator
-from datetime import datetime
 
 
 class PropertyQuerySet(models.query.QuerySet):
@@ -32,8 +32,8 @@ class Property(models.Model):
     image = models.ImageField(upload_to='images/properties/', null=True, blank=True)
     active = models.BooleanField(default=True)
 
-    updated_at = models.DateTimeField(auto_now=True, default=datetime.now())
-    created_at = models.DateTimeField(auto_now_add=True, default=datetime.now())
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True, null=True)
 
     objects = PropertyManager()
 
