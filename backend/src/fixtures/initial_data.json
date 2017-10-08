@@ -8,8 +8,8 @@
     "email": "test@test.com",
     "firstname": "Test first name",
     "lastname": "Test last name",
-    "date_created": "2017-10-08T21:24:17.536Z",
-    "date_modified": "2017-10-08T21:24:17.536Z",
+    "created_at": "2017-10-08T21:24:17.536Z",
+    "updated_at": "2017-10-08T21:24:17.536Z",
     "is_admin": false
   }
 },

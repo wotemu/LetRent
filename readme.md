@@ -15,6 +15,7 @@
   `python3 manage.py makemigrations`  
   `python3 manage.py migrate --fake-initial`  
   `python3 manage.py migrate --run-syncdb`  
+  `python3 manage.py loaddata fixtures/initial_data.json` 
 - Go to */client/* and run `npm install`.  
 3) Run angular (frontend) auto-builder:
 - go to */client/* and run:  

@@ -7,8 +7,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework_jwt.settings import api_settings
 
-from .serializers import VideoSerializer, VideoDetailSerializer, AccountSerializer, PropertySerializer, \
-    PropertyDetailSerializer
+from ..serializers import PropertySerializer, AccountSerializer, PropertyDetailSerializer, VideoSerializer, VideoDetailSerializer
 from ..models import Video, Account, Property
 
 

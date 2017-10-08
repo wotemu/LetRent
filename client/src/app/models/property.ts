@@ -6,5 +6,5 @@ export class Property {
   address: string;
   image: string;
   active: boolean;
-  date_created: Date;
+  created_at: Date;
 }

@@ -1,7 +1,7 @@
 from datetime import datetime
 from calendar import timegm
 from rest_framework_jwt.settings import api_settings
-from .api.serializers import AccountSerializer
+from .serializers import AccountSerializer
 from itertools import chain
 
 
