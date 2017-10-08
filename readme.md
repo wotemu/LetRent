@@ -7,18 +7,30 @@
 
 ## Quick Setup
 1) Download repository
-2) Run:
+2) Pre-installation:
 - Go to */backend/src/* and run `python3 -m pip install -r requirements.txt`. You may optionally create a new python environment.
+- Create initial SQLite3 database file: go to */backend/src/* and run:  
+    `cp db.sqlite3.example db.sqlite3`
 - Populate the database table and records:  
   `python3 manage.py makemigrations`  
   `python3 manage.py migrate --fake-initial`  
   `python3 manage.py migrate --run-syncdb`  
-- Go to */client/* and run `npm install`.
-- To run angular auto-builder use go to */client/* and run `ng build --output-path "../backend/src/static/ang/" --watch --output-hashing none --extractCss true`
-
+- Go to */client/* and run `npm install`.  
+3) Run angular (frontend) auto-builder:
+- go to */client/* and run:  
+`ng build --output-path "../backend/src/static/ang/" --watch --output-hashing none --extractCss true`
+4) Run server:
+- go to */backend/src/* and run:  
+`python3 manage.py runserver`
 
 ## Additional information
-...
+### Fake data (Fixtures)
+- Export fixtures:  
+`python3 manage.py dumpdata letrent --format=json --indent 2 > fixtures/initial_data.json`  
+
+  You can exclude some models by providing additional parameters: `--exclude letrent.model1 -- exclude letrent.model2 ...` 
+- Import fixtures:
+`python3 manage.py loaddata fixtures/initial_data.json`
 
 ## Test access
 Test account for the front-end and back-end sides:
