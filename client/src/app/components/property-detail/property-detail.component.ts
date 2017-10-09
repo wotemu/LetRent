@@ -14,7 +14,7 @@ export class PropertyDetailComponent implements OnInit {
   slug: string;
 
   constructor(private route: ActivatedRoute,
-              private notificationService: NotificationService,
+              private notification: NotificationService,
               private propertyService: PropertyService) {
   }
 
@@ -26,6 +26,6 @@ export class PropertyDetailComponent implements OnInit {
           this.property = data as Property;
           console.log(data);
         })
-        .catch((e) => this.notificationService.error(e));
+        .catch((e) => this.notification.errorResp(e));
   }
 }

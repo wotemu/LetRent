@@ -1,6 +1,6 @@
 import { Pipe } from '@angular/core';
-import { PropertyImage } from '../models/property-image';
-import { AppSetting } from '../helpers/app-setting';
+import { PropertyImage } from '../../models/property-image';
+import { AppSetting } from '../../helpers/app-setting';
 
 @Pipe({
   name: 'propertyImageUrl'

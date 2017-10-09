@@ -28,7 +28,7 @@ export class PropertyService {
   }
 
   private handleError(error: any): Promise<any> {
-    this.notificationService.error(error);
+    this.notificationService.errorResp(error);
     return Promise.reject(error.text() || error);
   }
 }

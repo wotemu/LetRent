@@ -1,6 +1,7 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewContainerRef } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { AuthService } from './security/auth.service';
+import { ToastsManager } from 'ng2-toastr';
 
 @Component({
   selector: 'app-root',
@@ -16,7 +17,11 @@ export class AppComponent implements OnInit, OnDestroy {
   private routeSub: any;
 
   constructor(public auth: AuthService,
+              private toastManager: ToastsManager,
+              private vcr: ViewContainerRef,
               private route: ActivatedRoute) {
+    this.toastManager.setRootViewContainerRef(vcr);
+
     this.routeSub = route.params.subscribe((params) => {
       this.query = params['q'];
     });

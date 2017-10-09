@@ -14,7 +14,7 @@ export class PropertyListComponent implements OnInit {
   private properties: Property[];
 
   constructor(private propertyService: PropertyService,
-              private notificationService: NotificationService) {
+              private notification: NotificationService) {
   }
 
   ngOnInit() {
@@ -27,6 +27,6 @@ export class PropertyListComponent implements OnInit {
         .then((data) => {
           this.properties = data as Property[];
         })
-        .catch((e) => this.notificationService.error(e));
+        .catch((e) => this.notification.errorResp(e));
   }
 }

@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../../security/auth.service';
+import { NotificationService } from '../../services/notification.service';
 
 @Component({
   selector: 'app-registration',
@@ -9,24 +10,19 @@ import { AuthService } from '../../security/auth.service';
 })
 export class RegistrationComponent {
   constructor(public auth: AuthService,
+              private notification: NotificationService,
               private router: Router) {
-    if (auth.loggedIn())
-      console.log(auth.decodeToken());
-    // else
-    //   console.log('Not logged in');
+    if (auth.loggedIn()) {
+      this.router.navigate(['']);
+      this.notification.info('You have already been authorized.');
+    }
   }
 
   onRegister(userInfo) {
-    // console.log(userInfo);
-    // this.auth.logout();
-
     this.auth.register(userInfo).then(() => {
-      // this.router.navigate(['']);
-    //   // TODO: Add msg - you have been registered successfully
-      console.log('success');
+      this.router.navigate(['']);
     }).catch((err) => {
-      console.error('err');
-      // this.notificationService.loginError();
+      this.notification.errorResp(err);
     });
   }
 }

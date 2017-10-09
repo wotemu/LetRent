@@ -2,14 +2,15 @@ import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 import { AuthConfigConsts, JwtHelper, tokenNotExpired } from 'angular2-jwt';
 import { Account } from '../models/account';
-import 'rxjs/add/operator/map';
+import { NotificationService } from '../services/notification.service';
 
 @Injectable()
 export class AuthService {
   user: Account;
   jwtHelper: JwtHelper = new JwtHelper();
 
-  constructor(private http: Http) {
+  constructor(private http: Http,
+              private notification: NotificationService) {
     if (this.loggedIn()) {
       // TODO: Refactor this method in order to match dictionary to Account model
       this.user = this.decodeToken() as Account;
@@ -20,36 +21,39 @@ export class AuthService {
   login(credentials) {
     return new Promise((resolve, reject) => {
       this.http.post('api/login/', credentials)
-        .map((res) => res.text())
-        .subscribe(
-          (data) => {
-            console.log(data);
-            localStorage.setItem('token', data);
-            this.user = this.decodeToken() as Account;
-            resolve();
-          },
-          (error) => reject(error)
-        );
+          .map((res) => res.text())
+          .subscribe(
+              (data) => {
+                console.log(data);
+                localStorage.setItem('token', data);
+                this.user = this.decodeToken() as Account;
+                this.notification.success('You have been logged in successfully.');
+                resolve();
+              },
+              (error) => reject(error)
+          );
     });
   }
 
   register(userInfo) {
     return new Promise((resolve, reject) => {
       this.http.post('api/register/', userInfo)
-        .map((res) => res.text())
-        .subscribe(
-          (data) => {
-            localStorage.setItem('token', data);
-            this.user = this.decodeToken() as Account;
-            resolve();
-          },
-          (error) => reject(error)
-        );
+          .map((res) => res.text())
+          .subscribe(
+              (data) => {
+                localStorage.setItem('token', data);
+                this.user = this.decodeToken() as Account;
+                this.notification.success('You have been registered successfully.');
+                resolve();
+              },
+              (error) => reject(error)
+          );
     });
   }
 
   logout() {
     localStorage.removeItem('token');
+    this.notification.success('You have been logged out successfully.');
   }
 
   loggedIn() {
