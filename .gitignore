@@ -8,6 +8,8 @@ backend/bin
 backend/include
 backend/lib
 
+.vs
+.vs/*	
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
