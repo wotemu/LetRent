@@ -22,6 +22,7 @@ import { ToastModule } from 'ng2-toastr/ng2-toastr';
 import { NotificationService } from './services/notification.service';
 import { PropertyService } from './services/property.service';
 import { VideoService } from './services/video.service';
+import { LoaderComponent } from './components/loader/loader.component';
 
 @NgModule({
   declarations: [
@@ -36,6 +37,7 @@ import { VideoService } from './services/video.service';
     PropertyListComponent,
     PropertyDetailComponent,
     RegistrationComponent,
+    LoaderComponent,
     LoginComponent
   ],
   imports: [
