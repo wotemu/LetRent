@@ -24,7 +24,10 @@
 
 3) Run angular (frontend) auto-builder:
 - Go to */client/* and run:  
-	`ng build or ng serve -o`
+	`ng build`  
+	or `ng serve -o`  
+	or `ng build --watch --output-hashing none --extractCss true`
+
 
 4) Run server:
 - Go to */backend/src/* and run:  
