@@ -16,15 +16,9 @@ class PropertySerializer(serializers.ModelSerializer):
             'description',
             'slug',
             'address',
-            'image',
             'active',
             'created_at'
         ]
-
-    def get_image(self, obj):
-        if obj.image:
-            return str(obj.image.url)
-        return no_property_img_url
 
 
 class PropertyDetailSerializer(serializers.ModelSerializer):
