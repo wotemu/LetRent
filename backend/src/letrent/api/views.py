@@ -66,7 +66,7 @@ class PropertyDetail(generics.RetrieveAPIView):
     authentication_classes = []
 
     def get_queryset(self):
-        return Property.objects.all()
+        return Property.objects.all_with_images()
 
 
 class VideoList(generics.ListAPIView):

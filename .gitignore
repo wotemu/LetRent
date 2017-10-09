@@ -153,9 +153,10 @@ testem.log
 .DS_Store
 Thumbs.db
 backend/src/staticheroku
-backend/src/static-root
-backend/static-root
+backend/src/static-root/rest_framework
+backend/src/static-root/admin
 backend/src/static/ang
+backend/static-root
 
 # Database
 backend/src/db.sqlite3

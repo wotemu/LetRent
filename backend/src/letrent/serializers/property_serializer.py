@@ -1,13 +1,13 @@
-from django.contrib.staticfiles.templatetags.staticfiles import static
 from rest_framework import serializers
 
 from ..models import Property
 from ..serializers import PropertyImageSerializer
 
-no_property_img_url = static("ang/assets/images/no_image.gif")
-
 
 class PropertySerializer(serializers.ModelSerializer):
+    primaryImage = PropertyImageSerializer(source='primary_image')
+    createdAt = serializers.DateTimeField(source='created_at')
+
     class Meta:
         model = Property
         fields = [
@@ -17,12 +17,15 @@ class PropertySerializer(serializers.ModelSerializer):
             'slug',
             'address',
             'active',
-            'created_at'
+            'primaryImage',
+            'createdAt'
         ]
 
 
 class PropertyDetailSerializer(serializers.ModelSerializer):
-    images = PropertyImageSerializer(many=True)
+    createdAt = serializers.DateTimeField(source='created_at')
+    primaryImage = PropertyImageSerializer(source='primary_image')
+    additionalImages = PropertyImageSerializer(source='additional_images', many=True)
 
     class Meta:
         model = Property
@@ -33,6 +36,7 @@ class PropertyDetailSerializer(serializers.ModelSerializer):
             'slug',
             'address',
             'active',
-            'created_at',
-            'images'
+            'createdAt',
+            'additionalImages',
+            'primaryImage'
         ]

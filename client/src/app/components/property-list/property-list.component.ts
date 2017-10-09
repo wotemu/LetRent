@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Property } from '../../models/property';
 import { PropertyService } from '../../services/property.service';
 import { NotificationService } from '../../services/notification.service';
@@ -12,7 +12,6 @@ export class PropertyListComponent implements OnInit {
   public title = 'Properties';
 
   private properties: Property[];
-  // private propertiesPromise: Promise<void | Property[]>;
 
   constructor(private propertyService: PropertyService,
               private notificationService: NotificationService) {
@@ -25,9 +24,9 @@ export class PropertyListComponent implements OnInit {
   private reloadProperties() {
     const queryParams = {};
     this.propertyService.getProperties(queryParams)
-      .then((data) => {
-        this.properties = data as Property[];
-      })
-      .catch((e) => this.notificationService.error(e));
+        .then((data) => {
+          this.properties = data as Property[];
+        })
+        .catch((e) => this.notificationService.error(e));
   }
 }

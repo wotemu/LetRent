@@ -84,7 +84,7 @@
     "property": 2,
     "name": "Test img name #2",
     "image": "test2.jpg",
-    "is_primary": true,
+    "is_primary": false,
     "date_added": "2017-09-01"
   }
 }

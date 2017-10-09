@@ -1,18 +1,19 @@
-from django.contrib.staticfiles.templatetags.staticfiles import static
 from rest_framework import serializers
 
 from ..models.property_image import PropertyImage
 
-no_property_img_url = static("ang/assets/images/no_image.gif")
-
 
 class PropertyImageSerializer(serializers.ModelSerializer):
+    dateAdded = serializers.DateField(source='date_added')
+    isPrimary = serializers.BooleanField(source='is_primary')
+    url = serializers.ReadOnlyField()
+
     class Meta:
         model = PropertyImage
         fields = [
             'id',
             'name',
-            'image',
-            'date_added',
-            'is_primary'
+            'url',
+            'dateAdded',
+            'isPrimary'
         ]

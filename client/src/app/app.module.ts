@@ -6,7 +6,7 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app.routing';
 import { HomeComponent } from './components/home/home.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
-import { SafePipe } from './utility/safe.pipe';
+import { SafePipe } from './pipes/safe.pipe';
 import { SearchComponent } from './components/search/search.component';
 import { SearchDetailComponent } from './components/search-detail/search-detail.component';
 import { VideoDetailComponent } from './components/video-detail/video-detail.component';
@@ -23,6 +23,7 @@ import { NotificationService } from './services/notification.service';
 import { PropertyService } from './services/property.service';
 import { VideoService } from './services/video.service';
 import { LoaderComponent } from './components/loader/loader.component';
+import { PropertyImageUrlPipe } from './pipes/property-image-url.pipe';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,8 @@ import { LoaderComponent } from './components/loader/loader.component';
     PropertyDetailComponent,
     RegistrationComponent,
     LoaderComponent,
-    LoginComponent
+    LoginComponent,
+    PropertyImageUrlPipe,
   ],
   imports: [
     BsDropdownModule.forRoot(),

@@ -5,13 +5,13 @@ Property page...
   <b>Description:</b> {{ property.description }}<br>
   <b>Address:</b> {{ property.address }}<br>
   <b>Posted:</b> {{ property.created_at | date: 'yyyy.MM.dd'}}<br>
-  Image:<br>
-  <img src="{{ property.image }}" alt=""><br>
+  Primary Image:<br>
+  <img src="{{ property.primaryImage | propertyImageUrl }}" width="250" height="250"><br>
   <br><br>
   Additional images: <br>
-  <div *ngFor="let image of property.images;">
-    <b>{{ image.name }}</b><br>
-    <img src="{{ image.image }}" alt=""><br><br>
+  <div *ngFor="let additionalImage of property.additionalImages;">
+    <b>{{ additionalImage.name }}</b><br>
+    <img src="{{ additionalImage.url }}" width="250" height="250"><br><br>
   </div>
 </div>
 

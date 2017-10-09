@@ -24,6 +24,7 @@ export class PropertyDetailComponent implements OnInit {
     this.propertyService.getProperty(this.slug)
         .then((data) => {
           this.property = data as Property;
+          console.log(data);
         })
         .catch((e) => this.notificationService.error(e));
   }

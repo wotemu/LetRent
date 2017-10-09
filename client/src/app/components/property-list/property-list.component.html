@@ -7,6 +7,7 @@ Search filters....<br>
     <div *ngFor="let property of properties;">
       <div class="col-sm-2">
         <h3><a routerLink='/properties/{{ property.slug }}' routerLinkActive="active">{{ property.name }}</a></h3>
+        <img src="{{ property.primaryImage | propertyImageUrl }}" width="150" height="150">
         {{ property.name }}<br>
         {{ property.description }}<br>
       </div>

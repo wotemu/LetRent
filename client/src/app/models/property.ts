@@ -7,6 +7,7 @@ export class Property {
   slug: string;
   address: string;
   active: boolean;
-  images: PropertyImage[];
+  primaryImage: PropertyImage;
+  additionalImages: PropertyImage[];
   created_at: Date;
 }

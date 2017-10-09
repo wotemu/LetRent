@@ -4,6 +4,10 @@ from django.db.models.signals import pre_save
 
 from ..utils import unique_slug_generator
 
+# On the module-level, do a workaround reference
+# as property() is just a normal built-in function
+_property = property
+
 
 class PropertyQuerySet(models.query.QuerySet):
     def active(self):
@@ -12,12 +16,21 @@ class PropertyQuerySet(models.query.QuerySet):
     def search(self, query):
         return self.filter(Q(name__icontains=query) | Q(slug__icontains=query))
 
+    # def primary_image(self):
+    #     return self.filter(property_image__is_primary=True)
+    #
+    # def additional_images(self):
+    #     return self.filter(property_image__is_primary=False)
+
 
 class PropertyManager(models.Manager):
     def get_queryset(self):
         return PropertyQuerySet(self.model, using=self._db)
 
     def all(self):
+        return self.get_queryset().active()
+
+    def all_with_images(self):
         return self.get_queryset().active()
 
     def search(self, query):
@@ -39,9 +52,19 @@ class Property(models.Model):
     def __str__(self):  # __unicode__
         return self.name
 
-    @property
+    @_property
     def title(self):
         return self.name
+
+    @_property
+    def primary_image(self):
+        res = (self.images.filter(is_primary=True).first())
+        return res
+
+    @_property
+    def additional_images(self):
+        res = self.images.filter(is_primary=False)
+        return res
 
 
 def property_pre_save_receiver(sender, instance, *args, **kwargs):
