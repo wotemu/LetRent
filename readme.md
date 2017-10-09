@@ -11,8 +11,7 @@
 - Go to */backend/src/* and run `python3 -m pip install -r requirements.txt`. You may optionally create a new python environment.
 - Create initial SQLite3 database file: go to */backend/src/* and run:  
     `cp db.sqlite3.example db.sqlite3`
-- Populate the database table and records:  
-  `python3 manage.py makemigrations`  
+- Populate the database table and records:    
   `python3 manage.py migrate --fake-initial`  
   `python3 manage.py migrate --run-syncdb`  
   `python3 manage.py loaddata fixtures/initial_data.json` 
