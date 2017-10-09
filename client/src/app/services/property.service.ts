@@ -13,10 +13,18 @@ export class PropertyService {
 
   getProperties(requestParams?: {}): Promise<Property[]> {
     return this.http
-      .get(this.endpoint)
-      .toPromise()
-      .then((response: Response) => response.json() as Property[])
-      .catch(this.handleError);
+        .get(this.endpoint)
+        .toPromise()
+        .then((response: Response) => response.json() as Property[])
+        .catch(this.handleError);
+  }
+
+  getProperty(slug: string): Promise<Property> {
+    return this.http
+        .get(this.endpoint + slug + '/')
+        .toPromise()
+        .then((response: Response) => response.json() as Property)
+        .catch(this.handleError);
   }
 
   private handleError(error: any): Promise<any> {

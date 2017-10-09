@@ -2,6 +2,9 @@ from django.contrib.staticfiles.templatetags.staticfiles import static
 from rest_framework import serializers
 
 from ..models import Property
+from ..serializers import PropertyImageSerializer
+
+no_property_img_url = static("ang/assets/images/no_image.gif")
 
 
 class PropertySerializer(serializers.ModelSerializer):
@@ -21,11 +24,11 @@ class PropertySerializer(serializers.ModelSerializer):
     def get_image(self, obj):
         if obj.image:
             return str(obj.image.url)
-        return static("ang/assets/images/no-image.jpg")
+        return no_property_img_url
 
 
 class PropertyDetailSerializer(serializers.ModelSerializer):
-    image = serializers.SerializerMethodField()
+    images = PropertyImageSerializer(many=True)
 
     class Meta:
         model = Property
@@ -35,12 +38,7 @@ class PropertyDetailSerializer(serializers.ModelSerializer):
             'description',
             'slug',
             'address',
-            'image',
             'active',
-            'created_at'
+            'created_at',
+            'images'
         ]
-
-    def get_image(self, obj):
-        if obj.image:
-            return str(obj.image.url)
-        return static("ang/assets/images/no-image.jpg")

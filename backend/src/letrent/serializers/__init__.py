@@ -1,3 +1,4 @@
 from .account_serializer import AccountSerializer
+from .property_image_serializer import PropertyImageSerializer
 from .property_serializer import PropertySerializer, PropertyDetailSerializer
 from .video_serializer import VideoSerializer, VideoDetailSerializer

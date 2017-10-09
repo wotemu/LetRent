@@ -1,3 +1,5 @@
+import { PropertyImage } from './property-image';
+
 export class Property {
   id: number;
   name: string;
@@ -6,5 +8,6 @@ export class Property {
   address: string;
   image: string;
   active: boolean;
+  images: PropertyImage[];
   created_at: Date;
 }

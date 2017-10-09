@@ -29,7 +29,6 @@ class Property(models.Model):
     description = models.CharField(max_length=1000)
     address = models.CharField(max_length=150, null=True)
     slug = models.SlugField(unique=True, blank=True)
-    image = models.ImageField(upload_to='images/properties/', null=True, blank=True)
     active = models.BooleanField(default=True)
 
     created_at = models.DateTimeField(auto_now_add=True)
