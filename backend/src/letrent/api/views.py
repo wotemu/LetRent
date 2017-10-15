@@ -1,25 +1,15 @@
-from numpy import unicode
+from mptt.templatetags.mptt_tags import cache_tree_children
 from rest_framework import generics
 from rest_framework import status
 from rest_framework.generics import CreateAPIView
-from rest_framework.permissions import AllowAny
+from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework_jwt.settings import api_settings
 
-from ..serializers import PropertySerializer, AccountSerializer, PropertyDetailSerializer, VideoSerializer, VideoDetailSerializer
-from ..models import Video, Account, Property
-
-
-class Login(APIView):
-    # authentication_classes = (SessionAuthentication, BasicAuthentication)
-    # permission_classes = (IsAuthenticated,)
-    def post(self, request, format=None):
-        content = {
-            'user': unicode(request.user),  # `django.contrib.auth.User` instance.
-            'auth': unicode(request.auth),  # None
-        }
-        return Response([])
+from ..models import Account, Property, PropertyCategory
+from ..serializers import PropertySerializer, AccountSerializer, PropertyDetailSerializer, \
+    build_nested_category_tree
 
 
 class RegisterUser(CreateAPIView):
@@ -35,7 +25,6 @@ class RegisterUser(CreateAPIView):
 
             headers = self.get_success_headers(serializer.data)
             account = self.model.get(email=serializer.data['email'])
-            account_serializer = self.serializer_class(data=account)
 
             jwt_payload_handler = api_settings.JWT_PAYLOAD_HANDLER
             jwt_encode_handler = api_settings.JWT_ENCODE_HANDLER
@@ -53,9 +42,12 @@ class PropertyList(generics.ListAPIView):
     authentication_classes = []
 
     def get_queryset(self):
+        prop_cat_slug = self.request.GET.get("prop_cat_slug")
         query = self.request.GET.get("q")
         if query:
             return Property.objects.search(query)
+        elif prop_cat_slug:
+            return Property.objects.search(property_category_slug=prop_cat_slug)
         return Property.objects.all()
 
 
@@ -69,41 +61,9 @@ class PropertyDetail(generics.RetrieveAPIView):
         return Property.objects.all_with_images()
 
 
-class VideoList(generics.ListAPIView):
-    serializer_class = VideoSerializer
-    permission_classes = []
-    authentication_classes = []
-
-    def get_queryset(self):
-        query = self.request.GET.get("q")
-        if query:
-            # qs = Video.objects.filter(name__icontains=query)
-            qs = Video.objects.search(query)
-        else:
-            qs = Video.objects.all()
-        return qs
-
-
-class VideoDetail(generics.RetrieveAPIView):
-    # queryset                = Video.objects.all()
-    serializer_class = VideoDetailSerializer
-    lookup_field = 'slug'
-    permission_classes = []
-    authentication_classes = []
-
-    def get_queryset(self):
-        return Video.objects.all()
-
-
-class VideoFeatured(generics.ListAPIView):
-    serializer_class = VideoSerializer
-    permission_classes = []
-    authentication_classes = []
-
-    def get_queryset(self):
-        query = self.request.GET.get("q")
-        if query:
-            qs = Video.objects.featured().search(query)
-        else:
-            qs = Video.objects.featured()
-        return qs
+class PropertyCategoryView(APIView):
+    # Firstly get all categories from DB, then cache them, then build a hierarchical category tree
+    def get(self, request, **kwargs):
+        root_nodes = cache_tree_children(PropertyCategory.objects.all())
+        category_tree = build_nested_category_tree(root_nodes)
+        return Response(category_tree)

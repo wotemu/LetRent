@@ -1,34 +1,38 @@
 import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
 import { Property } from '../models/property';
-import { NotificationService } from './notification.service';
+import { Helper } from '../utils/helper';
+
+const endpoint = '/api/properties/';
 
 @Injectable()
 export class PropertyService {
-  private endpoint = '/api/properties/';
-
   constructor(private http: Http,
-              private notificationService: NotificationService) {
-  }
-
-  getProperties(requestParams?: {}): Promise<Property[]> {
-    return this.http
-        .get(this.endpoint)
-        .toPromise()
-        .then((response: Response) => response.json() as Property[])
-        .catch(this.handleError);
+              private helper: Helper) {
   }
 
   getProperty(slug: string): Promise<Property> {
     return this.http
-        .get(this.endpoint + slug + '/')
+        .get(endpoint + slug + '/')
         .toPromise()
         .then((response: Response) => response.json() as Property)
-        .catch(this.handleError);
+        .catch(this.helper.handlePromiseError);
   }
 
-  private handleError(error: any): Promise<any> {
-    this.notificationService.errorResp(error);
-    return Promise.reject(error.text() || error);
+  getProperties(requestParams?: {}): Promise<Property[]> {
+    return this.http
+        .get(endpoint, {
+          search: Helper.buildURLSearchParamsFromDict(requestParams)
+        })
+        .toPromise()
+        .then((response: Response) => response.json() as Property[])
+        .catch(this.helper.handlePromiseError);
+  }
+
+  search(query: string) {
+    const queryString = `?q=${query}`;
+    return this.http.get(endpoint + queryString)
+      .map((response) => response.json())
+      .catch(this.helper.handleObservableError);
   }
 }

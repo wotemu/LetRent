@@ -2,6 +2,8 @@ from django.db import models
 from django.db.models import Q
 from django.db.models.signals import pre_save
 
+from .account import Account
+from .property_category import PropertyCategory
 from ..utils import unique_slug_generator
 
 # On the module-level, do a workaround reference
@@ -15,6 +17,12 @@ class PropertyQuerySet(models.query.QuerySet):
 
     def search(self, query):
         return self.filter(Q(name__icontains=query) | Q(slug__icontains=query))
+
+    # Search by chosen category and its children
+    def search_by_prop_cat_slug(self, property_category_slug):
+        cat = PropertyCategory.objects.filter(slug=property_category_slug)
+        all_subcats = PropertyCategory.objects.get_queryset_descendants(queryset=cat, include_self=True)
+        return self.filter(category__in=all_subcats)
 
     # def primary_image(self):
     #     return self.filter(property_image__is_primary=True)
@@ -33,17 +41,26 @@ class PropertyManager(models.Manager):
     def all_with_images(self):
         return self.get_queryset().active()
 
-    def search(self, query):
-        return self.get_queryset().search(query).active()
+    def search(self, query=None, property_category_slug=None):
+        q = self.get_queryset().active()
+        if query:
+            q = q.search(query)
+        if property_category_slug:
+            q = q.search_by_prop_cat_slug(property_category_slug)
+        return q
 
 
 class Property(models.Model):
+    category = models.ForeignKey(PropertyCategory, on_delete=models.PROTECT)
+    owner = models.ForeignKey(Account, on_delete=models.PROTECT)
+
     name = models.CharField(max_length=150)
     description = models.CharField(max_length=1000)
     address = models.CharField(max_length=150, null=True)
+    daily_price = models.DecimalField(max_digits=10, decimal_places=2, default=None, blank=True, null=True)
+    weekly_price = models.DecimalField(max_digits=10, decimal_places=2, default=None, blank=True, null=True)
     slug = models.SlugField(unique=True, blank=True)
     active = models.BooleanField(default=True)
-
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True, null=True)
 

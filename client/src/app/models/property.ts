@@ -7,7 +7,9 @@ export class Property {
   slug: string;
   address: string;
   active: boolean;
+  dailyPrice: number;
+  weeklyPrice: number;
   primaryImage: PropertyImage;
   additionalImages: PropertyImage[];
-  created_at: Date;
+  createdAt: Date;
 }

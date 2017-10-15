@@ -1,11 +1,11 @@
-/* You can add global styles to this file, and also import other style files */
 .main-container {
     min-height: 400px;
     margin-bottom: 20px;
 }
+
 .img-main-carousel {
     max-height: 800px;
-    margin:0 auto;
+    margin: 0 auto;
 }
 
 .carousel-control.right, .carousel-control.left {
@@ -24,3 +24,40 @@
     font-weight: bold;
 }
 
+.properties {
+    margin-top: 15px;
+}
+
+.properties .property .thumbnail {
+    margin-bottom: 20px;
+    padding: 0;
+    -webkit-border-radius: 0;
+    -moz-border-radius: 0;
+    border-radius: 0;
+}
+
+.properties .property .thumbnail:hover {
+    background: #f9fbfb;
+    border: 1px solid gray;
+}
+
+.properties .property .caption {
+    padding: 10px;
+}
+
+.btn,
+input.form-control {
+    -webkit-border-radius: 0 !important;
+    -moz-border-radius: 0 !important;
+    border-radius: 0 !important;
+}
+
+.fa-star.checked {
+    color: #ff9f1a;
+}
+
+.tab-content {
+    border: 1px solid #ddd;
+    padding: 15px;
+    margin-top: -1px;
+}

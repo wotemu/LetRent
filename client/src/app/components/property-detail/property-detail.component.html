@@ -1,20 +1,61 @@
-Property page...
-
 <div *ngIf="property; else loading">
-  <h1>{{ property.name }}</h1>
-  <b>Description:</b> {{ property.description }}<br>
-  <b>Address:</b> {{ property.address }}<br>
-  <b>Posted:</b> {{ property.created_at | date: 'yyyy.MM.dd'}}<br>
-  Primary Image:<br>
-  <img src="{{ property.primaryImage | propertyImageUrl }}" width="250" height="250"><br>
-  <br><br>
-  Additional images: <br>
-  <div *ngFor="let additionalImage of property.additionalImages;">
-    <b>{{ additionalImage.name }}</b><br>
-    <img src="{{ additionalImage.url }}" width="250" height="250"><br><br>
+  <h2>{{ property.name }}</h2>
+  <div id="property">
+    <div class="row">
+      <div class="col-md-6">
+        <div *ngIf="property.additionalImages" class="images">
+          <carousel>
+            <slide>
+              <img class="img-main-carousel" [src]="property.primaryImage | propertyImageUrl">
+            </slide>
+            <slide *ngFor="let additionalImage of property.additionalImages">
+              <img class="img-main-carousel" [src]="additionalImage.url">
+              <div class="carousel-caption"><h3>{{ additionalImage.name }}</h3></div>
+            </slide>
+          </carousel>
+        </div>
+      </div>
+      <div class="details col-md-6">
+        <div class="pull-right"><b>Posted:</b> {{ property.createdAt | date:'dd/MM/yyyy' }}</div>
+
+        <h4 *ngIf="property.dailyPrice">Daily price: {{ property | propertyPrice:'daily' }}</h4>
+        <h4 *ngIf="property.weeklyPrice">Weekly price: {{ property | propertyPrice:'weekly' }}</h4>
+        <h4 *ngIf="!property.dailyPrice && !property.weeklyPrice">Price: {{ property | propertyPrice }}</h4>
+        <b>Address:</b> {{ property.address }}<br>
+
+        <div class="owner-info">
+          <b>Owner information:</b><br>
+          {{ property.owner | fullname }}<br>
+          <div class="rating">
+            <div class="stars">
+              <span class="fa fa-star checked"></span>
+              <span class="fa fa-star checked"></span>
+              <span class="fa fa-star checked"></span>
+              <span class="fa fa-star"></span>
+              <span class="fa fa-star"></span>
+            </div>
+            <span class="review-no">5 reviews</span>
+          </div>
+        </div>
+
+        <p class="vote"><strong>91%</strong> of renters enjoyed this product! <strong>(87 votes)</strong></p>
+        <div class="action">
+          <button class="btn btn-primary">Contact</button>
+          <button class="btn btn-warning" title="Add to favorite"><span class="fa fa-heart"></span></button>
+        </div>
+      </div>
+    </div>
+
+    <div class="row tabs">
+      <div class="col-sm-12">
+        <tabset #staticTabs>
+          <tab heading="Description">{{ property.description }}</tab>
+          <tab heading="Additional Info">Additional Information</tab>
+        </tabset>
+      </div>
+    </div>
   </div>
 </div>
-
 <ng-template #loading>
   <app-loader></app-loader>
 </ng-template>
