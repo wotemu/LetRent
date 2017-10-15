@@ -32,3 +32,7 @@ def unique_slug_generator(instance, new_slug=None):
         )
         return unique_slug_generator(instance, new_slug=new_slug)
     return slug
+
+
+def glue_slugs(parent_full_slug, node_slug):
+    return node_slug if not parent_full_slug else '/'.join([parent_full_slug, node_slug])

@@ -1,28 +1,21 @@
 from django.db import models
+from django.db.models.signals import pre_save
+from mptt.models import MPTTModel, TreeForeignKey
+
+from ..utils import unique_slug_generator
 
 
-class PropertyCategoryQuerySet(models.query.QuerySet):
-    def active(self):
-        return self.filter(active=True)
+class PropertyCategory(MPTTModel):
+    name = models.CharField(max_length=100, unique=True)
+    parent = TreeForeignKey('self', null=True, blank=True, related_name='children', db_index=True)
+    slug = models.SlugField(default="", blank=True, null=True)
 
-    def find_by_id(self, id):
-        return self.filter(reporter__pk=id)
+    class MPTTMeta:
+        order_insertion_by = ['name']
 
-
-class PropertyCategoryManager(models.Manager):
-    def get_queryset(self):
-        return PropertyCategoryQuerySet(self.model, using=self._db)
-
-    def all(self):
-        return self.get_queryset().active()
-
-
-class PropertyCategory(models.Model):
-    name = models.CharField(max_length=150)
-    parent_id = models.IntegerField()
-    active = models.BooleanField(default=True, null=False)
-
-    objects = PropertyCategoryManager()
+    class Meta:
+        unique_together = (('parent', 'slug',))
+        verbose_name_plural = 'categories'
 
     def __str__(self):
         return self.name
@@ -30,3 +23,11 @@ class PropertyCategory(models.Model):
     @property
     def title(self):
         return self.name
+
+
+def property_category_pre_save_receiver(sender, instance, *args, **kwargs):
+    if not instance.slug:
+        instance.slug = unique_slug_generator(instance)
+
+
+pre_save.connect(property_category_pre_save_receiver, sender=PropertyCategory)

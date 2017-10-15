@@ -1,0 +1,19 @@
+<ul class="sidebar-menu">
+  <li class="treeview" *ngFor="let category of categories">
+    <a routerLinkActive="active" routerLink="/category/{{ category.fullSlug }}">
+      {{ category.name }}
+      <i *ngIf="category.children" class="fa fa-angle-left pull-right"></i>
+    </a>
+    <ul class="treeview-menu">
+      <li *ngFor="let subcategory of category.children">
+        <a routerLinkActive="active" routerLink="/category/{{ subcategory.fullSlug }}">
+          {{ subcategory.name }}
+          <i *ngIf="subcategory.children" class="fa fa-angle-left pull-right"></i>
+        </a>
+        <div *ngIf="subcategory.children" class="treeview-menu">
+          <app-category-tree-view [propertyCategories]="subcategory.children"></app-category-tree-view>
+        </div>
+      </li>
+    </ul>
+  </li>
+</ul>
