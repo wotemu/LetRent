@@ -9,11 +9,10 @@ import { NotFoundComponent } from './components/not-found/not-found.component';
 import { SafePipe } from './utils/pipes/safe.pipe';
 import { SearchComponent } from './components/search/search.component';
 import { SearchDetailComponent } from './components/search-detail/search-detail.component';
-import { VideoDetailComponent } from './components/video-detail/video-detail.component';
-import { VideoListComponent } from './components/video-list/video-list.component';
 import { AuthService } from './security/auth.service';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { CarouselModule } from 'ngx-bootstrap/carousel';
+import { TabsModule } from 'ngx-bootstrap/tabs';
 import { RegistrationComponent } from './components/registration/registration.component';
 import { LoginComponent } from './components/login/login.component';
 import { PropertyListComponent } from './components/property-list/property-list.component';
@@ -21,12 +20,19 @@ import { PropertyDetailComponent } from './components/property-detail/property-d
 import { ToastModule } from 'ng2-toastr/ng2-toastr';
 import { NotificationService } from './services/notification.service';
 import { PropertyService } from './services/property.service';
-import { VideoService } from './services/video.service';
 import { LoaderComponent } from './components/loader/loader.component';
 import { PropertyImageUrlPipe } from './utils/pipes/property-image-url.pipe';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastsManager } from 'ng2-toastr';
 import { ToastsSettingsManager } from './utils/toasts-settings-manager';
+import { PropertyCategoryService } from './services/property-category.service';
+import { Helper } from './utils/helper';
+import { PropertyCategoryListComponent } from './components/property-category-list/property-category-list.component';
+import { CategoryTreeView } from './components/property-category-list/tree-view.directive';
+import { BoxedLayoutComponent } from './layouts/boxed/boxed.component';
+import { BoxedWithSidebarLayoutComponent } from './layouts/boxed-with-sidebar/boxed-with-sidebar.component';
+import { PropertyPricePipe } from './utils/pipes/property-price.pipe';
+import { FullnamePipe } from './utils/pipes/fullname.pipe';
 
 @NgModule({
   declarations: [
@@ -36,19 +42,24 @@ import { ToastsSettingsManager } from './utils/toasts-settings-manager';
     SafePipe,
     SearchComponent,
     SearchDetailComponent,
-    VideoDetailComponent,
-    VideoListComponent,
+    PropertyCategoryListComponent,
+    CategoryTreeView,
     PropertyListComponent,
     PropertyDetailComponent,
     RegistrationComponent,
     LoaderComponent,
     LoginComponent,
+    BoxedLayoutComponent,
+    BoxedWithSidebarLayoutComponent,
     PropertyImageUrlPipe,
+    PropertyPricePipe,
+    FullnamePipe,
   ],
   imports: [
     BsDropdownModule.forRoot(),
     CarouselModule.forRoot(),
     ToastModule.forRoot(),
+    TabsModule.forRoot(),
     BrowserModule,
     FormsModule,
     HttpModule,
@@ -59,8 +70,9 @@ import { ToastsSettingsManager } from './utils/toasts-settings-manager';
     AuthService,
     NotificationService,
     PropertyService,
-    VideoService,
-    {provide: ToastsManager, useClass: ToastsSettingsManager}
+    PropertyCategoryService,
+    {provide: ToastsManager, useClass: ToastsSettingsManager},
+    Helper,
   ],
   bootstrap: [AppComponent]
 })
