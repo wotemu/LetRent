@@ -1,38 +1,37 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { VideoService } from '../../services/video.service';
-import { Video } from '../../models/video';
+import { Property } from '../../models/property';
+import { PropertyService } from '../../services/property.service';
 
 @Component({
   selector: 'app-search-detail',
   templateUrl: './search-detail.component.html',
-  styleUrls: ['./search-detail.component.css'],
-  providers: [VideoService]
+  styleUrls: ['./search-detail.component.css']
 })
 export class SearchDetailComponent implements OnInit, OnDestroy {
-  private routeSub: any;
-  private req: any;
   query: string;
-  videoList: [Video];
+  properties: Property[];
+  noRecordsFound = false;
 
-  constructor(private route: ActivatedRoute, private videoService: VideoService) {
+  private routeListener: any;
+  private requestListener: any;
+
+  constructor(private route: ActivatedRoute,
+              private propertyService: PropertyService) {
   }
 
   ngOnInit() {
-    this.routeSub = this.route.params.subscribe((params) => {
+    this.routeListener = this.route.params.subscribe((params) => {
       this.query = params['q'];
-      this.req = this.videoService.search(this.query).subscribe((data) => {
-        this.videoList = data as [Video];
+      this.requestListener = this.propertyService.search(this.query).subscribe((data) => {
+        this.properties = data as Property[];
+        this.noRecordsFound = !(data.length > 0);
       });
     });
   }
 
   ngOnDestroy() {
-    this.routeSub.unsubscribe();
-    this.req.unsubscribe();
-  }
-
-  getEmbedUrl(item) {
-    return 'https://www.youtube.com/embed/' + item.embed + '?ecver=2';
+    this.routeListener.unsubscribe();
+    this.requestListener.unsubscribe();
   }
 }
