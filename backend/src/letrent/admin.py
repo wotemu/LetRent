@@ -1,9 +1,6 @@
 from django.contrib import admin
+from mptt.admin import MPTTModelAdmin
+from .models import Property, PropertyCategory
 
-# Register your models here.
-
-from .models import Video
-# from .models import Record
-
-admin.site.register(Video)
-# admin.site.register(Record)
+admin.site.register(Property)
+admin.site.register(PropertyCategory, MPTTModelAdmin)

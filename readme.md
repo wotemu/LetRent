@@ -45,6 +45,10 @@
 	`python3 manage.py loaddata fixtures/initial_data.json`
 
 ## Test access
-Test account for the front-end and back-end sides:
-	**email**: test@test.com
-	**password**: testtest
+Test account for front-end side:
+* **email**: test@test.com  
+* **password**: testtest  
+  
+Test account for back-end side ([Admin Login Page](http://localhost:8000/admin/)):
+* **email**: admin@test.com
+* **password**: admin-test
