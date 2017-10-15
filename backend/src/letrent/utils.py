@@ -3,7 +3,7 @@ import string
 from django.utils.text import slugify
 from django.contrib.staticfiles.templatetags.staticfiles import static
 
-no_property_img_url = static("static/images/no_image.gif")
+no_property_img_url = static("static/images/no_image.png")
 
 
 def random_string_generator(size=10, chars=string.ascii_lowercase + string.digits):
