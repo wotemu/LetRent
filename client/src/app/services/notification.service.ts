@@ -37,8 +37,13 @@ export class NotificationService {
     const jsonResp = response.json();
     Object.keys(jsonResp).forEach((errorKey) => {
       const errorMsgs = jsonResp[errorKey];
-      for (const errorMsg of errorMsgs) { // Iterate over array of error msgs
-        this.error(errorMsg, 'Error occurred');
+
+      if (typeof errorMsgs === 'string') {
+        this.error(errorMsgs, 'Error occurred');
+      } else {
+        for (let errorMsg of errorMsgs) { // Iterate over array of error msgs
+          this.error(errorMsg, 'Error occurred');
+        }
       }
     });
   }

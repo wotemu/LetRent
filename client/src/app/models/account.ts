@@ -4,3 +4,4 @@ export class Account {
   lastname: string;
   email: string;
 }
+
