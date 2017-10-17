@@ -13,8 +13,8 @@ export class AppComponent implements OnInit, OnDestroy {
   title = 'Hello srvup 2!';
   description = 'A new app';
   query: string;
-
   private routeSub: any;
+  showLogin  = false;
 
   constructor(public auth: AuthService,
               private toastManager: ToastsManager,
@@ -27,10 +27,20 @@ export class AppComponent implements OnInit, OnDestroy {
     });
   }
 
+  showAndHideLogin(){
+    if (!this.showLogin) {
+      this.showLogin = true;
+      console.log(this.showLogin);
+    } else {
+      this.showLogin = false;
+    }
+  }
+
   ngOnInit() {
   }
 
   ngOnDestroy() {
     this.routeSub.unsubscribe();
   }
+
 }
