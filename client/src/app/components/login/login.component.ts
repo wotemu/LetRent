@@ -12,6 +12,7 @@ import { NotificationService } from '../../services/notification.service';
   styleUrls: ['login.component.css']
 })
 export class LoginComponent {
+  showForm = true;
   constructor(public auth: AuthService,
               private notification: NotificationService,
               private router: Router) {
@@ -20,6 +21,10 @@ export class LoginComponent {
       this.notification.info('You have already been authorized.');
     }
   }
+
+  closeForm(){
+    this.showForm = false;
+  };
 
   onLogin(credentials): void {
     this.auth.login(credentials).then(() => {

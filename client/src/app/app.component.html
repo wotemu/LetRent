@@ -1,55 +1,97 @@
-<nav class="navbar navbar-inverse">
-  <div class="container">
-    <!-- Brand and toggle get grouped for better mobile display -->
-    <div class="navbar-header">
-      <!-- <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button> -->
-      <a class="navbar-brand" routerLink='/' routerLinkActive="active">Home</a>
-    </div>
+<div class="main-container">
+    <nav class="navbar navbar-inverse">
+    <div class="container">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+        <!-- <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button> -->
+        <a class="navbar-brand" routerLink='/' routerLinkActive="active">LetRent</a>
+        </div>
 
-    <!-- Right nav-bar -->
-    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-      <app-search [passedQuery]='query'></app-search>
-      <ul class="nav navbar-nav navbar-right">
-        <li><a routerLink='/properties/' routerLinkActive="active">Properties</a></li>
+        <!-- Right nav-bar -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <app-search [passedQuery]='query'></app-search>
+        <ul class="nav navbar-nav navbar-right">
+            <li><a routerLink='/properties/' routerLinkActive="active">Properties</a></li>
 
-        <div *ngIf="auth.loggedIn();then linksForLoggedInUser else linksForGuest"></div>
-        <ng-template #linksForLoggedInUser>
-          <!-- TODO: Refactor nav links -->
-          <li><a href="#"><i class="fa fa-cog"></i></a></li>
-          <li><a href="#"><i class="fa fa-heart"></i></a></li>
-          <li class="dropdown">
-            <!-- .open -->
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-              <i class="fa fa-comment"></i>
-              <i class="count">3</i>
-            </a>
-            <ul class="dropdown-menu" role="menu">
-              <li><a href="#">1. Is there a way..</a></li>
-              <li><a href="#">2. Hello, admin. I would..</a></li>
-              <li><a href="#"><strong>All messages</strong></a></li>
+            <div *ngIf="auth.loggedIn();then linksForLoggedInUser else linksForGuest"></div>
+            
+            <ng-template #linksForLoggedInUser>
+            <ul class="nav navbar-nav navbar-right">
+                <li><span class="badge badge-important">2</span><a href="#"><i class="fa fa-bell-o fa-lg" aria-hidden="true"></i></a></li>
+                <li><a href="#"><i class="fa fa-envelope-o fa-lg" aria-hidden="true"></i></a></li>
+                
+                <li class="dropdown"><a href="#">
+                    <span class="user-avatar pull-left" style="margin-right:8px; margin-top:-5px;">
+                        <img src="https://lut.im/7JCpw12uUT/mY0Mb78SvSIcjvkf.png" class="img-responsive img-circle" title="John Doe" alt="John Doe" width="30px" height="30px">
+                    </span>
+                    <span class="user-name">
+                        {{auth.getUserName()}}
+                    </span>
+                    <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <div class="navbar-content">
+                                <div class="row">
+                                    <div class="col-md-5">
+                                        <img src="https://lut.im/7JCpw12uUT/mY0Mb78SvSIcjvkf.png" alt="Alternate Text" class="img-responsive" width="120px" height="120px" />
+                                        <p class="text-center small">
+                                            <a href="./3X6zm">Change Photo</a></p>
+                                    </div>
+                                    <div class="col-md-7">
+                                        <span>John Doe</span>
+                                        <p class="text-muted small">
+                                            example@pods.tld</p>
+                                        <div class="divider">
+                                        </div>
+                                        <a href="./56ExR" class="btn btn-default btn-xs"><i class="fa fa-user-o" aria-hidden="true"></i> Profile</a>
+                                        <a href="#" class="btn btn-default btn-xs"><i class="fa fa-address-card-o" aria-hidden="true"></i> Contacts</a>
+                                        <a href="#" class="btn btn-default btn-xs"><i class="fa fa-cogs" aria-hidden="true"></i> Settings</a>
+                                        <a href="#" class="btn btn-default btn-xs"><i class="fa fa-question-circle-o" aria-hidden="true"></i> Help!</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="navbar-footer">
+                                <div class="navbar-footer-content">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <a href="#" class="btn btn-default btn-sm"><i class="fa fa-unlock-alt" aria-hidden="true"></i> Change Passowrd</a>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <a href="#" class="btn btn-default btn-sm pull-right"><i class="fa fa-power-off" aria-hidden="true"></i> Sign Out</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </li>
             </ul>
-          </li>
-          <li><a href="#"><i class="fa fa-user"></i></a></li>
-          <li><a href="#"><i class="fa fa-plus-sign"></i></a></li>
-
-          <li (click)="auth.logout()"><a href="/">Logout</a></li>
-        </ng-template>
-        <ng-template #linksForGuest>
-          <li><a routerLink='/login' routerLinkActive="active">Login</a></li>
-          <li><a routerLink='/registration' routerLinkActive="active">Registration</a></li>
-        </ng-template>
-      </ul>
+            </ng-template>
+            <ng-template #linksForGuest>
+            <!--<li><a routerLink='/login' routerLinkActive="active">Login</a></li>-->
+            <li><a (click)="showAndHideLogin()">Login</a></li>
+            <li><a routerLink='/registration' routerLinkActive="active">Registration</a></li>
+            </ng-template>
+        </ul>
+        </div>
     </div>
-  </div>
-</nav>
-<div class='container main-container'>
-  <router-outlet></router-outlet>
+    </nav>
+    <div class='container main-container'>
+    <router-outlet></router-outlet>
+    </div>
+
+    <app-login *ngIf="showLogin"></app-login>
+
+    <footer>
+    <div class="footer-container">
+        <hr/>
+        <p>Terms and Conditions&emsp; | &emsp;Privacy Policy &emsp; | &emsp;Contact Us</p>
+        <span>&copy; LetRent 2017</span>
+    </div>
+    </footer>
 </div>
-<footer class='container text-center'>
-  <hr/>&copy; LetRent 2017
-</footer>

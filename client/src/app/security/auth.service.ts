@@ -24,9 +24,9 @@ export class AuthService {
           .map((res) => res.text())
           .subscribe(
               (data) => {
-                console.log(data);
                 localStorage.setItem('token', data);
                 this.user = this.decodeToken() as Account;
+                // Notification is not necessary
                 this.notification.success('You have been logged in successfully.');
                 resolve();
               },
@@ -70,5 +70,10 @@ export class AuthService {
 
   getTokenString() {
     return AuthConfigConsts.HEADER_PREFIX_BEARER + ' ' + this.token;
+  }
+
+  public getUserName() {
+     console.log(this.user.firstname);
+     return this.user.firstname;
   }
 }

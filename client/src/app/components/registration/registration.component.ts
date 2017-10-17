@@ -9,6 +9,7 @@ import { NotificationService } from '../../services/notification.service';
   styleUrls: ['./registration.component.css']
 })
 export class RegistrationComponent {
+  showForm = true;
   constructor(public auth: AuthService,
               private notification: NotificationService,
               private router: Router) {
@@ -16,6 +17,10 @@ export class RegistrationComponent {
       this.router.navigate(['']);
       this.notification.info('You have already been authorized.');
     }
+  }
+
+  closeForm(){
+    this.showForm = false;
   }
 
   onRegister(userInfo) {
