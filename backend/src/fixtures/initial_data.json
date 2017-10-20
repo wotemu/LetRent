@@ -29,14 +29,31 @@
 },
 {
   "model": "letrent.propertycategory",
+  "pk": 1,
+  "fields": {
+    "name": "Baby and Child",
+    "parent": null,
+    "slug": "baby-and-child",
+    "fa_icon_name": "fa-child",
+    "position": 8,
+    "lft": 1,
+    "rght": 2,
+    "tree_id": 1,
+    "level": 0
+  }
+},
+{
+  "model": "letrent.propertycategory",
   "pk": 2,
   "fields": {
-    "name": "FILM & PHOTOGRAPHY",
+    "name": "Cars",
     "parent": null,
-    "slug": "category-film-photography",
+    "slug": "cars",
+    "fa_icon_name": "fa-car",
+    "position": 3,
     "lft": 1,
-    "rght": 16,
-    "tree_id": 6,
+    "rght": 2,
+    "tree_id": 2,
     "level": 0
   }
 },
@@ -44,1129 +61,118 @@
   "model": "letrent.propertycategory",
   "pk": 3,
   "fields": {
-    "name": "Cameras",
-    "parent": 2,
-    "slug": "category-cameras",
-    "lft": 6,
-    "rght": 7,
-    "tree_id": 6,
-    "level": 1
+    "name": "Electronics",
+    "parent": null,
+    "slug": "electronics",
+    "fa_icon_name": "fa-laptop",
+    "position": 2,
+    "lft": 1,
+    "rght": 2,
+    "tree_id": 3,
+    "level": 0
   }
 },
 {
   "model": "letrent.propertycategory",
   "pk": 4,
   "fields": {
-    "name": "Lenses",
-    "parent": 2,
-    "slug": "category-lenses",
-    "lft": 10,
-    "rght": 11,
-    "tree_id": 6,
-    "level": 1
+    "name": "Fashion and Accessories",
+    "parent": null,
+    "slug": "fashion-and-accessories",
+    "fa_icon_name": "fa-star",
+    "position": 5,
+    "lft": 1,
+    "rght": 2,
+    "tree_id": 4,
+    "level": 0
   }
 },
 {
   "model": "letrent.propertycategory",
   "pk": 5,
   "fields": {
-    "name": "Accessories",
-    "parent": 2,
-    "slug": "category-accessories",
-    "lft": 2,
-    "rght": 3,
-    "tree_id": 6,
-    "level": 1
+    "name": "Home and Garden",
+    "parent": null,
+    "slug": "home-and-garden",
+    "fa_icon_name": "fa-home",
+    "position": 1,
+    "lft": 1,
+    "rght": 2,
+    "tree_id": 5,
+    "level": 0
   }
 },
 {
   "model": "letrent.propertycategory",
   "pk": 6,
   "fields": {
-    "name": "Lighting",
-    "parent": 2,
-    "slug": "category-lighting",
-    "lft": 12,
-    "rght": 13,
+    "name": "Movies, Books and Music",
+    "parent": null,
+    "slug": "movies-books-and-music",
+    "fa_icon_name": "fa-book",
+    "position": 6,
+    "lft": 1,
+    "rght": 2,
     "tree_id": 6,
-    "level": 1
+    "level": 0
   }
 },
 {
   "model": "letrent.propertycategory",
   "pk": 7,
   "fields": {
-    "name": "Cameras With Operators",
-    "parent": 2,
-    "slug": "cameras-with-operators",
-    "lft": 8,
-    "rght": 9,
-    "tree_id": 6,
-    "level": 1
+    "name": "Sports, Leisure and Games",
+    "parent": null,
+    "slug": "sports-leisure-and-games",
+    "fa_icon_name": "fa-gamepad",
+    "position": 7,
+    "lft": 1,
+    "rght": 2,
+    "tree_id": 9,
+    "level": 0
   }
 },
 {
   "model": "letrent.propertycategory",
   "pk": 8,
   "fields": {
-    "name": "Camera Package Deals / Kits",
-    "parent": 2,
-    "slug": "camera-package-deals-kits",
-    "lft": 4,
-    "rght": 5,
-    "tree_id": 6,
-    "level": 1
+    "name": "Other vehicles and Parts",
+    "parent": null,
+    "slug": "other-vehicles-and-parts",
+    "fa_icon_name": "fa-wrench",
+    "position": 4,
+    "lft": 1,
+    "rght": 2,
+    "tree_id": 8,
+    "level": 0
   }
 },
 {
   "model": "letrent.propertycategory",
   "pk": 9,
   "fields": {
-    "name": "Other Film & Photography",
-    "parent": 2,
-    "slug": "other-film-photography",
-    "lft": 14,
-    "rght": 15,
-    "tree_id": 6,
-    "level": 1
-  }
-},
-{
-  "model": "letrent.propertycategory",
-  "pk": 10,
-  "fields": {
-    "name": "AUDIO VISUAL EQUIPMENT",
+    "name": "Other",
     "parent": null,
-    "slug": "audio-visual-equipment",
+    "slug": "other",
+    "fa_icon_name": "fa-archive",
+    "position": 9,
     "lft": 1,
-    "rght": 14,
-    "tree_id": 1,
-    "level": 0
-  }
-},
-{
-  "model": "letrent.propertycategory",
-  "pk": 11,
-  "fields": {
-    "name": "PA Systems",
-    "parent": 10,
-    "slug": "pa-systems",
-    "lft": 8,
-    "rght": 9,
-    "tree_id": 1,
-    "level": 1
-  }
-},
-{
-  "model": "letrent.propertycategory",
-  "pk": 12,
-  "fields": {
-    "name": "Speakers",
-    "parent": 10,
-    "slug": "speakers",
-    "lft": 12,
-    "rght": 13,
-    "tree_id": 1,
-    "level": 1
-  }
-},
-{
-  "model": "letrent.propertycategory",
-  "pk": 13,
-  "fields": {
-    "name": "Microphones",
-    "parent": 10,
-    "slug": "microphones",
-    "lft": 4,
-    "rght": 5,
-    "tree_id": 1,
-    "level": 1
-  }
-},
-{
-  "model": "letrent.propertycategory",
-  "pk": 14,
-  "fields": {
-    "name": "Recording Equipment",
-    "parent": 10,
-    "slug": "recording-equipment",
-    "lft": 10,
-    "rght": 11,
-    "tree_id": 1,
-    "level": 1
-  }
-},
-{
-  "model": "letrent.propertycategory",
-  "pk": 15,
-  "fields": {
-    "name": "Audio Visual Package Deals",
-    "parent": 10,
-    "slug": "audio-visual-package-deals",
-    "lft": 2,
-    "rght": 3,
-    "tree_id": 1,
-    "level": 1
-  }
-},
-{
-  "model": "letrent.propertycategory",
-  "pk": 16,
-  "fields": {
-    "name": "Other Audio Visual",
-    "parent": 10,
-    "slug": "other-audio-visual",
-    "lft": 6,
-    "rght": 7,
-    "tree_id": 1,
-    "level": 1
-  }
-},
-{
-  "model": "letrent.propertycategory",
-  "pk": 17,
-  "fields": {
-    "name": "DJ EQUIPMENT",
-    "parent": null,
-    "slug": "dj-equipment",
-    "lft": 1,
-    "rght": 12,
-    "tree_id": 3,
-    "level": 0
-  }
-},
-{
-  "model": "letrent.propertycategory",
-  "pk": 18,
-  "fields": {
-    "name": "Decks & Turntables",
-    "parent": 17,
-    "slug": "decks-turntables",
-    "lft": 6,
-    "rght": 7,
-    "tree_id": 3,
-    "level": 1
-  }
-},
-{
-  "model": "letrent.propertycategory",
-  "pk": 19,
-  "fields": {
-    "name": "Mixers",
-    "parent": 17,
-    "slug": "mixers",
-    "lft": 8,
-    "rght": 9,
-    "tree_id": 3,
-    "level": 1
-  }
-},
-{
-  "model": "letrent.propertycategory",
-  "pk": 20,
-  "fields": {
-    "name": "Controllers",
-    "parent": 17,
-    "slug": "controllers",
-    "lft": 2,
-    "rght": 3,
-    "tree_id": 3,
-    "level": 1
-  }
-},
-{
-  "model": "letrent.propertycategory",
-  "pk": 21,
-  "fields": {
-    "name": "DJ Equipment Package Deals",
-    "parent": 17,
-    "slug": "dj-equipment-package-deals",
-    "lft": 4,
-    "rght": 5,
-    "tree_id": 3,
-    "level": 1
-  }
-},
-{
-  "model": "letrent.propertycategory",
-  "pk": 22,
-  "fields": {
-    "name": "Other DJ Equipment",
-    "parent": 17,
-    "slug": "other-dj-equipment",
-    "lft": 10,
-    "rght": 11,
-    "tree_id": 3,
-    "level": 1
-  }
-},
-{
-  "model": "letrent.propertycategory",
-  "pk": 23,
-  "fields": {
-    "name": "ELECTRONICS",
-    "parent": null,
-    "slug": "electronics",
-    "lft": 1,
-    "rght": 14,
-    "tree_id": 5,
-    "level": 0
-  }
-},
-{
-  "model": "letrent.propertycategory",
-  "pk": 24,
-  "fields": {
-    "name": "Computer",
-    "parent": 23,
-    "slug": "computer",
-    "lft": 2,
-    "rght": 3,
-    "tree_id": 5,
-    "level": 1
-  }
-},
-{
-  "model": "letrent.propertycategory",
-  "pk": 25,
-  "fields": {
-    "name": "Entertainment & Gaming",
-    "parent": 23,
-    "slug": "entertainment-gaming",
-    "lft": 6,
-    "rght": 7,
-    "tree_id": 5,
-    "level": 1
-  }
-},
-{
-  "model": "letrent.propertycategory",
-  "pk": 26,
-  "fields": {
-    "name": "Virtual Reality",
-    "parent": 23,
-    "slug": "virtual-reality",
-    "lft": 12,
-    "rght": 13,
-    "tree_id": 5,
-    "level": 1
-  }
-},
-{
-  "model": "letrent.propertycategory",
-  "pk": 27,
-  "fields": {
-    "name": "Personal Electronics",
-    "parent": 23,
-    "slug": "personal-electronics",
-    "lft": 10,
-    "rght": 11,
-    "tree_id": 5,
-    "level": 1
-  }
-},
-{
-  "model": "letrent.propertycategory",
-  "pk": 28,
-  "fields": {
-    "name": "Electronics Package Deals",
-    "parent": 23,
-    "slug": "electronics-package-deals",
-    "lft": 4,
-    "rght": 5,
-    "tree_id": 5,
-    "level": 1
-  }
-},
-{
-  "model": "letrent.propertycategory",
-  "pk": 29,
-  "fields": {
-    "name": "Other Electronics",
-    "parent": 23,
-    "slug": "other-electronics",
-    "lft": 8,
-    "rght": 9,
-    "tree_id": 5,
-    "level": 1
-  }
-},
-{
-  "model": "letrent.propertycategory",
-  "pk": 30,
-  "fields": {
-    "name": "DRONES",
-    "parent": null,
-    "slug": "drones",
-    "lft": 1,
-    "rght": 12,
-    "tree_id": 4,
-    "level": 0
-  }
-},
-{
-  "model": "letrent.propertycategory",
-  "pk": 31,
-  "fields": {
-    "name": "DJI Drones",
-    "parent": 30,
-    "slug": "dji-drones",
-    "lft": 2,
-    "rght": 3,
-    "tree_id": 4,
-    "level": 1
-  }
-},
-{
-  "model": "letrent.propertycategory",
-  "pk": 32,
-  "fields": {
-    "name": "Drones With Operators",
-    "parent": 30,
-    "slug": "drones-with-operators",
-    "lft": 8,
-    "rght": 9,
-    "tree_id": 4,
-    "level": 1
-  }
-},
-{
-  "model": "letrent.propertycategory",
-  "pk": 33,
-  "fields": {
-    "name": "Drone Accessories",
-    "parent": 30,
-    "slug": "drone-accessories",
-    "lft": 4,
-    "rght": 5,
-    "tree_id": 4,
-    "level": 1
-  }
-},
-{
-  "model": "letrent.propertycategory",
-  "pk": 34,
-  "fields": {
-    "name": "Drones Package Deals",
-    "parent": 30,
-    "slug": "drones-package-deals",
-    "lft": 6,
-    "rght": 7,
-    "tree_id": 4,
-    "level": 1
-  }
-},
-{
-  "model": "letrent.propertycategory",
-  "pk": 35,
-  "fields": {
-    "name": "Other Drones",
-    "parent": 30,
-    "slug": "other-drones",
-    "lft": 10,
-    "rght": 11,
-    "tree_id": 4,
-    "level": 1
-  }
-},
-{
-  "model": "letrent.propertycategory",
-  "pk": 36,
-  "fields": {
-    "name": "KIDS & BABY",
-    "parent": null,
-    "slug": "kids-baby",
-    "lft": 1,
-    "rght": 6,
-    "tree_id": 9,
-    "level": 0
-  }
-},
-{
-  "model": "letrent.propertycategory",
-  "pk": 37,
-  "fields": {
-    "name": "Babies & Toddlers",
-    "parent": 36,
-    "slug": "babies-toddlers",
-    "lft": 2,
-    "rght": 3,
-    "tree_id": 9,
-    "level": 1
-  }
-},
-{
-  "model": "letrent.propertycategory",
-  "pk": 38,
-  "fields": {
-    "name": "Other Kids & Baby",
-    "parent": 36,
-    "slug": "other-kids-baby",
-    "lft": 4,
-    "rght": 5,
-    "tree_id": 9,
-    "level": 1
-  }
-},
-{
-  "model": "letrent.propertycategory",
-  "pk": 39,
-  "fields": {
-    "name": "HOLIDAY & TRAVEL",
-    "parent": null,
-    "slug": "holiday-travel",
-    "lft": 1,
-    "rght": 12,
+    "rght": 2,
     "tree_id": 7,
     "level": 0
-  }
-},
-{
-  "model": "letrent.propertycategory",
-  "pk": 40,
-  "fields": {
-    "name": "Caravans & Motorhomes",
-    "parent": 39,
-    "slug": "caravans-motorhomes",
-    "lft": 4,
-    "rght": 5,
-    "tree_id": 7,
-    "level": 1
-  }
-},
-{
-  "model": "letrent.propertycategory",
-  "pk": 41,
-  "fields": {
-    "name": "Camping",
-    "parent": 39,
-    "slug": "camping",
-    "lft": 2,
-    "rght": 3,
-    "tree_id": 7,
-    "level": 1
-  }
-},
-{
-  "model": "letrent.propertycategory",
-  "pk": 42,
-  "fields": {
-    "name": "Luggage",
-    "parent": 39,
-    "slug": "luggage",
-    "lft": 6,
-    "rght": 7,
-    "tree_id": 7,
-    "level": 1
-  }
-},
-{
-  "model": "letrent.propertycategory",
-  "pk": 43,
-  "fields": {
-    "name": "Pool & Sea Toys",
-    "parent": 39,
-    "slug": "pool-sea-toys",
-    "lft": 10,
-    "rght": 11,
-    "tree_id": 7,
-    "level": 1
-  }
-},
-{
-  "model": "letrent.propertycategory",
-  "pk": 44,
-  "fields": {
-    "name": "Other Holiday & Travel",
-    "parent": 39,
-    "slug": "other-holiday-travel",
-    "lft": 8,
-    "rght": 9,
-    "tree_id": 7,
-    "level": 1
-  }
-},
-{
-  "model": "letrent.propertycategory",
-  "pk": 45,
-  "fields": {
-    "name": "PROJECTORS & SCREENS",
-    "parent": null,
-    "slug": "projectors-screens",
-    "lft": 1,
-    "rght": 12,
-    "tree_id": 12,
-    "level": 0
-  }
-},
-{
-  "model": "letrent.propertycategory",
-  "pk": 46,
-  "fields": {
-    "name": "Standard Projectors",
-    "parent": 45,
-    "slug": "standard-projectors",
-    "lft": 10,
-    "rght": 11,
-    "tree_id": 12,
-    "level": 1
-  }
-},
-{
-  "model": "letrent.propertycategory",
-  "pk": 47,
-  "fields": {
-    "name": "Screens",
-    "parent": 45,
-    "slug": "screens",
-    "lft": 8,
-    "rght": 9,
-    "tree_id": 12,
-    "level": 1
-  }
-},
-{
-  "model": "letrent.propertycategory",
-  "pk": 48,
-  "fields": {
-    "name": "Garden Projectors",
-    "parent": 45,
-    "slug": "garden-projectors",
-    "lft": 4,
-    "rght": 5,
-    "tree_id": 12,
-    "level": 1
-  }
-},
-{
-  "model": "letrent.propertycategory",
-  "pk": 49,
-  "fields": {
-    "name": "Film Projectors",
-    "parent": 45,
-    "slug": "film-projectors",
-    "lft": 2,
-    "rght": 3,
-    "tree_id": 12,
-    "level": 1
-  }
-},
-{
-  "model": "letrent.propertycategory",
-  "pk": 50,
-  "fields": {
-    "name": "Other Projectors & Screens",
-    "parent": 45,
-    "slug": "other-projectors-screens",
-    "lft": 6,
-    "rght": 7,
-    "tree_id": 12,
-    "level": 1
-  }
-},
-{
-  "model": "letrent.propertycategory",
-  "pk": 51,
-  "fields": {
-    "name": "MUSICAL INSTRUMENTS",
-    "parent": null,
-    "slug": "musical-instruments",
-    "lft": 1,
-    "rght": 16,
-    "tree_id": 10,
-    "level": 0
-  }
-},
-{
-  "model": "letrent.propertycategory",
-  "pk": 52,
-  "fields": {
-    "name": "Guitars",
-    "parent": 51,
-    "slug": "guitars",
-    "lft": 6,
-    "rght": 7,
-    "tree_id": 10,
-    "level": 1
-  }
-},
-{
-  "model": "letrent.propertycategory",
-  "pk": 53,
-  "fields": {
-    "name": "Amps",
-    "parent": 51,
-    "slug": "amps",
-    "lft": 2,
-    "rght": 3,
-    "tree_id": 10,
-    "level": 1
-  }
-},
-{
-  "model": "letrent.propertycategory",
-  "pk": 54,
-  "fields": {
-    "name": "Keyboards & Synthesisers",
-    "parent": 51,
-    "slug": "keyboards-synthesisers",
-    "lft": 8,
-    "rght": 9,
-    "tree_id": 10,
-    "level": 1
-  }
-},
-{
-  "model": "letrent.propertycategory",
-  "pk": 55,
-  "fields": {
-    "name": "String Instruments",
-    "parent": 51,
-    "slug": "string-instruments",
-    "lft": 12,
-    "rght": 13,
-    "tree_id": 10,
-    "level": 1
-  }
-},
-{
-  "model": "letrent.propertycategory",
-  "pk": 56,
-  "fields": {
-    "name": "Brass",
-    "parent": 51,
-    "slug": "brass",
-    "lft": 4,
-    "rght": 5,
-    "tree_id": 10,
-    "level": 1
-  }
-},
-{
-  "model": "letrent.propertycategory",
-  "pk": 57,
-  "fields": {
-    "name": "Woodwind",
-    "parent": 51,
-    "slug": "woodwind",
-    "lft": 14,
-    "rght": 15,
-    "tree_id": 10,
-    "level": 1
-  }
-},
-{
-  "model": "letrent.propertycategory",
-  "pk": 58,
-  "fields": {
-    "name": "Other Musical Instruments",
-    "parent": 51,
-    "slug": "other-musical-instruments",
-    "lft": 10,
-    "rght": 11,
-    "tree_id": 10,
-    "level": 1
-  }
-},
-{
-  "model": "letrent.propertycategory",
-  "pk": 59,
-  "fields": {
-    "name": "PARTY & EVENTS",
-    "parent": null,
-    "slug": "party-events",
-    "lft": 1,
-    "rght": 20,
-    "tree_id": 11,
-    "level": 0
-  }
-},
-{
-  "model": "letrent.propertycategory",
-  "pk": 60,
-  "fields": {
-    "name": "Staging",
-    "parent": 59,
-    "slug": "staging",
-    "lft": 16,
-    "rght": 17,
-    "tree_id": 11,
-    "level": 1
-  }
-},
-{
-  "model": "letrent.propertycategory",
-  "pk": 61,
-  "fields": {
-    "name": "Entertainment",
-    "parent": 59,
-    "slug": "entertainment",
-    "lft": 6,
-    "rght": 7,
-    "tree_id": 11,
-    "level": 1
-  }
-},
-{
-  "model": "letrent.propertycategory",
-  "pk": 62,
-  "fields": {
-    "name": "Catering Equipment",
-    "parent": 59,
-    "slug": "catering-equipment",
-    "lft": 2,
-    "rght": 3,
-    "tree_id": 11,
-    "level": 1
-  }
-},
-{
-  "model": "letrent.propertycategory",
-  "pk": 63,
-  "fields": {
-    "name": "Decoration",
-    "parent": 59,
-    "slug": "decoration",
-    "lft": 4,
-    "rght": 5,
-    "tree_id": 11,
-    "level": 1
-  }
-},
-{
-  "model": "letrent.propertycategory",
-  "pk": 64,
-  "fields": {
-    "name": "Portaloos",
-    "parent": 59,
-    "slug": "portaloos",
-    "lft": 14,
-    "rght": 15,
-    "tree_id": 11,
-    "level": 1
-  }
-},
-{
-  "model": "letrent.propertycategory",
-  "pk": 65,
-  "fields": {
-    "name": "Event Furniture",
-    "parent": 59,
-    "slug": "event-furniture",
-    "lft": 8,
-    "rght": 9,
-    "tree_id": 11,
-    "level": 1
-  }
-},
-{
-  "model": "letrent.propertycategory",
-  "pk": 66,
-  "fields": {
-    "name": "Tents & Marquees",
-    "parent": 59,
-    "slug": "tents-marquees",
-    "lft": 18,
-    "rght": 19,
-    "tree_id": 11,
-    "level": 1
-  }
-},
-{
-  "model": "letrent.propertycategory",
-  "pk": 67,
-  "fields": {
-    "name": "Event Lighting",
-    "parent": 59,
-    "slug": "event-lighting",
-    "lft": 10,
-    "rght": 11,
-    "tree_id": 11,
-    "level": 1
-  }
-},
-{
-  "model": "letrent.propertycategory",
-  "pk": 68,
-  "fields": {
-    "name": "Other Party Equipment",
-    "parent": 59,
-    "slug": "other-party-equipment",
-    "lft": 12,
-    "rght": 13,
-    "tree_id": 11,
-    "level": 1
-  }
-},
-{
-  "model": "letrent.propertycategory",
-  "pk": 69,
-  "fields": {
-    "name": "CLOTHING",
-    "parent": null,
-    "slug": "clothing",
-    "lft": 1,
-    "rght": 18,
-    "tree_id": 2,
-    "level": 0
-  }
-},
-{
-  "model": "letrent.propertycategory",
-  "pk": 70,
-  "fields": {
-    "name": "Wedding Attire",
-    "parent": 69,
-    "slug": "wedding-attire",
-    "lft": 14,
-    "rght": 15,
-    "tree_id": 2,
-    "level": 1
-  }
-},
-{
-  "model": "letrent.propertycategory",
-  "pk": 71,
-  "fields": {
-    "name": "Fancy Dress",
-    "parent": 69,
-    "slug": "fancy-dress",
-    "lft": 4,
-    "rght": 5,
-    "tree_id": 2,
-    "level": 1
-  }
-},
-{
-  "model": "letrent.propertycategory",
-  "pk": 72,
-  "fields": {
-    "name": "Ski & Snowboard Clothing",
-    "parent": 69,
-    "slug": "ski-snowboard-clothing",
-    "lft": 12,
-    "rght": 13,
-    "tree_id": 2,
-    "level": 1
-  }
-},
-{
-  "model": "letrent.propertycategory",
-  "pk": 73,
-  "fields": {
-    "name": "Womens Clothing",
-    "parent": 69,
-    "slug": "womens-clothing",
-    "lft": 16,
-    "rght": 17,
-    "tree_id": 2,
-    "level": 1
-  }
-},
-{
-  "model": "letrent.propertycategory",
-  "pk": 74,
-  "fields": {
-    "name": "Mens Clothing",
-    "parent": 69,
-    "slug": "mens-clothing",
-    "lft": 8,
-    "rght": 9,
-    "tree_id": 2,
-    "level": 1
-  }
-},
-{
-  "model": "letrent.propertycategory",
-  "pk": 75,
-  "fields": {
-    "name": "Footwear",
-    "parent": 69,
-    "slug": "footwear",
-    "lft": 6,
-    "rght": 7,
-    "tree_id": 2,
-    "level": 1
-  }
-},
-{
-  "model": "letrent.propertycategory",
-  "pk": 76,
-  "fields": {
-    "name": "Clothing Accessories",
-    "parent": 69,
-    "slug": "clothing-accessories",
-    "lft": 2,
-    "rght": 3,
-    "tree_id": 2,
-    "level": 1
-  }
-},
-{
-  "model": "letrent.propertycategory",
-  "pk": 77,
-  "fields": {
-    "name": "Other Clothing",
-    "parent": 69,
-    "slug": "other-clothing",
-    "lft": 10,
-    "rght": 11,
-    "tree_id": 2,
-    "level": 1
-  }
-},
-{
-  "model": "letrent.propertycategory",
-  "pk": 78,
-  "fields": {
-    "name": "SPORTS",
-    "parent": null,
-    "slug": "sports",
-    "lft": 1,
-    "rght": 14,
-    "tree_id": 13,
-    "level": 0
-  }
-},
-{
-  "model": "letrent.propertycategory",
-  "pk": 79,
-  "fields": {
-    "name": "Bikes",
-    "parent": 78,
-    "slug": "bikes",
-    "lft": 2,
-    "rght": 3,
-    "tree_id": 13,
-    "level": 1
-  }
-},
-{
-  "model": "letrent.propertycategory",
-  "pk": 80,
-  "fields": {
-    "name": "Racket Sports",
-    "parent": 78,
-    "slug": "racket-sports",
-    "lft": 8,
-    "rght": 9,
-    "tree_id": 13,
-    "level": 1
-  }
-},
-{
-  "model": "letrent.propertycategory",
-  "pk": 81,
-  "fields": {
-    "name": "Gym Equipment",
-    "parent": 78,
-    "slug": "gym-equipment",
-    "lft": 4,
-    "rght": 5,
-    "tree_id": 13,
-    "level": 1
-  }
-},
-{
-  "model": "letrent.propertycategory",
-  "pk": 82,
-  "fields": {
-    "name": "Water Sports",
-    "parent": 78,
-    "slug": "water-sports",
-    "lft": 10,
-    "rght": 11,
-    "tree_id": 13,
-    "level": 1
-  }
-},
-{
-  "model": "letrent.propertycategory",
-  "pk": 83,
-  "fields": {
-    "name": "Winter Sports",
-    "parent": 78,
-    "slug": "winter-sports",
-    "lft": 12,
-    "rght": 13,
-    "tree_id": 13,
-    "level": 1
-  }
-},
-{
-  "model": "letrent.propertycategory",
-  "pk": 84,
-  "fields": {
-    "name": "Other Sport Equipment",
-    "parent": 78,
-    "slug": "other-sport-equipment",
-    "lft": 6,
-    "rght": 7,
-    "tree_id": 13,
-    "level": 1
-  }
-},
-{
-  "model": "letrent.propertycategory",
-  "pk": 85,
-  "fields": {
-    "name": "HOME / OFFICE",
-    "parent": null,
-    "slug": "home-office",
-    "lft": 1,
-    "rght": 8,
-    "tree_id": 8,
-    "level": 0
-  }
-},
-{
-  "model": "letrent.propertycategory",
-  "pk": 86,
-  "fields": {
-    "name": "Furniture",
-    "parent": 85,
-    "slug": "furniture",
-    "lft": 2,
-    "rght": 3,
-    "tree_id": 8,
-    "level": 1
-  }
-},
-{
-  "model": "letrent.propertycategory",
-  "pk": 87,
-  "fields": {
-    "name": "House Appliances",
-    "parent": 85,
-    "slug": "house-appliances",
-    "lft": 4,
-    "rght": 5,
-    "tree_id": 8,
-    "level": 1
-  }
-},
-{
-  "model": "letrent.propertycategory",
-  "pk": 88,
-  "fields": {
-    "name": "Other Properties",
-    "parent": 85,
-    "slug": "other-properties",
-    "lft": 6,
-    "rght": 7,
-    "tree_id": 8,
-    "level": 1
   }
 },
 {
   "model": "letrent.property",
   "pk": 1,
   "fields": {
-    "category": 10,
+    "category": 5,
     "owner": 36,
     "name": "Product #1",
     "description": "Product #1 desc",
-    "address": "x",
+    "address": "Konemiehentie 2, 02150 Espoo",
+    "location_lat": "60.186937",
+    "location_lon": "24.821084",
     "daily_price": "5.00",
     "weekly_price": "18.00",
     "slug": "product-1",
@@ -1179,11 +185,13 @@
   "model": "letrent.property",
   "pk": 2,
   "fields": {
-    "category": 15,
+    "category": 3,
     "owner": 36,
     "name": "Product #2",
     "description": "Product #2 desc",
-    "address": "-",
+    "address": "Konemiehentie 2, 02150 Espoo",
+    "location_lat": "60.186937",
+    "location_lon": "24.821084",
     "daily_price": null,
     "weekly_price": "50.00",
     "slug": "product-2",
@@ -1196,11 +204,13 @@
   "model": "letrent.property",
   "pk": 3,
   "fields": {
-    "category": 13,
+    "category": 3,
     "owner": 36,
     "name": "Product #3",
     "description": "Product #3 desc",
-    "address": "x",
+    "address": "Konemiehentie 2, 02150 Espoo",
+    "location_lat": "60.186937",
+    "location_lon": "24.821084",
     "daily_price": "10.00",
     "weekly_price": "44.99",
     "slug": "product-3",
@@ -1213,11 +223,13 @@
   "model": "letrent.property",
   "pk": 4,
   "fields": {
-    "category": 15,
+    "category": 5,
     "owner": 36,
     "name": "Product #5",
     "description": "Product #5 desc",
-    "address": "x",
+    "address": "Konemiehentie 2, 02150 Espoo",
+    "location_lat": "60.186937",
+    "location_lon": "24.821084",
     "daily_price": null,
     "weekly_price": "89.00",
     "slug": "product-5",
@@ -1230,11 +242,13 @@
   "model": "letrent.property",
   "pk": 5,
   "fields": {
-    "category": 76,
+    "category": 5,
     "owner": 36,
     "name": "Product #6",
     "description": "Product #6 desc",
-    "address": "x",
+    "address": "Konemiehentie 2, 02150 Espoo",
+    "location_lat": "60.186937",
+    "location_lon": "24.821084",
     "daily_price": "18.20",
     "weekly_price": "92.60",
     "slug": "product-6",
@@ -1247,17 +261,665 @@
   "model": "letrent.property",
   "pk": 6,
   "fields": {
-    "category": 11,
+    "category": 5,
     "owner": 40,
     "name": "Product posted by Admin (test user can't edit it)",
     "description": "Product posted by Admin (test user can't edit it)",
-    "address": "x",
+    "address": "Konemiehentie 2, 02150 Espoo",
+    "location_lat": "60.186937",
+    "location_lon": "24.821084",
     "daily_price": "9.00",
     "weekly_price": "79.90",
     "slug": "product-posted-by-admin-test-user-cant-edit-it",
     "active": true,
     "created_at": "2017-10-15T00:38:15.504Z",
     "updated_at": "2017-10-15T00:38:15.504Z"
+  }
+},
+{
+  "model": "letrent.property",
+  "pk": 7,
+  "fields": {
+    "category": 5,
+    "owner": 36,
+    "name": "Product #7",
+    "description": "Product #1 desc",
+    "address": "Konemiehentie 2, 02150 Espoo",
+    "location_lat": "60.186937",
+    "location_lon": "24.821084",
+    "daily_price": "5.00",
+    "weekly_price": "18.00",
+    "slug": "product-7",
+    "active": true,
+    "created_at": "2017-10-15T00:13:54.570Z",
+    "updated_at": "2017-10-15T00:13:54.570Z"
+  }
+},
+{
+  "model": "letrent.property",
+  "pk": 8,
+  "fields": {
+    "category": 3,
+    "owner": 36,
+    "name": "Product #8",
+    "description": "Product #2 desc",
+    "address": "Konemiehentie 2, 02150 Espoo",
+    "location_lat": "60.186937",
+    "location_lon": "24.821084",
+    "daily_price": null,
+    "weekly_price": "50.00",
+    "slug": "product-8",
+    "active": true,
+    "created_at": "2017-10-15T00:14:17.312Z",
+    "updated_at": "2017-10-15T00:14:17.312Z"
+  }
+},
+{
+  "model": "letrent.property",
+  "pk": 9,
+  "fields": {
+    "category": 3,
+    "owner": 36,
+    "name": "Product #9",
+    "description": "Product #3 desc",
+    "address": "Konemiehentie 2, 02150 Espoo",
+    "location_lat": "60.186937",
+    "location_lon": "24.821084",
+    "daily_price": "10.00",
+    "weekly_price": "44.99",
+    "slug": "product-9",
+    "active": true,
+    "created_at": "2017-10-15T00:14:38.031Z",
+    "updated_at": "2017-10-15T00:14:38.031Z"
+  }
+},
+{
+  "model": "letrent.property",
+  "pk": 10,
+  "fields": {
+    "category": 5,
+    "owner": 36,
+    "name": "Product #10",
+    "description": "Product #5 desc",
+    "address": "Konemiehentie 2, 02150 Espoo",
+    "location_lat": "60.186937",
+    "location_lon": "24.821084",
+    "daily_price": null,
+    "weekly_price": "89.00",
+    "slug": "product-10",
+    "active": true,
+    "created_at": "2017-10-15T00:15:05.821Z",
+    "updated_at": "2017-10-15T00:15:05.821Z"
+  }
+},
+{
+  "model": "letrent.property",
+  "pk": 11,
+  "fields": {
+    "category": 5,
+    "owner": 36,
+    "name": "Product #11",
+    "description": "Product #6 desc",
+    "address": "Konemiehentie 2, 02150 Espoo",
+    "location_lat": "60.186937",
+    "location_lon": "24.821084",
+    "daily_price": "18.20",
+    "weekly_price": "92.60",
+    "slug": "product-11",
+    "active": true,
+    "created_at": "2017-10-15T00:15:27.857Z",
+    "updated_at": "2017-10-15T00:15:27.857Z"
+  }
+},
+{
+  "model": "letrent.property",
+  "pk": 12,
+  "fields": {
+    "category": 5,
+    "owner": 40,
+    "name": "Product #11 (from admin)",
+    "description": "Product posted by Admin (test user can't edit it)",
+    "address": "Konemiehentie 2, 02150 Espoo",
+    "location_lat": "60.186937",
+    "location_lon": "24.821084",
+    "daily_price": "9.00",
+    "weekly_price": "79.90",
+    "slug": "product-from-admin",
+    "active": true,
+    "created_at": "2017-10-15T00:38:15.504Z",
+    "updated_at": "2017-10-15T00:38:15.504Z"
+  }
+},
+{
+  "model": "letrent.property",
+  "pk": 13,
+  "fields": {
+    "category": 5,
+    "owner": 36,
+    "name": "Product #13",
+    "description": "Product #1 desc",
+    "address": "Konemiehentie 2, 02150 Espoo",
+    "location_lat": "60.186937",
+    "location_lon": "24.821084",
+    "daily_price": "5.00",
+    "weekly_price": "18.00",
+    "slug": "product-13",
+    "active": true,
+    "created_at": "2017-10-15T00:13:54.570Z",
+    "updated_at": "2017-10-15T00:13:54.570Z"
+  }
+},
+{
+  "model": "letrent.property",
+  "pk": 14,
+  "fields": {
+    "category": 3,
+    "owner": 36,
+    "name": "Product #14",
+    "description": "Product #2 desc",
+    "address": "Konemiehentie 2, 02150 Espoo",
+    "location_lat": "60.186937",
+    "location_lon": "24.821084",
+    "daily_price": null,
+    "weekly_price": "50.00",
+    "slug": "product-14",
+    "active": true,
+    "created_at": "2017-10-15T00:14:17.312Z",
+    "updated_at": "2017-10-15T00:14:17.312Z"
+  }
+},
+{
+  "model": "letrent.property",
+  "pk": 15,
+  "fields": {
+    "category": 3,
+    "owner": 36,
+    "name": "Product #15",
+    "description": "Product #3 desc",
+    "address": "Konemiehentie 2, 02150 Espoo",
+    "location_lat": "60.186937",
+    "location_lon": "24.821084",
+    "daily_price": "10.00",
+    "weekly_price": "44.99",
+    "slug": "product-15",
+    "active": true,
+    "created_at": "2017-10-15T00:14:38.031Z",
+    "updated_at": "2017-10-15T00:14:38.031Z"
+  }
+},
+{
+  "model": "letrent.property",
+  "pk": 16,
+  "fields": {
+    "category": 5,
+    "owner": 36,
+    "name": "Product #16",
+    "description": "Product #5 desc",
+    "address": "Konemiehentie 2, 02150 Espoo",
+    "location_lat": "60.186937",
+    "location_lon": "24.821084",
+    "daily_price": null,
+    "weekly_price": "89.00",
+    "slug": "product-16",
+    "active": true,
+    "created_at": "2017-10-15T00:15:05.821Z",
+    "updated_at": "2017-10-15T00:15:05.821Z"
+  }
+},
+{
+  "model": "letrent.property",
+  "pk": 17,
+  "fields": {
+    "category": 5,
+    "owner": 36,
+    "name": "Product #17",
+    "description": "Product #6 desc",
+    "address": "Konemiehentie 2, 02150 Espoo",
+    "location_lat": "60.186937",
+    "location_lon": "24.821084",
+    "daily_price": "18.20",
+    "weekly_price": "92.60",
+    "slug": "product-17",
+    "active": true,
+    "created_at": "2017-10-15T00:15:27.857Z",
+    "updated_at": "2017-10-15T00:15:27.857Z"
+  }
+},
+{
+  "model": "letrent.property",
+  "pk": 18,
+  "fields": {
+    "category": 5,
+    "owner": 40,
+    "name": "Product #18 (from admin)",
+    "description": "Product posted by Admin (test user can't edit it)",
+    "address": "Konemiehentie 2, 02150 Espoo",
+    "location_lat": "60.186937",
+    "location_lon": "24.821084",
+    "daily_price": "9.00",
+    "weekly_price": "79.90",
+    "slug": "product-18-from-admin",
+    "active": true,
+    "created_at": "2017-10-15T00:38:15.504Z",
+    "updated_at": "2017-10-15T00:38:15.504Z"
+  }
+},
+{
+  "model": "letrent.property",
+  "pk": 19,
+  "fields": {
+    "category": 3,
+    "owner": 36,
+    "name": "Product #19",
+    "description": "Product #19 desc",
+    "address": "Konemiehentie 2, 02150 Espoo",
+    "location_lat": "60.186937",
+    "location_lon": "24.821084",
+    "daily_price": null,
+    "weekly_price": "50.00",
+    "slug": "product-19",
+    "active": true,
+    "created_at": "2017-10-15T00:14:17.312Z",
+    "updated_at": "2017-10-15T00:14:17.312Z"
+  }
+},
+{
+  "model": "letrent.property",
+  "pk": 20,
+  "fields": {
+    "category": 3,
+    "owner": 36,
+    "name": "Product #20",
+    "description": "Product #20 desc",
+    "address": "Konemiehentie 2, 02150 Espoo",
+    "location_lat": "60.186937",
+    "location_lon": "24.821084",
+    "daily_price": "10.00",
+    "weekly_price": "44.99",
+    "slug": "product-20",
+    "active": true,
+    "created_at": "2017-10-15T00:14:38.031Z",
+    "updated_at": "2017-10-15T00:14:38.031Z"
+  }
+},
+{
+  "model": "letrent.property",
+  "pk": 21,
+  "fields": {
+    "category": 5,
+    "owner": 36,
+    "name": "Product #21",
+    "description": "Product #21 desc",
+    "address": "Konemiehentie 2, 02150 Espoo",
+    "location_lat": "60.186937",
+    "location_lon": "24.821084",
+    "daily_price": null,
+    "weekly_price": "89.00",
+    "slug": "product-21",
+    "active": true,
+    "created_at": "2017-10-15T00:15:05.821Z",
+    "updated_at": "2017-10-15T00:15:05.821Z"
+  }
+},
+{
+  "model": "letrent.property",
+  "pk": 22,
+  "fields": {
+    "category": 5,
+    "owner": 36,
+    "name": "Product #22",
+    "description": "Product #22 desc",
+    "address": "Konemiehentie 2, 02150 Espoo",
+    "location_lat": "60.186937",
+    "location_lon": "24.821084",
+    "daily_price": "18.20",
+    "weekly_price": "92.60",
+    "slug": "product-22",
+    "active": true,
+    "created_at": "2017-10-15T00:15:27.857Z",
+    "updated_at": "2017-10-15T00:15:27.857Z"
+  }
+},
+{
+  "model": "letrent.property",
+  "pk": 23,
+  "fields": {
+    "category": 3,
+    "owner": 36,
+    "name": "Product #23",
+    "description": "Product #23 desc",
+    "address": "Konemiehentie 2, 02150 Espoo",
+    "location_lat": "60.186937",
+    "location_lon": "24.821084",
+    "daily_price": "10.00",
+    "weekly_price": "44.99",
+    "slug": "product-23",
+    "active": true,
+    "created_at": "2017-10-15T00:14:38.031Z",
+    "updated_at": "2017-10-15T00:14:38.031Z"
+  }
+},
+{
+  "model": "letrent.property",
+  "pk": 24,
+  "fields": {
+    "category": 5,
+    "owner": 36,
+    "name": "Product #24",
+    "description": "Product #24 desc",
+    "address": "Konemiehentie 2, 02150 Espoo",
+    "location_lat": "60.186937",
+    "location_lon": "24.821084",
+    "daily_price": null,
+    "weekly_price": "89.00",
+    "slug": "product-24",
+    "active": true,
+    "created_at": "2017-10-15T00:15:05.821Z",
+    "updated_at": "2017-10-15T00:15:05.821Z"
+  }
+},
+{
+  "model": "letrent.property",
+  "pk": 25,
+  "fields": {
+    "category": 5,
+    "owner": 36,
+    "name": "Product #25",
+    "description": "Product #25 desc",
+    "address": "Konemiehentie 2, 02150 Espoo",
+    "location_lat": "60.186937",
+    "location_lon": "24.821084",
+    "daily_price": "18.20",
+    "weekly_price": "92.60",
+    "slug": "product-25",
+    "active": true,
+    "created_at": "2017-10-15T00:15:27.857Z",
+    "updated_at": "2017-10-15T00:15:27.857Z"
+  }
+},
+{
+  "model": "letrent.property",
+  "pk": 26,
+  "fields": {
+    "category": 3,
+    "owner": 36,
+    "name": "Product #26",
+    "description": "Product #26 desc",
+    "address": "Konemiehentie 2, 02150 Espoo",
+    "location_lat": "60.186937",
+    "location_lon": "24.821084",
+    "daily_price": "10.00",
+    "weekly_price": "44.99",
+    "slug": "product-26",
+    "active": true,
+    "created_at": "2017-10-15T00:14:38.031Z",
+    "updated_at": "2017-10-15T00:14:38.031Z"
+  }
+},
+{
+  "model": "letrent.property",
+  "pk": 27,
+  "fields": {
+    "category": 5,
+    "owner": 36,
+    "name": "Product #27",
+    "description": "Product #27 desc",
+    "address": "Konemiehentie 2, 02150 Espoo",
+    "location_lat": "60.186937",
+    "location_lon": "24.821084",
+    "daily_price": null,
+    "weekly_price": "89.00",
+    "slug": "product-27",
+    "active": true,
+    "created_at": "2017-10-15T00:15:05.821Z",
+    "updated_at": "2017-10-15T00:15:05.821Z"
+  }
+},
+{
+  "model": "letrent.property",
+  "pk": 28,
+  "fields": {
+    "category": 5,
+    "owner": 36,
+    "name": "Product #28",
+    "description": "Product #28 desc",
+    "address": "Konemiehentie 2, 02150 Espoo",
+    "location_lat": "60.186937",
+    "location_lon": "24.821084",
+    "daily_price": "18.20",
+    "weekly_price": "92.60",
+    "slug": "product-28",
+    "active": true,
+    "created_at": "2017-10-15T00:15:27.857Z",
+    "updated_at": "2017-10-15T00:15:27.857Z"
+  }
+},
+{
+  "model": "letrent.property",
+  "pk": 29,
+  "fields": {
+    "category": 5,
+    "owner": 36,
+    "name": "Product #29",
+    "description": "Product #29 desc",
+    "address": "Konemiehentie 2, 02150 Espoo",
+    "location_lat": "60.186937",
+    "location_lon": "24.821084",
+    "daily_price": null,
+    "weekly_price": "89.00",
+    "slug": "product-29",
+    "active": true,
+    "created_at": "2017-10-15T00:15:05.821Z",
+    "updated_at": "2017-10-15T00:15:05.821Z"
+  }
+},
+{
+  "model": "letrent.property",
+  "pk": 30,
+  "fields": {
+    "category": 5,
+    "owner": 36,
+    "name": "Product #30",
+    "description": "Product #30 desc",
+    "address": "Konemiehentie 2, 02150 Espoo",
+    "location_lat": "60.186937",
+    "location_lon": "24.821084",
+    "daily_price": null,
+    "weekly_price": "89.00",
+    "slug": "product-30",
+    "active": true,
+    "created_at": "2017-10-15T00:15:05.821Z",
+    "updated_at": "2017-10-15T00:15:05.821Z"
+  }
+},
+{
+  "model": "letrent.property",
+  "pk": 31,
+  "fields": {
+    "category": 5,
+    "owner": 36,
+    "name": "Product #31",
+    "description": "Product #31 desc",
+    "address": "Konemiehentie 2, 02150 Espoo",
+    "location_lat": "60.186937",
+    "location_lon": "24.821084",
+    "daily_price": null,
+    "weekly_price": "89.00",
+    "slug": "product-31",
+    "active": true,
+    "created_at": "2017-10-15T00:15:05.821Z",
+    "updated_at": "2017-10-15T00:15:05.821Z"
+  }
+},
+{
+  "model": "letrent.property",
+  "pk": 32,
+  "fields": {
+    "category": 5,
+    "owner": 36,
+    "name": "Product #32",
+    "description": "Product #32 desc",
+    "address": "Konemiehentie 2, 02150 Espoo",
+    "location_lat": "60.186937",
+    "location_lon": "24.821084",
+    "daily_price": "18.20",
+    "weekly_price": "92.60",
+    "slug": "product-32",
+    "active": true,
+    "created_at": "2017-10-15T00:15:27.857Z",
+    "updated_at": "2017-10-15T00:15:27.857Z"
+  }
+},
+{
+  "model": "letrent.property",
+  "pk": 33,
+  "fields": {
+    "category": 3,
+    "owner": 36,
+    "name": "Product #33",
+    "description": "Product #33 desc",
+    "address": "Konemiehentie 2, 02150 Espoo",
+    "location_lat": "60.186937",
+    "location_lon": "24.821084",
+    "daily_price": "10.00",
+    "weekly_price": "44.99",
+    "slug": "product-33",
+    "active": true,
+    "created_at": "2017-10-15T00:14:38.031Z",
+    "updated_at": "2017-10-15T00:14:38.031Z"
+  }
+},
+{
+  "model": "letrent.property",
+  "pk": 34,
+  "fields": {
+    "category": 5,
+    "owner": 36,
+    "name": "Product #34",
+    "description": "Product #34 desc",
+    "address": "Konemiehentie 2, 02150 Espoo",
+    "location_lat": "60.186937",
+    "location_lon": "24.821084",
+    "daily_price": null,
+    "weekly_price": "89.00",
+    "slug": "product-34",
+    "active": true,
+    "created_at": "2017-10-15T00:15:05.821Z",
+    "updated_at": "2017-10-15T00:15:05.821Z"
+  }
+},
+{
+  "model": "letrent.property",
+  "pk": 35,
+  "fields": {
+    "category": 5,
+    "owner": 36,
+    "name": "Product #35",
+    "description": "Product #35 desc",
+    "address": "Konemiehentie 2, 02150 Espoo",
+    "location_lat": "60.186937",
+    "location_lon": "24.821084",
+    "daily_price": "18.20",
+    "weekly_price": "92.60",
+    "slug": "product-35",
+    "active": true,
+    "created_at": "2017-10-15T00:15:27.857Z",
+    "updated_at": "2017-10-15T00:15:27.857Z"
+  }
+},
+{
+  "model": "letrent.property",
+  "pk": 36,
+  "fields": {
+    "category": 3,
+    "owner": 36,
+    "name": "Product #36",
+    "description": "Product #36 desc",
+    "address": "Konemiehentie 2, 02150 Espoo",
+    "location_lat": "60.186937",
+    "location_lon": "24.821084",
+    "daily_price": "10.00",
+    "weekly_price": "44.99",
+    "slug": "product-36",
+    "active": true,
+    "created_at": "2017-10-15T00:14:38.031Z",
+    "updated_at": "2017-10-15T00:14:38.031Z"
+  }
+},
+{
+  "model": "letrent.property",
+  "pk": 37,
+  "fields": {
+    "category": 5,
+    "owner": 36,
+    "name": "Product #37",
+    "description": "Product #37 desc",
+    "address": "Konemiehentie 2, 02150 Espoo",
+    "location_lat": "60.186937",
+    "location_lon": "24.821084",
+    "daily_price": null,
+    "weekly_price": "89.00",
+    "slug": "product-37",
+    "active": true,
+    "created_at": "2017-10-15T00:15:05.821Z",
+    "updated_at": "2017-10-15T00:15:05.821Z"
+  }
+},
+{
+  "model": "letrent.property",
+  "pk": 38,
+  "fields": {
+    "category": 5,
+    "owner": 36,
+    "name": "Product #38",
+    "description": "Product #38 desc",
+    "address": "Konemiehentie 2, 02150 Espoo",
+    "location_lat": "60.186937",
+    "location_lon": "24.821084",
+    "daily_price": "18.20",
+    "weekly_price": "92.60",
+    "slug": "product-38",
+    "active": true,
+    "created_at": "2017-10-15T00:15:27.857Z",
+    "updated_at": "2017-10-15T00:15:27.857Z"
+  }
+},
+{
+  "model": "letrent.property",
+  "pk": 39,
+  "fields": {
+    "category": 5,
+    "owner": 36,
+    "name": "Product #39",
+    "description": "Product #39 desc",
+    "address": "Konemiehentie 2, 02150 Espoo",
+    "location_lat": "60.186937",
+    "location_lon": "24.821084",
+    "daily_price": null,
+    "weekly_price": "89.00",
+    "slug": "product-39",
+    "active": true,
+    "created_at": "2017-10-15T00:15:05.821Z",
+    "updated_at": "2017-10-15T00:15:05.821Z"
+  }
+},
+{
+  "model": "letrent.property",
+  "pk": 40,
+  "fields": {
+    "category": 5,
+    "owner": 36,
+    "name": "Product #40",
+    "description": "Product #40 desc",
+    "address": "Konemiehentie 2, 02150 Espoo",
+    "location_lat": "60.186937",
+    "location_lon": "24.821084",
+    "daily_price": null,
+    "weekly_price": "89.00",
+    "slug": "product-40",
+    "active": true,
+    "created_at": "2017-10-15T00:15:05.821Z",
+    "updated_at": "2017-10-15T00:15:05.821Z"
   }
 },
 {
