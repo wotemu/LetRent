@@ -4,4 +4,5 @@ export class PropertyCategory {
   fullSlug: string;
   children: PropertyCategory[];
   level: number;
+  faIconName: string;
 }
