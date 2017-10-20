@@ -29,16 +29,20 @@
           </div>
         </div>
         <div class="col-sm-5">
-          <div class="col-sm-7">
+          <div class="col-sm-9">
             <select id="order-by" class="form-control">
               <option value="0">Order by</option>
               <option>Recently added</option>
               <option>Vicinity (close to your location)</option>
             </select>
           </div>
-          <div class="col-sm-5">
-            <button type="submit" class="btn btn-success" (click)="onFilter()">Filter</button>
-            &nbsp; <a href="#" (click)="onResetFilter()"><i class="fa fa-refresh"></i></a>
+          <div class="col-sm-3">
+            <ng-template #resetPopover>
+                <div class="text-center" style="width: 80px">Reset filters</div>
+              </ng-template>
+            <a href="#" (click)="onResetFilter()" [popover]="resetPopover" triggers="mouseenter:mouseleave">
+              <i class="fa fa-refresh fa-2x"></i>
+            </a>
           </div>
         </div>
       </div>

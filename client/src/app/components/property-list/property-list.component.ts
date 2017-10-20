@@ -96,9 +96,6 @@ export class PropertyListComponent implements OnInit, OnDestroy {
     console.log('Price filter was changed');
   }
 
-  onFilter() {
-  }
-
   onResetFilter() {
     const routeParams: any = {};
     const params = this.getCurrentFilterParams();
