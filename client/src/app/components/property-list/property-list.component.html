@@ -2,48 +2,75 @@
 
 <div id="filters" class="panel panel-default">
   <div class="panel-body">
-    <form class="form-inline" role="form">
-      <div class="form-group">
-        <label class="form-label" for="pref-search">Search:</label>
-        <input type="text" class="form-control input-sm" id="pref-search">
-      </div>
-      <div class="form-group">
-        <label class="form-label" for="order-by">Order by:</label>
-        <select id="order-by" class="form-control">
-          <option>Descendant</option>
-        </select>
-      </div>
-      <div class="pull-right">
-        <button type="submit" class="btn btn-success">Filter</button>
-        &nbsp; <a href="#"><i class="fa fa-refresh"></i></a>
+    <form class="form-horizontal">
+      <div class="row">
+        <div class="col-sm-7">
+          <div class="row">
+            <div class="col-sm-1 price">
+              <ng-template #pricePopover>
+                <div style="width: 180px">
+                  This is <b>daily/weekly price filter</b> that has a currency EURO, <i class="fa fa-eur"></i>
+                </div>
+              </ng-template>
+              <i class="fa fa-info-circle fa-2x" [popover]="pricePopover" triggers="mouseenter:mouseleave"></i>
+            </div>
+            <div class="col-sm-10">
+              <ion-range-slider
+                  #priceRangeFilter
+                  type="double"
+                  grid="true"
+                  [min]="minPrice"
+                  [max]="maxPrice"
+                  [from]="priceFrom"
+                  [to]="priceTo"
+                  postfix=" €"
+                  (onFinish)="onPriceFilterFinish($event)"></ion-range-slider>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-5">
+          <div class="col-sm-7">
+            <select id="order-by" class="form-control">
+              <option value="0">Order by</option>
+              <option>Recently added</option>
+              <option>Vicinity (close to your location)</option>
+            </select>
+          </div>
+          <div class="col-sm-5">
+            <button type="submit" class="btn btn-success" (click)="onFilter()">Filter</button>
+            &nbsp; <a href="#" (click)="onResetFilter()"><i class="fa fa-refresh"></i></a>
+          </div>
+        </div>
       </div>
     </form>
   </div>
 </div>
 
-<div class="row properties">
-  <div *ngIf="properties; else loading">
-    <div *ngFor="let property of properties; let i = index" [ngClass]="{'row': (i+1)%4 == 0}">
-      <div class="property col-sm-6 col-md-3 col-lg-3">
+<div class="row">
+  <div *ngIf="properties; else loading" class="properties">
+    <ng-container *ngFor="let property of properties">
+      <div class="property col-xs-12 col-sm-6 col-md-3">
         <div class="thumbnail">
-          <a routerLink="/properties/{{ property.slug }}">
-            <img class="group list-group-image" src="{{ property.primaryImage | propertyImageUrl }}">
-          </a>
-          <div class="caption">
+          <div class="image">
+            <a routerLink="/properties/{{ property.slug }}">
+              <img class="group list-group-image" src="{{ property.primaryImage | propertyImageUrl }}">
+            </a>
+          </div>
+          <div class="details">
             <h4 class="group inner list-group-item-heading">
               <a routerLink="/properties/{{ property.slug }}">{{ property.name }}</a>
             </h4>
-            <div class="row">
-              <div class="col-lg-7">
-                <p class="lead">{{ property | propertyPrice }}</p>
-              </div>
-              <div class="col-lg-5">
-                <a routerLink="/properties/{{ property.slug }}" class="btn btn-success">View</a>
-              </div>
+            <div class="price">{{ property | propertyPrice }}</div>
+            <div class="view">
+              <a routerLink="/properties/{{ property.slug }}" class="btn btn-success">View</a>
             </div>
           </div>
         </div>
       </div>
+    </ng-container>
+    <div *ngIf="!noRecordsFound" class="col-sm-12 text-center">
+      <pagination [directionLinks]="true" [totalItems]="totalItems" [(ngModel)]="currentPage" [maxSize]="5"
+                  (pageChanged)="onPaginationClick($event)" [itemsPerPage]="itemsPerPage"></pagination>
     </div>
   </div>
   <ng-template #loading>
@@ -51,6 +78,6 @@
   </ng-template>
 </div>
 
-<div *ngIf="noRecordsFound">
-  <p class="lead">No properties found...</p>
+<div *ngIf="noRecordsFound" class="text-center">
+  <p class="h3">No properties found...</p>
 </div>

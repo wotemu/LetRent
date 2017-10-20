@@ -9,6 +9,8 @@ class PropertyCategory(MPTTModel):
     name = models.CharField(max_length=100, unique=True)
     parent = TreeForeignKey('self', null=True, blank=True, related_name='children', db_index=True)
     slug = models.SlugField(default="", blank=True, null=True)
+    fa_icon_name = models.CharField(max_length=30, blank=True, null=True)
+    position = models.IntegerField(default=0, blank=True, null=True)
 
     class MPTTMeta:
         order_insertion_by = ['name']

@@ -134,6 +134,9 @@ SECURE_HSTS_INCLUDE_SUBDOMAINS = False
 SECURE_FRAME_DENY = False
 
 REST_FRAMEWORK = {
+    'PAGE_SIZE': 8,
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
+    'COERCE_DECIMAL_TO_STRING': False,
     'DEFAULT_PERMISSION_CLASSES': (
         'rest_framework.permissions.AllowAny',
     ),

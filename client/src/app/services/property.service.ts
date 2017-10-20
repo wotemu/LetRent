@@ -19,13 +19,13 @@ export class PropertyService {
         .catch(this.helper.handlePromiseError);
   }
 
-  getProperties(requestParams?: {}): Promise<Property[]> {
+  getProperties(requestParams?: {}): Promise<any> {
     return this.http
         .get(endpoint, {
           search: Helper.buildURLSearchParamsFromDict(requestParams)
         })
         .toPromise()
-        .then((response: Response) => response.json() as Property[])
+        .then((response: Response) => response.json())
         .catch(this.helper.handlePromiseError);
   }
 

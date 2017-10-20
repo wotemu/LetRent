@@ -2,7 +2,8 @@ from mptt.templatetags.mptt_tags import cache_tree_children
 from rest_framework import generics
 from rest_framework import status
 from rest_framework.generics import CreateAPIView
-from rest_framework.permissions import AllowAny, IsAuthenticated
+from rest_framework.pagination import PageNumberPagination
+from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework_jwt.settings import api_settings
@@ -40,15 +41,22 @@ class PropertyList(generics.ListAPIView):
     serializer_class = PropertySerializer
     permission_classes = []
     authentication_classes = []
+    pagination_class = PageNumberPagination
 
     def get_queryset(self):
-        prop_cat_slug = self.request.GET.get("prop_cat_slug")
+        get_param = lambda key: self.request.GET.get(key)
+
+        order_by = get_param('order_by')
+        price_from = int(get_param('priceFrom')) if get_param('priceFrom') else None
+        price_to = int(get_param('priceTo')) if get_param('priceTo') else None
         query = self.request.GET.get("q")
-        if query:
-            return Property.objects.search(query)
-        elif prop_cat_slug:
-            return Property.objects.search(property_category_slug=prop_cat_slug)
-        return Property.objects.all()
+        category_ids = get_param('categoryIds')
+        category_ids = category_ids.split(',') if category_ids else []
+
+        return Property.objects.search(category_ids=category_ids,
+                                       price_from=price_from, price_to=price_to,
+                                       query=query,
+                                       order_by=order_by)
 
 
 class PropertyDetail(generics.RetrieveAPIView):
@@ -64,6 +72,7 @@ class PropertyDetail(generics.RetrieveAPIView):
 class PropertyCategoryView(APIView):
     # Firstly get all categories from DB, then cache them, then build a hierarchical category tree
     def get(self, request, **kwargs):
-        root_nodes = cache_tree_children(PropertyCategory.objects.all())
+        results = PropertyCategory.objects.all().order_by('position')
+        root_nodes = cache_tree_children(results)
         category_tree = build_nested_category_tree(root_nodes)
         return Response(category_tree)
