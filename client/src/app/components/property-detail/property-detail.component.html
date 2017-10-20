@@ -1,5 +1,16 @@
 <div *ngIf="property; else loading">
-  <h2>{{ property.name }}</h2>
+  <div id="heading">
+    <div class="left">
+      <a href="#" (click)="goBack()" class="go-back pull-left"
+         popover="Go Back" placement="top" triggers="mouseenter:mouseleave">
+        <i class="fa fa-angle-double-left fa-2x"></i>
+      </a>
+    </div>
+    <div class="right">
+      <h2 class="title pull-left">{{ property.name }}</h2>
+      <div class="posted-date pull-right"><b>Posted on</b> {{ property.createdAt | date:'dd/MM/yyyy' }}</div>
+    </div>
+  </div>
   <div id="property">
     <div class="row">
       <div class="col-md-6">
@@ -16,13 +27,21 @@
         </div>
       </div>
       <div class="details col-md-6">
-        <div class="pull-right"><b>Posted:</b> {{ property.createdAt | date:'dd/MM/yyyy' }}</div>
-
         <h4 *ngIf="property.dailyPrice">Daily price: {{ property | propertyPrice:'daily' }}</h4>
         <h4 *ngIf="property.weeklyPrice">Weekly price: {{ property | propertyPrice:'weekly' }}</h4>
         <h4 *ngIf="!property.dailyPrice && !property.weeklyPrice">Price: {{ property | propertyPrice }}</h4>
-        <b>Address:</b> {{ property.address }}<br>
 
+        <hr>
+        <div class="location">
+          <div class="address">
+            <i class="fa fa-map-marker"></i> <b>{{ property.address }}</b>
+          </div>
+          <agm-map [latitude]="property.locationLatitude" [longitude]="property.locationLongitude" [zoom]="13">
+            <agm-marker [latitude]="property.locationLatitude" [longitude]="property.locationLongitude"></agm-marker>
+          </agm-map>
+        </div>
+
+        <hr>
         <div class="owner-info">
           <b>Owner information:</b><br>
           {{ property.owner | fullname }}<br>

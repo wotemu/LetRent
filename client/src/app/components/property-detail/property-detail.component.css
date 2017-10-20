@@ -1,3 +1,42 @@
+#heading {
+    position: relative;
+    margin-top: 20px;
+}
+
+#heading .left {
+    width: 30px;
+    display: inline-block
+}
+
+#heading .left .go-back i.fa {
+    margin-right: 15px;
+    font-size: 33px;
+    color: black;
+}
+
+#heading .left .go-back i.fa:hover {
+    color: #a8a8a8;
+}
+
+#heading .right {
+    display: inline-block;
+    overflow: auto
+}
+
+#heading .right h2 {
+    display: inline-block;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+#heading .right .posted-date {
+    color: #c7c7c7;
+    font-size: small;
+    bottom: 1px;
+    position: absolute;
+    right: 4px;
+}
+
 #property {
     margin-top: 10px;
     padding: 2em 1em;
@@ -20,7 +59,19 @@
     margin: 15px 0;
 }
 
+#property .details .location .address {
+    font-size: 15px;
+    margin-bottom: 7px;
+}
+
+#property .details .location .address i.fa {
+    font-size: 18px;
+}
+
+#property .details .location agm-map {
+    height: 95px;
+}
+
 #property .tabs {
     margin: 25px 0;
 }
-

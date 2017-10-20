@@ -6,6 +6,8 @@ export class Property {
   description: string;
   slug: string;
   address: string;
+  locationLatitude: number;
+  locationLongitude: number;
   active: boolean;
   dailyPrice: number;
   weeklyPrice: number;
