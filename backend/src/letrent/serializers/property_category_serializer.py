@@ -7,7 +7,8 @@ def recursive_category_node_to_dict(node, parent_full_slug=None):
         'id': node.pk,
         'name': node.name,
         'level': node.level,
-        'fullSlug': full_slug
+        'fullSlug': full_slug,
+        'faIconName': node.fa_icon_name
         # 'slug': node.slug,
         # 'parent': node.parent
     }

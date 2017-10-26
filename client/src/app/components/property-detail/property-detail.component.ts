@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { PropertyService } from '../../services/property.service';
 import { Property } from '../../models/property';
 import { NotificationService } from '../../services/notification.service';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-video-detail',
@@ -15,6 +16,7 @@ export class PropertyDetailComponent implements OnInit {
 
   constructor(private route: ActivatedRoute,
               private notification: NotificationService,
+              private location: Location,
               private propertyService: PropertyService) {
   }
 
@@ -26,5 +28,10 @@ export class PropertyDetailComponent implements OnInit {
           this.property = data as Property;
         })
         .catch((e) => this.notification.errorResp(e));
+  }
+
+  goBack() {
+    this.location.back();
+    return false;
   }
 }

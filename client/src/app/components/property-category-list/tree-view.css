@@ -1,0 +1,16 @@
+.list-group > a.list-group-item {
+    cursor: pointer;
+}
+
+.list-group .list-group-item .icon {
+    width: 25px;
+    display: inline-block;
+}
+
+.list-group .list-group-item .icon i.fa {
+    font-size: 18px;
+}
+
+.list-group-item.active, .list-group-item.active:focus, .list-group-item.active:hover {
+    border-color: #ffffff;
+}

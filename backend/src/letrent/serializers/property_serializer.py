@@ -33,6 +33,8 @@ class PropertyDetailSerializer(serializers.ModelSerializer):
     additionalImages = PropertyImageSerializer(source='additional_images', many=True)
     dailyPrice = serializers.DecimalField(source='daily_price', max_digits=10, decimal_places=2)
     weeklyPrice = serializers.DecimalField(source='weekly_price', max_digits=10, decimal_places=2)
+    locationLatitude = serializers.DecimalField(source='location_lat', max_digits=9, decimal_places=6)
+    locationLongitude = serializers.DecimalField(source='location_lon', max_digits=9, decimal_places=6)
     createdAt = serializers.DateTimeField(source='created_at')
 
     class Meta:
@@ -44,6 +46,8 @@ class PropertyDetailSerializer(serializers.ModelSerializer):
             'description',
             'slug',
             'address',
+            'locationLatitude',
+            'locationLongitude',
             'dailyPrice',
             'weeklyPrice',
             'active',

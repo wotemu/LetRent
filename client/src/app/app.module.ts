@@ -13,6 +13,7 @@ import { AuthService } from './security/auth.service';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { CarouselModule } from 'ngx-bootstrap/carousel';
 import { TabsModule } from 'ngx-bootstrap/tabs';
+import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { RegistrationComponent } from './components/registration/registration.component';
 import { LoginComponent } from './components/login/login.component';
 import { PropertyListComponent } from './components/property-list/property-list.component';
@@ -33,6 +34,11 @@ import { BoxedLayoutComponent } from './layouts/boxed/boxed.component';
 import { BoxedWithSidebarLayoutComponent } from './layouts/boxed-with-sidebar/boxed-with-sidebar.component';
 import { PropertyPricePipe } from './utils/pipes/property-price.pipe';
 import { FullnamePipe } from './utils/pipes/fullname.pipe';
+import { AgmCoreModule } from '@agm/core';
+import { environment } from '../environments/environment';
+import { IonRangeSliderModule } from 'ng2-ion-range-slider';
+import { PopoverModule } from 'ngx-bootstrap/popover';
+import { PaginationModule } from 'ngx-bootstrap/pagination';
 
 @NgModule({
   declarations: [
@@ -60,11 +66,18 @@ import { FullnamePipe } from './utils/pipes/fullname.pipe';
     CarouselModule.forRoot(),
     ToastModule.forRoot(),
     TabsModule.forRoot(),
+    TooltipModule.forRoot(),
+    PopoverModule.forRoot(),
+    PaginationModule.forRoot(),
+    AgmCoreModule.forRoot({
+      apiKey: environment.googleMapApiKey
+    }),
     BrowserModule,
     FormsModule,
     HttpModule,
     AppRoutingModule,
     BrowserAnimationsModule,
+    IonRangeSliderModule,
   ],
   providers: [
     AuthService,
