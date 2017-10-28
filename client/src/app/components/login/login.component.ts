@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Output, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../../security/auth.service';
 import { NotificationService } from '../../services/notification.service';
@@ -12,7 +12,9 @@ import { NotificationService } from '../../services/notification.service';
   styleUrls: ['login.component.css']
 })
 export class LoginComponent {
+  @Output() onLoginClosed = new EventEmitter<Boolean>();
   showForm = true;
+
   constructor(public auth: AuthService,
               private notification: NotificationService,
               private router: Router) {
@@ -22,8 +24,9 @@ export class LoginComponent {
     }
   }
 
-  closeForm(){
+  closeForm() {
     this.showForm = false;
+    this.onLoginClosed.emit(this.showForm);
   };
 
   onLogin(credentials): void {

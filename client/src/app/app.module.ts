@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app.routing';
@@ -33,6 +33,9 @@ import { BoxedLayoutComponent } from './layouts/boxed/boxed.component';
 import { BoxedWithSidebarLayoutComponent } from './layouts/boxed-with-sidebar/boxed-with-sidebar.component';
 import { PropertyPricePipe } from './utils/pipes/property-price.pipe';
 import { FullnamePipe } from './utils/pipes/fullname.pipe';
+import { ProfileComponent } from './components/profile/profile.component';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { ClickOutsideModule } from 'ng-click-outside';
 
 @NgModule({
   declarations: [
@@ -54,18 +57,22 @@ import { FullnamePipe } from './utils/pipes/fullname.pipe';
     PropertyImageUrlPipe,
     PropertyPricePipe,
     FullnamePipe,
+    ProfileComponent,
   ],
   imports: [
     BsDropdownModule.forRoot(),
     CarouselModule.forRoot(),
     ToastModule.forRoot(),
     TabsModule.forRoot(),
+    NgbModule.forRoot(),
     BrowserModule,
     FormsModule,
+    ReactiveFormsModule,
     HttpModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-  ],
+    ClickOutsideModule
+    ],
   providers: [
     AuthService,
     NotificationService,

@@ -1,37 +1,29 @@
-<!-- The Modal -->
-<div *ngIf="showForm" id="id01" class="loging-modal">
-  
-  <!-- Modal Content -->
-  <form  class="modal-content animate" (ngSubmit)="onLogin(f.value);showForm=false" #f="ngForm" *ngIf="!auth.loggedIn()">
-    <span (click)="closeForm()" class="close" title="Close Modal">&times;</span>      
+<div *ngIf="showForm" class="loging-modal">
+  <form  class="modal-content animate" (clickOutside)="closeForm()" [delayClickOutsideInit]="true" (ngSubmit)="onLogin(f.value);showForm=false" #f="ngForm" *ngIf="!auth.loggedIn()">
+    <span (click)="closeForm()" class="close" title="Close Modal"><i class="fa fa-times-circle-o" aria-hidden="true"></i></span>      
     <div class="imgcontainer">
       <i class="fa fa-user fa-5x" aria-hidden="true"></i>        
     </div>
-
     <div class="container">
       <label><b>Email:</b></label>
-     
       <div class="emailInputWithIcon">
-          <i class="fa fa-envelope fa-2x" aria-hidden="true"></i>
-          <input type="text" name="email" id="email" class="form-control" required ngModel>
+        <i class="fa fa-envelope fa-2x" aria-hidden="true"></i>
+        <input type="text" name="email" id="email" class="form-control" required ngModel>
       </div>
       <label><b>Password:</b></label>
       <div class="passInputWithIcon">
-          <i class="fa fa-key fa-2x" aria-hidden="true"></i>      
-          <input type="password" name="password" id="password" class="form-control" required ngModel>
+        <i class="fa fa-key fa-2x" aria-hidden="true"></i>      
+        <input type="password" name="password" id="password" class="form-control" required ngModel>
       </div>
-
       <button type="submit">Login</button>
       <input type="checkbox" checked="checked"> Remember me
       <span class="psw">Forgot <a href="#">password?</a></span> 
       <hr class="hr-text" data-content="OR">      
     </div>
-
     <div class="container">
-      <!--<button type="button" (click)="closeForm()" class="cancelbtn">Cancel</button>-->
       <div class="socialLogin">
-          <a href="#" class="btn azm-social azm-btn azm-border-bottom azm-facebook"><i class="fa fa-facebook"></i> Log in with Facebook</a>
-          <a href="#" class="btn azm-social azm-btn azm-google-plus"><i class="fa fa-google-plus"></i> Sign in with Google+</a>
+        <a href="#" class="btn azm-social azm-btn azm-border-bottom azm-facebook"><i class="fa fa-facebook"></i> Log in with Facebook</a>
+        <a href="#" class="btn azm-social azm-btn azm-google-plus"><i class="fa fa-google-plus"></i> Sign in with Google+</a>
       </div>
     </div>
   </form>
