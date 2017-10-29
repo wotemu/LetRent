@@ -16,8 +16,6 @@
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <app-search [passedQuery]='query'></app-search>
         <ul class="nav navbar-nav navbar-right">
-            <li><a routerLink='/properties/' routerLinkActive="active">Properties</a></li>
-
             <div *ngIf="auth.loggedIn();then linksForLoggedInUser else linksForGuest"></div>
             <ng-template #linksForLoggedInUser>
             <li><a routerLink='/profile/' routerLinkActive="active">Profile</a></li>            
