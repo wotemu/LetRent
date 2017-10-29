@@ -1,21 +1,40 @@
 <div *ngIf="showForm" class="loging-modal">
-  <form  class="modal-content animate" (clickOutside)="closeForm()" [delayClickOutsideInit]="true" (ngSubmit)="onLogin(f.value);showForm=false" #f="ngForm" *ngIf="!auth.loggedIn()">
+  <form  class="modal-content animate" (clickOutside)="closeForm()" [delayClickOutsideInit]="true" (ngSubmit)="onLogin(form.value);" [formGroup]="form" *ngIf="!auth.loggedIn()">
     <span (click)="closeForm()" class="close" title="Close Modal"><i class="fa fa-times-circle-o" aria-hidden="true"></i></span>      
-    <div class="imgcontainer">
-      <i class="fa fa-user fa-5x" aria-hidden="true"></i>        
+    
+    <div *ngIf="!loginFailed; else failedLoginTemplate"class="imgcontainer">
+      <i class="fa fa-user fa-5x" aria-hidden="true"></i>
     </div>
+
+    <ng-template #failedLoginTemplate>
+      <div class="failedLogin">
+          <i class="fa fa-frown-o fa-5x" aria-hidden="true"></i> 
+          <p>Unable to login with provided credentials.</p>
+          <p>Please try again!</p>
+      </div>
+    </ng-template>
+
     <div class="container">
       <label><b>Email:</b></label>
       <div class="emailInputWithIcon">
         <i class="fa fa-envelope fa-2x" aria-hidden="true"></i>
-        <input type="text" name="email" id="email" class="form-control" required ngModel>
+        <input type="text" name="email" id="email" class="form-control" formControlName="email">
+        <div class="alert alert-danger" *ngIf="form.hasError('email', 'email') && form.get('email').touched">
+         Email is required and must be valid.
+        </div>
       </div>
       <label><b>Password:</b></label>
       <div class="passInputWithIcon">
         <i class="fa fa-key fa-2x" aria-hidden="true"></i>      
-        <input type="password" name="password" id="password" class="form-control" required ngModel>
+        <input type="password" name="password" id="password" class="form-control" formControlName="password">
+        <div class="alert alert-danger" *ngIf="form.get('password').hasError('required') && form.get('password').touched">
+          Password is required.
+         </div>
+         <div class="alert alert-danger" *ngIf="form.get('password').hasError('minlength') && form.get('password').touched">
+          Password must be at least 4 characters.
+         </div>
       </div>
-      <button type="submit">Login</button>
+      <button type="submit" class="btn btn-primary" [disabled]="!form.valid">Login</button>
       <input type="checkbox" checked="checked"> Remember me
       <span class="psw">Forgot <a href="#">password?</a></span> 
       <hr class="hr-text" data-content="OR">      
