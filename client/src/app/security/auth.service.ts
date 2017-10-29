@@ -70,7 +70,6 @@ export class AuthService {
   }
 
   public getUserName() {
-     console.log(this.user.firstname);
      return this.user.firstname;
   }
 }

@@ -56,6 +56,7 @@ export class RegistrationComponent {
     this.auth.register(userInfo).then(() => {
       this.router.navigate(['']);
       this.showForm = false;
+      this.onRegistrationClosed.emit(this.showForm); 
     }).catch((err) => {
       this.registrationFailed = true;
     });
