@@ -94,6 +94,13 @@ span.psw {
     color: white;
 }
 
+.failedLogin {
+   font-size: 24px;
+   text-align: center;
+   color: red;
+}
+
+
 
 /* hr */
   .hr-text {

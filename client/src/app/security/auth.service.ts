@@ -26,8 +26,6 @@ export class AuthService {
               (data) => {
                 localStorage.setItem('token', data);
                 this.user = this.decodeToken() as Account;
-                // Notification is not necessary
-                this.notification.success('You have been logged in successfully.');
                 resolve();
               },
               (error) => reject(error)
@@ -43,7 +41,6 @@ export class AuthService {
               (data) => {
                 localStorage.setItem('token', data);
                 this.user = this.decodeToken() as Account;
-                this.notification.success('You have been registered successfully.');
                 resolve();
               },
               (error) => reject(error)

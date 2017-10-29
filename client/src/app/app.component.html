@@ -19,8 +19,8 @@
             <li><a routerLink='/properties/' routerLinkActive="active">Properties</a></li>
 
             <div *ngIf="auth.loggedIn();then linksForLoggedInUser else linksForGuest"></div>
-            
             <ng-template #linksForLoggedInUser>
+            <li><a routerLink='/profile/' routerLinkActive="active">Profile</a></li>            
             <ul class="nav navbar-nav navbar-right">
                 <li><span class="badge badge-important">2</span><a href="#"><i class="fa fa-bell-o fa-lg" aria-hidden="true"></i></a></li>
                 <li><a href="#"><i class="fa fa-envelope-o fa-lg" aria-hidden="true"></i></a></li>
@@ -73,20 +73,18 @@
             </ul>
             </ng-template>
             <ng-template #linksForGuest>
-            <!--<li><a routerLink='/login' routerLinkActive="active">Login</a></li>-->
-            <li><a (click)="showAndHideLogin()">Login</a></li>
-            <li><a routerLink='/registration' routerLinkActive="active">Registration</a></li>
+                <li><a (click)="showAndHideLogin()">Login</a></li>
+                <li><a (click)="showAndHideRegistration()">Registration</a></li>
             </ng-template>
         </ul>
         </div>
     </div>
     </nav>
     <div class='container main-container'>
-    <router-outlet></router-outlet>
+        <router-outlet></router-outlet>
     </div>
-
-    <app-login *ngIf="showLogin"></app-login>
-
+    <app-login *ngIf="showLogin" (onLoginClosed)="changeLoginStatus($event)"></app-login>
+    <app-registration *ngIf="showRegistration" (onRegistrationClosed)="changeRegistrationStatus($event)"></app-registration>
     <footer>
     <div class="footer-container">
         <hr/>

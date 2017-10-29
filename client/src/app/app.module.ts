@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app.routing';
@@ -39,6 +39,9 @@ import { environment } from '../environments/environment';
 import { IonRangeSliderModule } from 'ng2-ion-range-slider';
 import { PopoverModule } from 'ngx-bootstrap/popover';
 import { PaginationModule } from 'ngx-bootstrap/pagination';
+import { ProfileComponent } from './components/profile/profile.component';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { ClickOutsideModule } from 'ng-click-outside';
 
 @NgModule({
   declarations: [
@@ -60,6 +63,7 @@ import { PaginationModule } from 'ngx-bootstrap/pagination';
     PropertyImageUrlPipe,
     PropertyPricePipe,
     FullnamePipe,
+    ProfileComponent,
   ],
   imports: [
     BsDropdownModule.forRoot(),
@@ -72,13 +76,16 @@ import { PaginationModule } from 'ngx-bootstrap/pagination';
     AgmCoreModule.forRoot({
       apiKey: environment.googleMapApiKey
     }),
+    NgbModule.forRoot(),
     BrowserModule,
     FormsModule,
+    ReactiveFormsModule,
     HttpModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     IonRangeSliderModule,
-  ],
+    ClickOutsideModule
+    ],
   providers: [
     AuthService,
     NotificationService,

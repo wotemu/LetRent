@@ -93,6 +93,13 @@ span.psw {
 }
 
 
+.failedRegistration {
+    font-size: 24px;
+    text-align: center;
+    color: red;
+ }
+
+
 /* Add Zoom Animation */
 .animate {
     -webkit-animation: animatezoom 0.6s;
