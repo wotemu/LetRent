@@ -24,10 +24,8 @@ export class AuthService {
           .map((res) => res.text())
           .subscribe(
               (data) => {
-                console.log(data);
                 localStorage.setItem('token', data);
                 this.user = this.decodeToken() as Account;
-                this.notification.success('You have been logged in successfully.');
                 resolve();
               },
               (error) => reject(error)
@@ -43,7 +41,6 @@ export class AuthService {
               (data) => {
                 localStorage.setItem('token', data);
                 this.user = this.decodeToken() as Account;
-                this.notification.success('You have been registered successfully.');
                 resolve();
               },
               (error) => reject(error)
@@ -70,5 +67,10 @@ export class AuthService {
 
   getTokenString() {
     return AuthConfigConsts.HEADER_PREFIX_BEARER + ' ' + this.token;
+  }
+
+  public getUserName() {
+     console.log(this.user.firstname);
+     return this.user.firstname;
   }
 }

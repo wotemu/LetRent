@@ -1,50 +1,65 @@
-<h1>Sign Up
-  <small>It's free and always will be.</small>
-</h1>
-<hr class="clearfix">
+<!-- The Modal -->
+<div *ngIf="showForm" class="register-modal">    
+  <!-- Modal Content -->
+  <form  class="modal-content animate" (clickOutside)="closeForm()" [delayClickOutsideInit]="true" (ngSubmit)="onRegister(form.value)" [formGroup]="form">
+    <span (click)="closeForm()" class="close" title="Close Modal"><i class="fa fa-times-circle-o" aria-hidden="true"></i></span>      
+    <div *ngIf="!registrationFailed; else failedRegistrationTemplate"class="imgcontainer">
+      <i class="fa fa-user-plus fa-5x" aria-hidden="true"></i>        
+    </div>
 
-<div class="container">
-  <div class="col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
-    <form (ngSubmit)="onRegister(f.value)" #f="ngForm" class="form-horizontal">
-      <div class="col-sm-12">
-        <div class="form-group">
-          <input type="email" name="email" class="form-control input-lg" placeholder="Email Address" tabindex="1"
-                 required ngModel="test@test.test123">
+    <ng-template #failedRegistrationTemplate>
+        <div class="failedRegistration">
+          <i class="fa fa-frown-o fa-5x" aria-hidden="true"></i> 
+          <p>Registration failed. Email address already in use.</p>
+          <p>Please try again!</p>
         </div>
+      </ng-template>
 
-        <div class="form-group">
-          <div class="row">
-            <div class="col-sm-6">
-              <input type="text" name="firstname" class="form-control input-lg" placeholder="First Name" tabindex="2"
-                     required ngModel="F Name test">
-            </div>
-            <div class="col-sm-6">
-              <input type="text" name="lastname" class="form-control input-lg"
-                     placeholder="Last Name" tabindex="3" required ngModel="L Name test">
-            </div>
-          </div>
-        </div>
-
-        <div class="form-group">
-          <div class="row">
-            <div class="col-sm-6">
-              <input type="password" name="password" class="form-control input-lg" placeholder="Password" tabindex="4"
-                     required ngModel="123">
-            </div>
-            <div class="col-sm-6">
-              <input type="password" name="confirm_password" class="form-control input-lg"
-                     placeholder="Confirm Password" tabindex="5" required ngModel="123">
-            </div>
-          </div>
-        </div>
-      </div>
+    <div class="container">
 
       <div class="row">
-        <hr>
-        <div class="col-xs-3"><a routerLink='/login' class="btn btn-success btn-block btn-lg" tabindex="7">Sign In</a></div>
-        <div class="col-xs-9"><input type="submit" value="Register" class="btn btn-info btn-block btn-lg" tabindex="6">
-        </div>
+          <div class="form-group col-xs-6">
+              <label for="firstname" class="sr-only"></label>
+              <input id="firstname" class="form-control input-group-lg reg_name" type="text" name="firstname"
+                      title="Enter first name" placeholder="First name" formControlName="firstname"/>
+              <div class="alert alert-danger" *ngIf="form.get('firstname').hasError('required') && form.get('firstname').touched">
+                First name is required.
+              </div>
+              <div class="alert alert-danger" *ngIf="form.get('firstname').hasError('minlength') && form.get('firstname').touched">
+                First name must be at least 2 characters.
+              </div>
+          </div>
+
+          <div class="form-group col-xs-6">
+              <label for="lastname" class="sr-only"></label>
+              <input id="lastname" class="form-control input-group-lg reg_name" type="text" name="lastname"
+                      title="Enter last name" placeholder="Last name"  formControlName="lastname"/>
+              <div class="alert alert-danger" *ngIf="form.get('lastname').hasError('required') && form.get('lastname').touched">
+                Last name is required.
+              </div>
+              <div class="alert alert-danger" *ngIf="form.get('lastname').hasError('minlength') && form.get('lastname').touched">
+                Last name must be at least 2 characters.
+              </div>
+          </div>
       </div>
-    </form>
+
+      <input type="text" name="email" id="email" class="form-control"  placeholder="Email" formControlName="email">
+      <div class="alert alert-danger" *ngIf="form.hasError('email', 'email') && form.get('email').touched">
+        Email is required and must be valid.
+      </div>
+      <input type="password" name="password" id="password" class="form-control"  placeholder="Password" formControlName="password">
+      <div class="alert alert-danger" *ngIf="form.get('password').hasError('required') && form.get('password').touched">
+        Password is required.
+      </div>
+      <div class="alert alert-danger" *ngIf="form.get('password').hasError('minlength') && form.get('password').touched">
+        Password must be at least 4 characters.
+      </div>
+      <input type="password" name="confirm_password" id="confirm_password" class="form-control"  placeholder="Confirm Password" formControlName="confirm_password">
+      <div class="alert alert-danger" *ngIf="form.get('confirm_password').hasError('invalid') && form.get('confirm_password').touched">
+        Passwords must match.
+      </div>
+      <button type="submit" class="btn btn-primary" [disabled]="!form.valid">Register</button>
+    </div>
+  </form>
   </div>
-</div>
+
