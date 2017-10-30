@@ -19,45 +19,67 @@
           <i class="fa fa-coffee"></i>
           This is an <strong>.alert</strong>. Use this to show important messages to the user.
         </div>
-        <h3>Personal info</h3>
+        <h3>Personal info</h3>  
         
-        <form class="form-horizontal" role="form">
+        <form class="form-horizontal" role="form" (ngSubmit)="updateProfile(form.value)" [formGroup]="form">
           <div class="form-group">
             <label class="col-lg-3 control-label">First name:</label>
             <div class="col-lg-8">
-              <input class="form-control" type="text" value="Jane">
+              <input class="form-control" type="text" formControlName="firstname">
+              <div class="alert alert-danger" *ngIf="form.get('firstname').hasError('required') && form.get('firstname').touched">
+                First name is required.
+              </div>
+              <div class="alert alert-danger" *ngIf="form.get('firstname').hasError('minlength') && form.get('firstname').touched">
+                First name must be at least 2 characters.
+              </div>
             </div>
           </div>
           <div class="form-group">
             <label class="col-lg-3 control-label">Last name:</label>
             <div class="col-lg-8">
-              <input class="form-control" type="text" value="Bishop">
+              <input class="form-control" type="text" formControlName="lastname">
+              <div class="alert alert-danger" *ngIf="form.get('lastname').hasError('required') && form.get('lastname').touched">
+                Last name is required.
+              </div>
+              <div class="alert alert-danger" *ngIf="form.get('lastname').hasError('minlength') && form.get('lastname').touched">
+                Last name must be at least 2 characters.
+              </div>
             </div>
           </div>
           <div class="form-group">
             <label class="col-lg-3 control-label">Email:</label>
             <div class="col-lg-8">
-              <input class="form-control" type="text" value="janesemail@gmail.com">
+              <input class="form-control" type="text" formControlName="email">
+              <div class="alert alert-danger" *ngIf="form.hasError('email', 'email') && form.get('email').touched">
+                Email is required and must be valid.
+              </div>
             </div>
           </div>
           <div class="form-group">
             <label class="col-md-3 control-label">Password:</label>
             <div class="col-md-8">
-              <input class="form-control" type="password" value="11111122333">
+              <input class="form-control" type="password" formControlName="password">
+              <div class="alert alert-danger" *ngIf="form.get('password').hasError('required') && form.get('password').touched">
+                Password is required.
+              </div>
+              <div class="alert alert-danger" *ngIf="form.get('password').hasError('minlength') && form.get('password').touched">
+                Password must be at least 4 characters.
+              </div>
             </div>
           </div>
           <div class="form-group">
             <label class="col-md-3 control-label">Confirm password:</label>
             <div class="col-md-8">
-              <input class="form-control" type="password" value="11111122333">
+              <input class="form-control" type="password" formControlName="confirm_password">
+              <div class="alert alert-danger" *ngIf="form.get('confirm_password').hasError('invalid') && form.get('confirm_password').touched">
+                Passwords must match.
+              </div>
             </div>
           </div>
           <div class="form-group">
             <label class="col-md-3 control-label"></label>
             <div class="col-md-8">
-              <input type="button" class="btn btn-primary" value="Save Changes">
-              <span></span>
-              <input type="reset" class="btn btn-default" value="Cancel">
+              <button type="submit" class="btn btn-primary" [disabled]="!form.valid">Save Changes</button>
             </div>
           </div>
         </form>
