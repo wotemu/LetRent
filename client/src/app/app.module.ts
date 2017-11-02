@@ -39,6 +39,7 @@ import { environment } from '../environments/environment';
 import { IonRangeSliderModule } from 'ng2-ion-range-slider';
 import { PopoverModule } from 'ngx-bootstrap/popover';
 import { PaginationModule } from 'ngx-bootstrap/pagination';
+import { AuthModule } from './security/auth.module';
 
 @NgModule({
   declarations: [
@@ -72,6 +73,7 @@ import { PaginationModule } from 'ngx-bootstrap/pagination';
     AgmCoreModule.forRoot({
       apiKey: environment.googleMapApiKey
     }),
+    AuthModule,
     BrowserModule,
     FormsModule,
     HttpModule,

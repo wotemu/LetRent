@@ -16,16 +16,17 @@ export class AuthService {
       this.user = this.decodeToken() as Account;
     }
     console.log(this.user);
+    // localStorage.removeItem('token');
   }
 
   login(credentials) {
     return new Promise((resolve, reject) => {
       this.http.post('api/login/', credentials)
-          .map((res) => res.text())
+          .map((res) => res.json())
           .subscribe(
               (data) => {
                 console.log(data);
-                localStorage.setItem('token', data);
+                localStorage.setItem('token', data['token']);
                 this.user = this.decodeToken() as Account;
                 this.notification.success('You have been logged in successfully.');
                 resolve();

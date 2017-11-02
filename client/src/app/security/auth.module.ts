@@ -1,5 +1,5 @@
 import {NgModule} from '@angular/core';
-import {Http, RequestOptions} from '@angular/http';
+import { Http, RequestOptions, Headers } from '@angular/http';
 import {AuthConfig, AuthHttp} from 'angular2-jwt';
 
 export function authHttpServiceFactory(http: Http, options: RequestOptions) {

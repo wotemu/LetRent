@@ -3,7 +3,7 @@ from rest_framework import generics
 from rest_framework import status
 from rest_framework.generics import CreateAPIView
 from rest_framework.pagination import PageNumberPagination
-from rest_framework.permissions import AllowAny
+from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework_jwt.settings import api_settings
@@ -70,8 +70,29 @@ class PropertyDetail(generics.RetrieveAPIView):
 
 
 class PropertyCategoryView(APIView):
+    permission_classes = (IsAuthenticated,)
+
     # Firstly get all categories from DB, then cache them, then build a hierarchical category tree
     def get(self, request, **kwargs):
+        # request.user.is_authenticated
+        # print(request.user, 123)
+        # import rest_framework_jwt.utils.jwt_decode_handler
+
+        # from rest_framework_jwt.authentication import JSONWebTokenAuthentication
+        # from rest_framework.request import Request
+
+        from rest_framework_jwt.authentication import JSONWebTokenAuthentication
+        # (user, token) = JSONWebTokenAuthentication().authenticate(request)
+
+
+        user = JSONWebTokenAuthentication().authenticate(request)
+
+        # user = request.user
+        ##
+        # req = Request(request)
+        # jwt_value = self.get_jwt_value(req)
+        # user_jwt = JSONWebTokenAuthentication().authenticate(Request(request))
+
         results = PropertyCategory.objects.all().order_by('position')
         root_nodes = cache_tree_children(results)
         category_tree = build_nested_category_tree(root_nodes)

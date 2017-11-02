@@ -65,3 +65,6 @@ class Account(AbstractBaseUser):
 
     def get_short_name(self):
         return '%s %s' % (self.firstname, self.lastname)
+
+    def get_username(self):
+        return self.email
