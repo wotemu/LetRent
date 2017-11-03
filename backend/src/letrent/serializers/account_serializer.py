@@ -6,11 +6,14 @@ from ..models import Account
 class AccountSerializer(serializers.ModelSerializer):
     password = serializers.CharField(write_only=True, required=True)
     confirm_password = serializers.CharField(write_only=True, required=True)
+    user_id = serializers.CharField(source='id')
+    username = serializers.CharField(source='email')
 
     class Meta:
         model = Account
         fields = (
-            'id',
+            'user_id',
+            'username',
             'email',
             'firstname',
             'lastname',

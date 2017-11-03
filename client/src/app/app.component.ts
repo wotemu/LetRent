@@ -10,57 +10,55 @@ import { ToastsManager } from 'ng2-toastr';
 })
 export class AppComponent implements OnInit, OnDestroy {
 
-  private routeSub: any; 
+  private routeSub: any;
   query: string;
-  showLogin: boolean;
-  showRegistration: boolean;
+  showLogin = false;
+  showRegistration = false;
 
   constructor(public auth: AuthService,
               private toastManager: ToastsManager,
               private vcr: ViewContainerRef,
               private route: ActivatedRoute) {
     this.toastManager.setRootViewContainerRef(vcr);
-    this.routeSub = route.params.subscribe((params) => {
-    this.query = params['q'];
-    this.showLogin = false;
-    this.showRegistration = false;
+  }
+
+  ngOnInit() {
+    this.routeSub = this.route.params.subscribe((params) => {
+      this.query = params['q'];
     });
   }
-
-/**
- * Change status of login form according to status of child component.
- * @param status: Status of form
- */
-  changeLoginStatus(status: boolean) {
-    this.showLogin = status;
-  }
-
-/**
- * Change status of registration form according to status of child component.
- * @param status: Status of form
- */
-  changeRegistrationStatus(status: boolean) {
-    this.showRegistration = status;
-  }
-
-/**
- * Show and hide login form.
- */
-  showAndHideLogin() {
-    this.showLogin = !this.showLogin;
-  }
-
-/**
- * Show and hide registration form.
- */
-  showAndHideRegistration() {
-    this.showRegistration = !this.showRegistration;
-  }
-
-  ngOnInit() { }
 
   ngOnDestroy() {
     this.routeSub.unsubscribe();
   }
 
+  /**
+   * Change status of login form according to status of child component.
+   * @param status: Status of form
+   */
+  changeLoginStatus(status: boolean) {
+    this.showLogin = status;
+  }
+
+  /**
+   * Change status of registration form according to status of child component.
+   * @param status: Status of form
+   */
+  changeRegistrationStatus(status: boolean) {
+    this.showRegistration = status;
+  }
+
+  /**
+   * Show and hide login form.
+   */
+  showAndHideLogin() {
+    this.showLogin = !this.showLogin;
+  }
+
+  /**
+   * Show and hide registration form.
+   */
+  showAndHideRegistration() {
+    this.showRegistration = !this.showRegistration;
+  }
 }
