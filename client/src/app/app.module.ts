@@ -41,8 +41,9 @@ import { IonRangeSliderModule } from 'ng2-ion-range-slider';
 import { PopoverModule } from 'ngx-bootstrap/popover';
 import { PaginationModule } from 'ngx-bootstrap/pagination';
 import { ProfileComponent } from './components/profile/profile.component';
-import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ClickOutsideModule } from 'ng-click-outside';
+import { AuthModule } from './security/auth.module';
 
 @NgModule({
   declarations: [
@@ -77,6 +78,7 @@ import { ClickOutsideModule } from 'ng-click-outside';
     AgmCoreModule.forRoot({
       apiKey: environment.googleMapApiKey
     }),
+    AuthModule,
     NgbModule.forRoot(),
     BrowserModule,
     FormsModule,
@@ -86,7 +88,7 @@ import { ClickOutsideModule } from 'ng-click-outside';
     BrowserAnimationsModule,
     IonRangeSliderModule,
     ClickOutsideModule
-    ],
+  ],
   providers: [
     AuthService,
     NotificationService,

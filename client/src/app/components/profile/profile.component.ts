@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/fo
 import { Router } from '@angular/router';
 import { AccountService } from '../../services/account.service';
 import { NotificationService } from '../../services/notification.service';
+import { AuthHttp } from 'angular2-jwt';
  
 function passwordConfirming(c: AbstractControl): any {
   if(!c.parent || !c) return;

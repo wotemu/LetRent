@@ -23,10 +23,10 @@ export class AuthService {
   login(credentials) {
     return new Promise((resolve, reject) => {
       this.http.post('api/login/', credentials)
-          .map((res) => res.text())
+          .map((res) => res.json())
           .subscribe(
               (data) => {
-                localStorage.setItem('token', data);
+                localStorage.setItem('token', data['token']);
                 this.user = this.decodeToken() as Account;
                 this.notification.success('You logged in successfully!');
                 resolve();
@@ -39,10 +39,10 @@ export class AuthService {
   register(userInfo) {
     return new Promise((resolve, reject) => {
       this.http.post('api/register/', userInfo)
-          .map((res) => res.text())
+          .map((res) => res.json())
           .subscribe(
               (data) => {
-                localStorage.setItem('token', data);
+                localStorage.setItem('token', data['token']);
                 this.user = this.decodeToken() as Account;
                 resolve();
               },
