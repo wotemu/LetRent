@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
 import { AccountService } from '../../services/account.service';
 import { NotificationService } from '../../services/notification.service';
 import { AuthHttp } from 'angular2-jwt';
- 
+
 function passwordConfirming(c: AbstractControl): any {
   if(!c.parent || !c) return;
   const pwd = c.parent.get('password');
@@ -25,14 +25,17 @@ function passwordConfirming(c: AbstractControl): any {
  })
  export class ProfileComponent implements OnInit {
   form: FormGroup;
- 
-   constructor(public auth: AuthService,
-               private accountService: AccountService,
-               private notification: NotificationService,
-               private router: Router,
-               private formBuilder: FormBuilder) {
+  updateStarted: Boolean;
+  updateSucceed: Boolean;
+  updateFailed: Boolean;
+
+  constructor(public auth: AuthService,
+              private accountService: AccountService,
+              private notification: NotificationService,
+              private router: Router,
+              private formBuilder: FormBuilder) {
       if (!auth.loggedIn()) {
-        this.router.navigate(['']);
+        this.router.navigate(['/']);
         this.notification.error('Please login to see your profile page!');
       }
    }
@@ -47,10 +50,22 @@ function passwordConfirming(c: AbstractControl): any {
     });
   }
   updateProfile(credentials): void {
+    this.updateStarted = true;
     this.accountService.updateProfile(credentials).then(() => {
-      console.log("update send!");
+      this.updateSucceed = true;
+      this.goHomePage();
     }).catch((err) => {
-      
+      this.updateFailed = false;
     });
   }
+
+  goBack() {
+    this.updateStarted = false;
+    this.updateSucceed = false;
+  }
+
+  goHomePage() {
+    setTimeout(() => this.router.navigate(['']), 3000);
+  }
+
  }

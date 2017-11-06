@@ -2,16 +2,7 @@
     <nav class="navbar navbar-inverse">
     <div class="container">
         <!-- Brand and toggle get grouped for better mobile display -->
-        <div class="navbar-header">
-        <!-- <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-        </button> -->
-        <a class="navbar-brand" routerLink='/' routerLinkActive="active">LetRent</a>
-        </div>
-        
+        <div class="navbar-header"><a class="navbar-brand" routerLink='/' routerLinkActive="active">LetRent</a></div>
         <!-- Right nav-bar -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <app-search [passedQuery]='query'></app-search>
@@ -26,13 +17,11 @@
                         <div class="dropdown-in">
                             <a class="dropdownlink" id="dropdownBasic1" ngbDropdownToggle>
                                     <span class="user-avatar pull-left">
-                                        <img src="https://lut.im/7JCpw12uUT/mY0Mb78SvSIcjvkf.png" class="img-responsive img-circle" title="John Doe" alt="John Doe">
+                                        <img src="https://lut.im/7JCpw12uUT/mY0Mb78SvSIcjvkf.png" class="img-responsive img-circle">
                                     </span>
-                                    <span class="user-name">
-                                        {{auth.getUserName()}}
-                                    </span>
+                                    <span class="user-name"> {{auth.getUserInformation()}} </span>
                                     <b class="caret"></b></a>
-                            <div class="dropdown-content" ngbDropdownMenu>
+                            <div class="dropdown-content" ngbDropdownMenu>  
                                 <a class="dropdown-item" routerLink='/profile/' routerLinkActive="active">Profile</a>
                                 <a (click)="auth.logout()" class="dropdown-item">Logout</a>
                             </div>
