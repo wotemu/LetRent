@@ -20,6 +20,7 @@ import { PropertyListComponent } from './components/property-list/property-list.
 import { PropertyDetailComponent } from './components/property-detail/property-detail.component';
 import { ToastModule } from 'ng2-toastr/ng2-toastr';
 import { NotificationService } from './services/notification.service';
+import { AccountService } from './services/account.service';
 import { PropertyService } from './services/property.service';
 import { LoaderComponent } from './components/loader/loader.component';
 import { PropertyImageUrlPipe } from './utils/pipes/property-image-url.pipe';
@@ -93,6 +94,7 @@ import { AuthModule } from './security/auth.module';
     NotificationService,
     PropertyService,
     PropertyCategoryService,
+    AccountService,
     {provide: ToastsManager, useClass: ToastsSettingsManager},
     Helper,
   ],

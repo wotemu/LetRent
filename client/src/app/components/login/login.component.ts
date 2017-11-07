@@ -44,6 +44,7 @@ export class LoginComponent {
     this.auth.login(credentials).then(() => {
       this.router.navigate(['']);
       this.showForm = false;
+      this.onLoginClosed.emit(this.showForm);
     }).catch((err) => {
       this.loginFailed = true;
     });

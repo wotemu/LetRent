@@ -3,14 +3,34 @@ from rest_framework import generics
 from rest_framework import status
 from rest_framework.generics import CreateAPIView
 from rest_framework.pagination import PageNumberPagination
-from rest_framework.permissions import AllowAny
+from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework_jwt.settings import api_settings
+from rest_framework_jwt.authentication import JSONWebTokenAuthentication
+
 
 from ..models import Account, Property, PropertyCategory
 from ..serializers import PropertySerializer, AccountSerializer, PropertyDetailSerializer, \
     build_nested_category_tree
+
+
+
+class UserUpdateProfile(APIView):
+    """
+    Update an user instance.
+    """
+    serializer_class = AccountSerializer
+    permission_classes = (IsAuthenticated,)
+    authentication_classes = (JSONWebTokenAuthentication,)
+    model = Account.objects.all()   
+
+    def post(self, request, *args, **kwargs):
+        serializer = self.serializer_class(request.user,data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 class RegisterUser(CreateAPIView):
