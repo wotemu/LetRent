@@ -6,8 +6,8 @@ from ..models import Account
 class AccountSerializer(serializers.ModelSerializer):
     password = serializers.CharField(write_only=True, required=True)
     confirm_password = serializers.CharField(write_only=True, required=True)
-    user_id = serializers.CharField(source='id')
-    username = serializers.CharField(source='email')
+    user_id = serializers.CharField(source='id', required=False)
+    username = serializers.CharField(source='email', required=False)
 
     class Meta:
         model = Account
