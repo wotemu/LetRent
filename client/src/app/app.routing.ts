@@ -4,6 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { NotFoundComponent } from './components/not-found/not-found.component';
 import { SearchDetailComponent } from './components/search-detail/search-detail.component';
 import { ProfileComponent } from './components/profile/profile.component';
+import { PropertyComponent } from './components/property/property.component';
 import { PropertyListComponent } from './components/property-list/property-list.component';
 import { PropertyDetailComponent } from './components/property-detail/property-detail.component';
 import { BoxedLayoutComponent } from './layouts/boxed/boxed.component';
@@ -20,7 +21,8 @@ const appRoutes: Routes = [
   // Routes with "boxed" layout
   {path: '', component: BoxedLayoutComponent, children: [
     {path: 'search', component: SearchDetailComponent },
-    {path: 'profile', component: ProfileComponent }
+    {path: 'profile', component: ProfileComponent },
+    {path: 'property', component: PropertyComponent }
   ]},
 
   // Routes with no layout

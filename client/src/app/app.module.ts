@@ -44,6 +44,7 @@ import { ProfileComponent } from './components/profile/profile.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ClickOutsideModule } from 'ng-click-outside';
 import { AuthModule } from './security/auth.module';
+import { PropertyComponent } from './components/property/property.component';
 
 @NgModule({
   declarations: [
@@ -66,6 +67,7 @@ import { AuthModule } from './security/auth.module';
     PropertyPricePipe,
     FullnamePipe,
     ProfileComponent,
+    PropertyComponent,
   ],
   imports: [
     BsDropdownModule.forRoot(),
