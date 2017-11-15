@@ -21,7 +21,7 @@ export class LoginComponent {
   constructor(public auth: AuthService,
               private notification: NotificationService,
               private router: Router,
-              private formBuilder: FormBuilder ) {
+              private formBuilder: FormBuilder) {
     if (auth.loggedIn()) {
       this.router.navigate(['']);
       this.notification.info('You have already been authorized.');

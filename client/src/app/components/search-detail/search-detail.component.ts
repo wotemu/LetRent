@@ -24,8 +24,8 @@ export class SearchDetailComponent implements OnInit, OnDestroy {
     this.routeListener = this.route.params.subscribe((params) => {
       this.query = params['q'];
       this.requestListener = this.propertyService.search(this.query).subscribe((data) => {
-        this.properties = data as Property[];
-        this.noRecordsFound = !(data.length > 0);
+        this.properties = data.results as Property[];
+        this.noRecordsFound = !(data.results.length > 0);
       });
     });
   }

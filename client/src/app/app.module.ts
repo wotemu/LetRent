@@ -78,7 +78,9 @@ import { PropertyComponent } from './components/property/property.component';
     PopoverModule.forRoot(),
     PaginationModule.forRoot(),
     AgmCoreModule.forRoot({
-      apiKey: environment.googleMapApiKey
+      apiKey: environment.googleMapApiKey,
+      language: environment.googleMapLanguage,
+      libraries: [environment.googleMabLibName]
     }),
     AuthModule,
     NgbModule.forRoot(),
