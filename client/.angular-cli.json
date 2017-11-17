@@ -23,7 +23,7 @@
         "../node_modules/ng2-toastr/bundles/ng2-toastr.min.css",
         "../node_modules/ion-rangeslider/css/ion.rangeSlider.css",
         "../node_modules/ion-rangeslider/css/ion.rangeSlider.skinFlat.css",
-        "styles.css"
+        "styles.css"        
       ],
       "scripts": [
         "../node_modules/jquery/dist/jquery.min.js",
