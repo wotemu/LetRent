@@ -5,6 +5,7 @@ import { NotFoundComponent } from './components/not-found/not-found.component';
 import { SearchDetailComponent } from './components/search-detail/search-detail.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { PropertyComponent } from './components/property/property.component';
+import { ProfilePropertiesComponent } from './components/profile-properties/profile-properties.component';
 import { PropertyListComponent } from './components/property-list/property-list.component';
 import { PropertyDetailComponent } from './components/property-detail/property-detail.component';
 import { BoxedLayoutComponent } from './layouts/boxed/boxed.component';
@@ -22,7 +23,8 @@ const appRoutes: Routes = [
   {path: '', component: BoxedLayoutComponent, children: [
     {path: 'search', component: SearchDetailComponent },
     {path: 'profile', component: ProfileComponent },
-    {path: 'property', component: PropertyComponent }
+    {path: 'property', component: PropertyComponent },
+    {path: 'profile-properties', component: ProfilePropertiesComponent }
   ]},
 
   // Routes with no layout

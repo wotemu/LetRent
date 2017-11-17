@@ -1,0 +1,38 @@
+<h2>My Properties</h2>
+<div class="row">
+  <div *ngIf="properties; else loading" class="properties">
+    <ng-container *ngFor="let property of properties">
+      <div class="property col-xs-12 col-sm-6 col-md-3">
+        <div class="thumbnail">
+          <div class="image">
+            <a routerLink="/properties/{{ property.slug }}">
+              <img class="group list-group-image" src="{{ property.primaryImage | propertyImageUrl }}">
+            </a>
+          </div>
+          <div class="details">
+            <h4 class="group inner list-group-item-heading">
+              <a routerLink="/properties/{{ property.slug }}">{{ property.name }}</a>
+            </h4>
+            <div class="price">{{ property | propertyPrice }}</div>
+            <div class="controlPanel">
+              <span><a routerLink="/properties/{{ property.slug }}" class="btn btn-success">View</a></span>
+              <span><a routerLink="/properties/{{ property.slug }}" class="btn btn-warning">Edit</a></span>                            
+              <span><a mwlConfirmationPopover
+                [title]="alertTitle"
+                [message]="alertMessage"
+                placement="bottom"
+                (confirm)="deleteProperty(property.id, property.name)"                
+                (cancel)="alertCancelClicked = true" class="btn btn-danger">Delete</a></span>              
+            </div>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+  <ng-template #loading>
+    <app-loader></app-loader>
+  </ng-template>
+</div>
+<div *ngIf="noRecordsFound" class="text-center">
+  <p class="h3">You have now added any properties yet!</p>
+</div>

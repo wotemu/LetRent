@@ -45,6 +45,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ClickOutsideModule } from 'ng-click-outside';
 import { AuthModule } from './security/auth.module';
 import { PropertyComponent } from './components/property/property.component';
+import { ProfilePropertiesComponent } from './components/profile-properties/profile-properties.component';
+import {ConfirmationPopoverModule} from 'angular-confirmation-popover';
 
 @NgModule({
   declarations: [
@@ -68,6 +70,7 @@ import { PropertyComponent } from './components/property/property.component';
     FullnamePipe,
     ProfileComponent,
     PropertyComponent,
+    ProfilePropertiesComponent,
   ],
   imports: [
     BsDropdownModule.forRoot(),
@@ -81,6 +84,9 @@ import { PropertyComponent } from './components/property/property.component';
       apiKey: environment.googleMapApiKey,
       language: environment.googleMapLanguage,
       libraries: [environment.googleMabLibName]
+    }),
+    ConfirmationPopoverModule.forRoot({
+      confirmButtonType: 'danger'
     }),
     AuthModule,
     NgbModule.forRoot(),

@@ -6,30 +6,39 @@ import { AuthHttp } from 'angular2-jwt';
 
 const endpoint = '/api/properties/';
 const endpointAddProperty = '/api/add-property/';
+const endpointProfileProperty = '/api/profile-properties/';
 
 @Injectable()
 export class PropertyService {
   constructor(private http: Http,
-              private helper: Helper,
-              private authHttp: AuthHttp) {
+    private helper: Helper,
+    private authHttp: AuthHttp) {
   }
 
   getProperty(slug: string): Promise<Property> {
     return this.http
-        .get(endpoint + slug + '/')
-        .toPromise()
-        .then((response: Response) => response.json() as Property)
-        .catch(this.helper.handlePromiseError);
+      .get(endpoint + slug + '/')
+      .toPromise()
+      .then((response: Response) => response.json() as Property)
+      .catch(this.helper.handlePromiseError);
   }
 
   getProperties(requestParams?: {}): Promise<any> {
     return this.http
-        .get(endpoint, {
-          search: Helper.buildURLSearchParamsFromDict(requestParams)
-        })
-        .toPromise()
-        .then((response: Response) => response.json())
-        .catch(this.helper.handlePromiseError);
+      .get(endpoint, {
+        search: Helper.buildURLSearchParamsFromDict(requestParams)
+      })
+      .toPromise()
+      .then((response: Response) => response.json())
+      .catch(this.helper.handlePromiseError);
+  }
+
+  getProfileProperties(): Promise<any> {
+    return this.authHttp
+      .get(endpointProfileProperty)
+      .toPromise()
+      .then((response: Response) => response.json())
+      .catch(this.helper.handlePromiseError);
   }
 
   search(query: string) {
@@ -42,15 +51,30 @@ export class PropertyService {
   addProperty(property) {
     return new Promise((resolve, reject) => {
       this.authHttp.post(endpointAddProperty, property)
-          .map((res) => res.json())
-          .subscribe(
-              (data) => {
-                resolve();
-              },
-              (error) => {
-                reject(error);
-              }
-          );
+        .map((res) => res.json())
+        .subscribe(
+        (data) => {
+          resolve();
+        },
+        (error) => {
+          reject(error);
+        }
+        );
+    });
+  }
+
+  deleteProperty(id: number) {
+    return new Promise((resolve, reject) => {
+      this.authHttp.delete(endpointAddProperty + id + '/')
+        .map((res) => res.json())
+        .subscribe(
+        (data) => {
+          resolve();
+        },
+        (error) => {
+          reject(error);
+        }
+        );
     });
   }
 }
