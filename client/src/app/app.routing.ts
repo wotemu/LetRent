@@ -20,7 +20,7 @@ const appRoutes: Routes = [
 
   // Routes with "boxed" layout
   {path: '', component: BoxedLayoutComponent, children: [
-    {path: 'chats/:chatId', component: ChatsComponent},
+    // {path: 'chats/:chatId', component: ChatsComponent},
     {path: 'chats', component: ChatsComponent},
     {path: 'search', component: SearchDetailComponent},
     {path: 'profile', component: ProfileComponent}

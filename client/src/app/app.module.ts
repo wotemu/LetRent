@@ -47,6 +47,9 @@ import { AuthModule } from './security/auth.module';
 import { ChatsComponent } from './components/chats/chats.component';
 import { ChatService } from './services/chat.service';
 import { StarsDirective } from './components/stars/stars.directive';
+import { UserAvatarUrlPipe } from './utils/pipes/user-avatar-url.pipe';
+import { RelativeTimePipe } from './utils/pipes/relative-time.pipe';
+import { DatePipe } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -68,6 +71,8 @@ import { StarsDirective } from './components/stars/stars.directive';
     PropertyImageUrlPipe,
     PropertyPricePipe,
     FullnamePipe,
+    UserAvatarUrlPipe,
+    RelativeTimePipe,
     ProfileComponent,
     ChatsComponent,
     StarsDirective,
@@ -103,6 +108,7 @@ import { StarsDirective } from './components/stars/stars.directive';
     AccountService,
     {provide: ToastsManager, useClass: ToastsSettingsManager},
     Helper,
+    DatePipe,
   ],
   bootstrap: [AppComponent]
 })

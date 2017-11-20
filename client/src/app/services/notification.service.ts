@@ -34,6 +34,7 @@ export class NotificationService {
   }
 
   public errorResp(response: Response, title?: string): void {
+    console.log(response);
     const jsonResp = response.json();
     Object.keys(jsonResp).forEach((errorKey) => {
       const errorMsgs = jsonResp[errorKey];

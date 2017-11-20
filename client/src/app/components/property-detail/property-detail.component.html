@@ -63,10 +63,13 @@
           <h4>Have a Question?</h4>
           <div id="question-block" *ngIf="!showLinkToChat">
             <div class="input-group form">
-              <input type="text" class="form-control" placeholder="Hi! Can I rent it today?" [(ngModel)]="question">
+              <input type="text" class="form-control" placeholder="Hi! Can I rent it today?"
+                     [disabled]="sending" [(ngModel)]="question">
               <span class="input-group-btn">
-              <button class="btn btn-success" type="submit" (click)="onContactRenter($event)">Contact Renter</button>
-            </span>
+                <button class="btn btn-success" type="submit" [disabled]="sending" (click)="onContactRenter($event)">
+                  Contact Renter
+                </button>
+              </span>
             </div>
             <div id="suggestions">
               <a (click)="question = 'Hi! Is it still available?'; $event.stopPropagation()">Is it still available?</a>
@@ -74,7 +77,8 @@
             </div>
           </div>
           <div *ngIf="showLinkToChat">
-            You can <u><b><a (click)="goToChat($event)">ask questions directly in the chat</a></b></u>. (You already contacted the Renter before)
+            You can <u><b><a (click)="goToChat($event)" class="go-to-chat">ask questions directly in the chat</a></b></u>.
+            (You already contacted the Renter before)
           </div>
         </ng-container>
 

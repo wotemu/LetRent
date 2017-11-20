@@ -1,0 +1,205 @@
+#chats-window {
+    min-height: 300px;
+    margin-top: -1px;
+}
+/* Common sides styles */
+#left-side #total-conversations-block,
+#right-side #chat-header {
+    height: 60px;
+}
+#right-side #chat-header {
+    border-bottom: 1px solid #a4a4a4;
+}
+#left-side #chats,
+#right-side #chat-content {
+    height: 300px;
+}
+#left-side, #right-side {
+    padding: 0;
+    border: 1px solid #a4a4a4;
+    margin-right: -1px;
+}
+
+/* Left side */
+#left-side {
+    /*background: whitesmoke;*/
+    /*color: black;*/
+    background: #262626;
+    color: white;
+}
+#left-side #total-conversations-block i {
+    margin-right: 8px;
+    margin-bottom: 3px;
+}
+#left-side #total-conversations-block {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-bottom: 1px solid #878787;
+}
+#left-side #chats {
+    overflow-y: auto;
+}
+#left-side #chats .chat {
+    /*height: 50px;*/
+    position: relative;
+    padding: 5px 0;
+    font-size: 0.9em;
+    cursor: pointer;
+}
+#left-side #chats .chat.selected,
+#left-side #chats .chat:hover {
+    background: #ffffff;
+    color: black;
+}
+#left-side #chats .chat .meta {
+    padding: 5px 0 0 0;
+}
+#left-side #chats .chat img {
+    width: 40px;
+    border-radius: 50%;
+    float: left;
+    margin-right: 10px;
+    margin-left: 10px;
+}
+#left-side #chats .chat .meta .name {
+    font-weight: 600;
+    margin: 0;
+}
+#left-side #chats .chat .meta .property-name {
+    margin: 0;
+    font-weight: 400;
+    font-size: 11px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* Right side Header */
+#right-side #chat-header > .left {
+    padding: 5px;
+    margin-left: 15px;
+    float: left;
+}
+#right-side #chat-header > .right {
+    float: right;
+    height: 100%;
+}
+#right-side #chat-header #user-info {
+    font-size: 20px;
+}
+#right-side #chat-header #user-info .full-name {
+    margin-right: 5px;
+}
+#right-side #chat-header .social-media {
+    line-height: 4.4;
+    margin-right: 25px;
+}
+#right-side #chat-header .social-media i:hover {
+    color: #435f7a;
+}
+#right-side #chat-header .social-media i {
+    margin-left: 10px;
+    cursor: pointer;
+    font-size: 25px;
+}
+/* Right side - other content */
+#right-side #messages {
+    height: 250px;
+    border-bottom: 1px solid #a4a4a4;
+    overflow-y: auto;
+}
+#right-side #send-message-form {
+    margin: 8px;
+}
+#right-side #upload-image-block {
+    margin-left: 5px;
+    position: absolute;
+}
+#right-side #send-block {
+    margin-left: 60px;
+}
+#right-side #send-block input,
+#right-side #send-block button {
+    z-index: 1;
+}
+#right-side #send-block #send-btn {
+    font-size: 16px;
+    padding: 5px 25px 4px;
+}
+#right-side #send-block #send-btn i {
+    font-size: 19px;
+    margin-left: 5px;
+}
+
+/* Scrolls */
+#left-side #chats::-webkit-scrollbar,
+#right-side #messages::-webkit-scrollbar {
+    width: 7px;
+    background: rgba(81, 81, 81, 0.26);
+}
+
+#left-side #chats::-webkit-scrollbar-thumb,
+#right-side #messages::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+/* Messages */
+#messages ul {
+    padding-left: 0;
+}
+#messages ul li {
+    display: inline-block;
+    clear: both;
+    float: left;
+    margin: 15px 15px 5px 15px;
+    width: calc(100% - 25px);
+    font-size: 0.9em;
+}
+#messages ul li img {
+    width: 22px;
+    border-radius: 50%;
+    float: left;
+}
+#messages ul li.replies img {
+    margin: 6px 8px 0 0;
+}
+#messages ul li.replies p {
+    background: #f5f5f5;
+    float: left;
+}
+#messages ul li.sent img {
+    float: right;
+    margin: 6px 0 0 8px;
+}
+#messages ul li p {
+    display: inline-block;
+    padding: 10px 15px;
+    border-radius: 20px;
+    max-width: 205px;
+    line-height: 130%;
+}
+#messages ul li.sent p {
+    background: #262626;
+    color: #f5f5f5;
+    float: right;
+}
+#messages ul li .dispatch-time {
+    margin-top: 10px;
+    color: #a6a5a5;
+    font-size: 10px;
+    display: inline-block;
+}
+#messages ul li.replies .dispatch-time {
+    margin-left: 10px;
+    float: left;
+}
+#messages ul li.sent .dispatch-time {
+    float: right;
+    margin-right: 10px;
+}
+@media screen and (min-width: 735px) {
+    #messages ul li p {
+        max-width: 300px;
+    }
+}

@@ -22,16 +22,48 @@ export class ChatService {
   }
 
   getChats(): Promise<any> {
-    // TODO: Get current user id (on backend)
     return this.authHttp
         .get(endpoint)
         .toPromise()
         .then((response: Response) => {
-          console.log(response);
           return response.json();
         })
         // .catch(this.helper.handlePromiseError);
         ;
   }
 
+  getMessages(chatId: number): Promise<any> {
+    return this.authHttp
+        .get(endpoint + chatId + '/messages/')
+        .toPromise()
+        .then((response: Response) => {
+          return response.json();
+        })
+        .catch(this.helper.handlePromiseError);
+  }
+
+  sendMessage(chatId: number, message: string): Promise<any> {
+    return this.authHttp
+        .post(endpoint + chatId + '/add-message/', {
+          'message': message
+        })
+        .toPromise()
+        .then((response: Response) => {
+          return response.json();
+        })
+        .catch(this.helper.handlePromiseError);
+  }
+
+  createChat(propertyId: number, message?: string): Promise<any> {
+    return this.authHttp
+        .post(endpoint + 'create/', {
+          'property_id': propertyId,
+          'message': message
+        })
+        .toPromise()
+        .then((response: Response) => {
+          return response.json();
+        })
+        .catch(this.helper.handlePromiseError);
+  }
 }

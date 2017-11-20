@@ -6,7 +6,7 @@ from .property import Property
 
 
 class Chat(models.Model):
-    property = models.OneToOneField(Property, on_delete=models.CASCADE)
-    from_user = models.OneToOneField(Account, on_delete=models.CASCADE, related_name='from_user')
-    to_user = models.OneToOneField(Account, on_delete=models.CASCADE, related_name='to_user')
+    property = models.ForeignKey(Property, on_delete=models.CASCADE)
+    from_user = models.ForeignKey(Account, on_delete=models.CASCADE, related_name='from_user')
+    to_user = models.ForeignKey(Account, on_delete=models.CASCADE, related_name='to_user')
     created_at = models.DateTimeField(auto_now_add=True)

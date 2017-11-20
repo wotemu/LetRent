@@ -1,291 +1,60 @@
 <h2>Messages</h2>
-
-<style>
-  #chats-window {
-    /*width: 60%;*/
-    /*margin: 0 auto;*/
-    min-height: 300px;
-  }
-
-  #left-side, #right-side {
-    padding: 0;
-    border: 1px solid #a4a4a4;
-    margin-right: -1px;
-  }
-
-  #left-side {
-    background: whitesmoke;
-    color: black;
-  }
-  #left-side #total-conversations-block i {
-    margin-right: 8px;
-    margin-bottom: 3px;
-  }
-
-  #left-side #total-conversations-block {
-    /*width: 100%;*/
-    /*height: 60px;*/
-    /*vertical-align: middle;*/
-    display: flex;
-    justify-content: center; /*Центрирование по горизонтали*/
-    align-items: center; /*Центрирование по вертикали */
-  }
-
-  #left-side #chats .chat {
-    /*height: 50px;*/
-    position: relative;
-    padding: 5px 0;
-    font-size: 0.9em;
-    cursor: pointer;
-  }
-
-  #left-side #chats .chat:hover {
-    background: #d1d1d1;
-  }
-
-  #left-side #total-conversations-block,
-  #right-side #chat-header {
-    height: 60px;
-    border-bottom: 1px solid #a4a4a4;
-  }
-
-  #left-side #chats,
-  #right-side #chat-content {
-    height: 300px;
-  }
-
-  #right-side #messages {
-    height: 250px;
-    border-bottom: 1px solid #a4a4a4;
-    overflow-y: scroll;
-  }
-
-  #right-side #send-message-form {
-    margin: 8px;
-  }
-
-  #right-side #upload-image-block {
-    margin-left: 5px;
-    position: absolute;
-  }
-
-  #right-side #send-block {
-    margin-left: 60px;
-  }
-
-  #right-side #send-block #send-btn {
-    font-size: 16px;
-    padding: 5px 25px 4px;
-  }
-
-  #right-side #send-block #send-btn i {
-    font-size: 19px;
-    margin-left: 5px;
-  }
-</style>
 <div class="row col-sm-12">
   <div id="chats-window">
     <div id="left-side" class="col-sm-2">
       <div id="total-conversations-block">
-        <!--<div>-->
         <i class="fa fa-comments fa-2x"></i>
         <span [ngPlural]="totalChats">
           <ng-template ngPluralCase="=0">No Conversations</ng-template>
           <ng-template ngPluralCase="=1">1 Conversation</ng-template>
-          <ng-template ngPluralCase="other">{{ totalChats }}Conversations</ng-template>
+          <ng-template ngPluralCase="other">{{ totalChats }} Conversations</ng-template>
         </span>
-        <!--</div>-->
       </div>
-      <style>
-        .chat .meta {
-          padding: 5px 0 0 0;
-        }
-        .chat img {
-          width: 40px;
-          border-radius: 50%;
-          float: left;
-          margin-right: 10px;
-          margin-left: 10px;
-        }
-        .chat .meta .name {
-          font-weight: 600;
-          margin: 0;
-        }
-        .chat .meta .property-name {
-          margin: 0;
-          font-weight: 400;
-          white-space: nowrap;
-          overflow: hidden;
-          text-overflow: ellipsis;
-        }
-      </style>
       <div id="chats">
-        <div class="chat">
-          <img src="http://emilcarlsson.se/assets/louislitt.png">
-          <div class="meta">
-            <p class="name">Louis Litt</p>
-            <p class="property-name">Property Name</p>
+        <ng-container *ngFor="let chat of chats">
+          <div class="chat" (click)="onSelectChat(chat)" [class.selected]="selectedChat && selectedChat.id === chat.id">
+            <img src="{{ getReceiverUser(chat) | userAvatarUrl }}">
+            <div class="meta">
+              <p class="name">{{ getReceiverUser(chat) | fullname }}</p>
+              <p class="property-name">{{chat.property.name }}</p>
+            </div>
           </div>
-        </div>
-        <div class="chat">
-          <img src="http://emilcarlsson.se/assets/rachelzane.png">
-          <div class="meta">
-            <p class="name">Louis Litt</p>
-            <p class="property-name">Property Name</p>
-          </div>
-        </div>
+        </ng-container>
       </div>
     </div>
     <div id="right-side" class="col-sm-10">
-      <style>
-        #right-side #chat-header > .left {
-          padding: 5px;
-          margin-left: 15px;
-          float: left;
-        }
-        #right-side #chat-header > .right {
-          float: right;
-          height: 100%;
-        }
-        #right-side #chat-header #user-info .full-name {
-          margin-right: 5px;
-        }
-        #right-side #chat-header .social-media {
-          line-height: 4.4;
-          margin-right: 25px;
-        }
-        #right-side #chat-header .social-media i:hover {
-          color: #435f7a;
-        }
-        #right-side #chat-header .social-media i {
-          margin-left: 10px;
-          cursor: pointer;
-          font-size: 25px;
-        }
-      </style>
       <div id="chat-header">
-        <div class="left">
-          <div id="user-info" style="font-size: 20px">
-            <span class="full-name"><b>Alex Smith</b></span>
-            <app-stars [rating]="'3'" class="stars"></app-stars>
+        <ng-container *ngIf="selectedChat">
+          <div class="left">
+            <div id="user-info">
+              <span class="full-name"><b>{{ receiverUser | fullname }}</b></span>
+              <app-stars [rating]="'3'" class="stars"></app-stars>
+            </div>
+            <b>Property<span *ngIf="isOwner()"> <i>(You are owner)</i></span>:</b>
+            <a routerLink="/properties/{{ selectedChat.property.slug }}">{{ selectedChat.property.name }}</a>
           </div>
-          <a href="#">property info...</a>
-        </div>
-        <div class="right">
-          <div class="social-media">
-            <i class="fa fa-facebook"></i>
-            <i class="fa fa-twitter"></i>
-            <!--<i class="fa fa-instagram"></i>-->
+          <div class="right">
+            <div class="social-media">
+              <i class="fa fa-facebook"></i>
+              <i class="fa fa-twitter"></i>
+              <!--<i class="fa fa-instagram"></i>-->
+            </div>
           </div>
-        </div>
+        </ng-container>
       </div>
       <div id="chat-content">
-        <style>
-          /* Messages */
-          #messages::-webkit-scrollbar {
-            width: 7px;
-            background: rgba(81, 81, 81, 0.26);
-          }
-          #messages::-webkit-scrollbar-thumb {
-            background-color: rgba(0, 0, 0, 0.5);
-          }
-          #messages ul {
-            padding-left: 0;
-          }
-          #messages ul li {
-            display: inline-block;
-            clear: both;
-            float: left;
-            margin: 15px 15px 5px 15px;
-            width: calc(100% - 25px);
-            font-size: 0.9em;
-          }
-          #messages ul li img {
-              width: 22px;
-              border-radius: 50%;
-              float: left;
-          }
-          #messages ul li.replies img {
-            margin: 6px 8px 0 0;
-          }
-          #messages ul li.replies p {
-              background: #f5f5f5;
-            float: left;
-          }
-          #messages ul li.sent img {
-            float: right;
-            margin: 6px 0 0 8px;
-          }
-          #messages ul li p {
-              display: inline-block;
-              padding: 10px 15px;
-              border-radius: 20px;
-              max-width: 205px;
-              line-height: 130%;
-          }
-          #messages ul li.sent p {
-              background: #262626;
-              color: #f5f5f5;
-              float: right;
-          }
-          #messages ul li .dispatch-time {
-            margin-top: 10px;
-            color: #a6a5a5;
-            font-size: 10px;
-            display: inline-block;
-          }
-          #messages ul li.replies .dispatch-time {
-            margin-left: 10px;
-            float: left;
-          }
-          #messages ul li.sent .dispatch-time {
-            float: right;
-            margin-right: 10px;
-          }
-          @media screen and (min-width: 735px) {
-            #messages ul li p {
-                max-width: 300px;
-            }
-          }
-        </style>
         <div id="messages">
-          <ul>
-            <li class="sent">
-              <img src="http://emilcarlsson.se/assets/mikeross.png" alt="">
-              <p>How the hell am I supposed to get a jury to believe you when I am not even sure that I do?!</p>
-              <div class="dispatch-time">1/1/1111 09:30</div>
-            </li>
-            <li class="replies">
-              <img src="http://emilcarlsson.se/assets/harveyspecter.png" alt="">
-              <p>When you're backed against the wall, break the god damn thing down.</p>
-              <div class="dispatch-time">10:30</div>
-            </li>
-            <li class="replies">
-              <img src="http://emilcarlsson.se/assets/harveyspecter.png" alt="">
-              <p>Excuses don't win championships.</p>
-              <div class="dispatch-time">10:30</div>
-            </li>
-            <li class="sent">
-              <img src="http://emilcarlsson.se/assets/mikeross.png" alt="">
-              <p>Oh yeah, did Michael Jordan tell you that?</p>
-            </li>
-            <li class="replies">
-              <img src="http://emilcarlsson.se/assets/harveyspecter.png" alt="">
-              <p>No, I told him that.</p>
-            </li>
-            <li class="replies">
-              <img src="http://emilcarlsson.se/assets/harveyspecter.png" alt="">
-              <p>What are your choices when someone puts a gun to your head?</p>
-            </li>
-            <li class="sent">
-              <img src="http://emilcarlsson.se/assets/mikeross.png" alt="">
-              <p>What are you talking about? You do what they say or they shoot you.</p>
-            </li>
-            <li class="replies">
-              <img src="http://emilcarlsson.se/assets/harveyspecter.png" alt="">
-              <p>Wrong. You take the gun, or you pull out a bigger one. Or, you call their bluff. Or, you do any one of
-                a hundred and forty six other things.</p>
-            </li>
+          <h3 class="text-center" *ngIf="!selectedChat">Please, select the chat.</h3>
+          <ul *ngIf="selectedChat">
+            <ng-container *ngFor="let message of messages">
+              <li [class.sent]="isCurrentUserSender(message)"
+                  [class.replies]="!isCurrentUserSender(message)">
+                <img src="{{ currentUser | userAvatarUrl }}" *ngIf="isCurrentUserSender(message)">
+                <img src="{{ receiverUser | userAvatarUrl }}" *ngIf="!isCurrentUserSender(message)">
+                <p>{{ message.messageBody }}</p>
+                <div class="dispatch-time">{{ message.createdAt | relativeTime }}</div>
+              </li>
+            </ng-container>
           </ul>
         </div>
         <div id="send-message-form">
@@ -294,9 +63,11 @@
           </div>
           <div id="send-block">
             <div class="input-group form">
-              <input type="text" class="form-control" placeholder="Type your message here..." [(ngModel)]="message">
+              <input type="text" class="form-control" placeholder="Type your message here..."
+                     [disabled]="!selectedChat || sending" [(ngModel)]="message">
               <span class="input-group-btn">
-                <button id="send-btn" class="btn btn-success" (click)="onSendMessage($event)">
+                <button id="send-btn" class="btn btn-success"
+                        (click)="onSendMessage($event)" [disabled]="!selectedChat || sending">
                   Send <i class="fa fa-paper-plane"></i>
                 </button>
               </span>
@@ -306,28 +77,4 @@
       </div>
     </div>
   </div>
-</div>
-
-<div class="row properties" *ngIf="properties; else loading">
-  <div *ngFor='let property of properties; let i = index' [ngClass]="{'row': (i+1)%3 == 0}">
-    <div class='property col-md-4 col-sm-12'>
-      <div class="thumbnail">
-        <a routerLink="/properties/{{ property.slug }}">
-          <img src="{{ property.primaryImage | propertyImageUrl }}" alt="{{ property.name }} image">
-        </a>
-        <div class="caption">
-          <h3><a routerLink="/properties/{{ property.slug }}">{{ property.name }}</a></h3>
-          <p class="lead">{{ property | propertyPrice }}</p>
-          <p><a routerLink="/properties/{{ property.slug }}" class="btn btn-success" role="button">View</a></p>
-        </div>
-      </div>
-    </div>
-  </div>
-  <ng-template #loading>
-    <app-loader></app-loader>
-  </ng-template>
-</div>
-
-<div *ngIf="noRecordsFound">
-  <p class="text-danger lead">No records match your search conditions. Please, try again.</p>
 </div>

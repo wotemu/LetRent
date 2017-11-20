@@ -1,9 +1,8 @@
-import { Account } from './account';
-
 export class Message {
   id: number;
   chatId: number;
-  fromUser: Account;
+  fromUserId: number;
   messageBody: string;
+  isRead: boolean;
   createdAt: Date;
 }

@@ -10,3 +10,9 @@ class Message(models.Model):
     message_body = models.TextField()
     is_read = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
+
+
+def create_message(chat_id, from_user_id, message_body, is_read=False):
+    message = Message(chat_id=chat_id, from_user_id=from_user_id, message_body=message_body, is_read=is_read)
+    message.save()
+    return message

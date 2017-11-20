@@ -3,3 +3,4 @@ from .property_image_serializer import PropertyImageSerializer
 from .property_category_serializer import build_nested_category_tree
 from .property_serializer import PropertySerializer, PropertyDetailSerializer
 from .chat_serializer import ChatSerializer
+from .message_serializer import MessageSerializer
