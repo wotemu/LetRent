@@ -24,7 +24,7 @@
     "@angular/platform-browser-dynamic": "^4.4.4",
     "@angular/router": "^4.4.4",
     "@ng-bootstrap/ng-bootstrap": "^1.0.0-beta.5",
-    "angular-confirmation-popover": "^3.2.0",
+    "angular-confirmation-popover": "3.2.0",
     "angular-pipes": "^6.5.3",
     "angular2-jwt": "0.2.3",
     "bootstrap": "^3.3.7",

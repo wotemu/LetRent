@@ -75,3 +75,28 @@
 #property .tabs {
     margin: 25px 0;
 }
+
+h4 {
+    margin-bottom: 10px;
+}
+
+/* Question block */
+#question-block > .form input {
+    height: 33px;
+}
+
+#question-block #suggestions a {
+    font-size: 12px;
+    border-bottom: 1px dotted #748b81;
+    margin-right: 10px;
+    cursor: pointer;
+}
+
+#question-block #suggestions a:hover {
+    text-decoration: none;
+    border-bottom: 1px solid #748b81;
+}
+
+a.go-to-chat {
+    cursor: pointer;
+}

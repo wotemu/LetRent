@@ -8,10 +8,14 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework_jwt.settings import api_settings
 from rest_framework_jwt.authentication import JSONWebTokenAuthentication
+from rest_framework.exceptions import NotAcceptable
+from django.db.models import Q
 
-from ..models import Account, Property, PropertyCategory
+from ..models import Account, Property, PropertyCategory, Chat, Message, create_message
 from ..serializers import PropertySerializer, AccountSerializer, PropertyDetailSerializer, PropertyModificationSerializer, \
+    ChatSerializer, MessageSerializer, \
     build_nested_category_tree
+
 
 class RegisterUser(CreateAPIView):
     """
@@ -73,6 +77,7 @@ class PropertyModification(APIView):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+
 class ControlPropertyView(APIView):
     """
     Edit and delete a property.
@@ -88,7 +93,7 @@ class ControlPropertyView(APIView):
         for key, value in request.data.items():
             if value is not None:
                 update_dict[key] = value
-                
+
         serializer = PropertyDetailSerializer(property, data=update_dict, partial=True)
         if serializer.is_valid():
             serializer.save()
@@ -96,9 +101,10 @@ class ControlPropertyView(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     def delete(self, request, pk, format=None):
-        property = Property.objects.deletable_property(pk)
-        property.delete()
+        _property = Property.objects.deletable_property(pk)
+        _property.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+
 
 class PropertyList(generics.ListAPIView):
     """
@@ -149,10 +155,23 @@ class PropertyDetail(generics.RetrieveAPIView):
     serializer_class = PropertyDetailSerializer
     lookup_field = 'slug'
     permission_classes = []
-    authentication_classes = []
+    authentication_classes = (JSONWebTokenAuthentication,)
 
     def get_queryset(self):
         return Property.objects.all_with_images()
+
+    def retrieve(self, request, *args, **kwargs):
+        instance = self.get_object()
+        serializer = self.get_serializer(instance)
+        serialized_data = serializer.data
+
+        # Include related chat info
+        user_id = request.user.id
+        if user_id:
+            chat = Chat.objects.filter((Q(from_user_id=user_id) & Q(property_id=instance.id))).first()
+            if chat:
+                serialized_data['chat'] = ChatSerializer(chat).data
+        return Response(serialized_data)
 
 
 class PropertyCategoryView(APIView):
@@ -165,3 +184,84 @@ class PropertyCategoryView(APIView):
         root_nodes = cache_tree_children(results)
         category_tree = build_nested_category_tree(root_nodes)
         return Response(category_tree)
+
+
+class ChatsListHandler(APIView):
+    permission_classes = (IsAuthenticated,)
+
+    def get(self, request, **kwargs):
+        user_id = request.user.id
+        query_set = Chat.objects.filter((Q(from_user_id=user_id) | Q(to_user_id=user_id))).order_by('created_at')
+        data = ChatSerializer(query_set, many=True).data
+        return Response(data)
+
+
+class ChatMessagesHandler(APIView):
+    permission_classes = (IsAuthenticated,)
+
+    def get(self, request, chat_id):
+        user_id = request.user.id
+
+        query_set = Message.objects \
+            .filter((Q(chat__from_user_id=user_id) | Q(chat__to_user_id=user_id)) & Q(chat_id=chat_id)) \
+            .order_by('created_at')
+        data = MessageSerializer(query_set, many=True).data
+
+        # Mark messages as "Read"
+        try:
+            m = Message.objects.get(Q(chat_id=chat_id) & ~Q(from_user_id=user_id))
+            m.is_read = True
+            m.save()
+        except Message.DoesNotExist:
+            pass
+
+        return Response(data)
+
+
+class AddMessageToChatHandler(generics.ListCreateAPIView):
+    model = Message
+    serializer_class = MessageSerializer
+    permission_classes = (IsAuthenticated,)
+
+    def create(self, request, *args, **kwargs):
+        chat_id = int(kwargs.get('chat_id'))
+        user_id = request.user.id
+        message_body = request.data['message']
+
+        related_chat = Chat.objects.filter((Q(from_user_id=user_id) | Q(to_user_id=user_id)) & Q(id=chat_id))[:1]
+        if related_chat.count() == 0:
+            raise NotAcceptable('You try to post message in non-related group')
+
+        message = create_message(chat_id, user_id, message_body)
+
+        serializer = MessageSerializer(message)
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+
+class CreateChatHandler(generics.ListCreateAPIView):
+    model = Chat
+    serializer_class = ChatSerializer
+    permission_classes = (IsAuthenticated,)
+
+    def create(self, request, *args, **kwargs):
+        user_id = request.user.id
+        property_id = request.data['property_id']
+        message = request.data['message'] if 'message' in request.data else None
+
+        # Check if the chat is not created
+        existing_chat = Chat.objects.filter((Q(from_user_id=user_id) & Q(property_id=property_id)))
+        if existing_chat.count() > 0:
+            raise NotAcceptable('Chat already exists. Please, go to Chats')
+
+        _property = Property.objects.get(id=property_id)
+        if not _property:
+            raise NotAcceptable('Property does not exist')
+
+        chat = Chat(property=_property, from_user_id=user_id, to_user_id=_property.owner_id)
+        chat.save()
+
+        if message:
+            create_message(chat.id, user_id, request.data['message'])
+
+        serializer = ChatSerializer(chat)
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
