@@ -58,3 +58,7 @@
 .properties .property .details .view {
     float: right;
 }
+
+.orderByfilter {
+    margin-top: 20px;
+}

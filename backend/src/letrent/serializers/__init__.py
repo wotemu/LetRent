@@ -1,4 +1,4 @@
 from .account_serializer import AccountSerializer
 from .property_image_serializer import PropertyImageSerializer
 from .property_category_serializer import build_nested_category_tree
-from .property_serializer import PropertySerializer, PropertyDetailSerializer
+from .property_serializer import PropertySerializer, PropertyDetailSerializer, PropertyModificationSerializer

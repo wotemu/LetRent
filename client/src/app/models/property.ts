@@ -11,7 +11,8 @@ export class Property {
   active: boolean;
   dailyPrice: number;
   weeklyPrice: number;
-  primaryImage: PropertyImage;
-  additionalImages: PropertyImage[];
-  createdAt: Date;
+  category: number;
+  //primaryImage: PropertyImage;
+  //additionalImages: PropertyImage[];
+  //createdAt: Date;
 }

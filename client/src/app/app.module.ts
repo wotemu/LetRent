@@ -44,6 +44,10 @@ import { ProfileComponent } from './components/profile/profile.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ClickOutsideModule } from 'ng-click-outside';
 import { AuthModule } from './security/auth.module';
+import { PropertyComponent } from './components/property/property.component';
+import { ProfilePropertiesComponent } from './components/profile-properties/profile-properties.component';
+import {ConfirmationPopoverModule} from 'angular-confirmation-popover';
+import { PropertyEditComponent } from './components/property-edit/property-edit.component';
 
 @NgModule({
   declarations: [
@@ -66,6 +70,9 @@ import { AuthModule } from './security/auth.module';
     PropertyPricePipe,
     FullnamePipe,
     ProfileComponent,
+    PropertyComponent,
+    ProfilePropertiesComponent,
+    PropertyEditComponent,
   ],
   imports: [
     BsDropdownModule.forRoot(),
@@ -76,7 +83,12 @@ import { AuthModule } from './security/auth.module';
     PopoverModule.forRoot(),
     PaginationModule.forRoot(),
     AgmCoreModule.forRoot({
-      apiKey: environment.googleMapApiKey
+      apiKey: environment.googleMapApiKey,
+      language: environment.googleMapLanguage,
+      libraries: [environment.googleMabLibName]
+    }),
+    ConfirmationPopoverModule.forRoot({
+      confirmButtonType: 'danger'
     }),
     AuthModule,
     NgbModule.forRoot(),
