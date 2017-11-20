@@ -47,6 +47,7 @@ import { AuthModule } from './security/auth.module';
 import { PropertyComponent } from './components/property/property.component';
 import { ProfilePropertiesComponent } from './components/profile-properties/profile-properties.component';
 import {ConfirmationPopoverModule} from 'angular-confirmation-popover';
+import { PropertyEditComponent } from './components/property-edit/property-edit.component';
 
 @NgModule({
   declarations: [
@@ -71,6 +72,7 @@ import {ConfirmationPopoverModule} from 'angular-confirmation-popover';
     ProfileComponent,
     PropertyComponent,
     ProfilePropertiesComponent,
+    PropertyEditComponent,
   ],
   imports: [
     BsDropdownModule.forRoot(),

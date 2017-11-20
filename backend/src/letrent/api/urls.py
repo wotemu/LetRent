@@ -1,7 +1,7 @@
 from django.conf.urls import url
 from rest_framework_jwt.views import obtain_jwt_token, refresh_jwt_token, verify_jwt_token
 
-from .views import RegisterUser, AddProperty, PropertyList, PropertyDetail, PropertyCategoryView, UserUpdateProfile, ProfilePropertyList, ControlPropertyView
+from .views import RegisterUser, PropertyModification, PropertyList, PropertyDetail, PropertyCategoryView, UserUpdateProfile, ProfilePropertyList, ControlPropertyView
 
 urlpatterns = [
     # Login Register
@@ -17,7 +17,7 @@ urlpatterns = [
     # Properties
     url(r'property-categories/$', PropertyCategoryView.as_view()),
     url(r'properties/$', PropertyList.as_view()),
-    url(r'add-property/$', AddProperty.as_view()),
-    url(r'add-property/(?P<pk>[0-9]+)/$', ControlPropertyView   .as_view()),
+    url(r'property-modification/$', PropertyModification.as_view()),
+    url(r'property-modification/(?P<pk>[0-9]+)/$', ControlPropertyView   .as_view()),
     url(r'properties/(?P<slug>[\w-]+)/$', PropertyDetail.as_view()),
 ]

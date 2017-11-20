@@ -1,10 +1,10 @@
 <form #searchForm='ngForm' class="navbar-form navbar-left" (ngSubmit)='submitSearch($event, searchForm)'>
   <!-- Not in use! -->
   <input type='hidden' name='location' [(ngModel)]='searchLocation' />
-  <div class="form-group">
-    <input type="text" placeholder="Search" name='q' [(ngModel)]='searchQuery' (change)='searchQueryChange()'>
+  <div class="inner-addon left-addon">
+    <i class="fa fa-search" aria-hidden="true"></i>
+    <input class="searchInput" type="text" placeholder="Search" name='q' [(ngModel)]='searchQuery' (change)='searchQueryChange()'>    
   </div>
 </form>
-
 
 

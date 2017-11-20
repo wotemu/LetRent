@@ -1,14 +1,15 @@
 import { ElementRef, NgZone, Component, OnInit, ViewChild } from '@angular/core';
+import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms'
 import { Router } from '@angular/router';
 import { AuthService } from '../../security/auth.service';
 import { NotificationService } from '../../services/notification.service';
 import { PropertyCategoryService } from '../../services/property-category.service';
 import { PropertyService } from '../../services/property.service';
 import { PropertyCategory } from '../../models/property-category';
-import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms'
 import { } from 'googlemaps';
 import { MapsAPILoader } from '@agm/core';
 import { Property } from '../../models/property';
+import { ActivatedRoute } from '@angular/router';
 
 function priceConfirming(c: AbstractControl): any {
   if (!c.parent || !c) return;
@@ -23,12 +24,13 @@ function priceConfirming(c: AbstractControl): any {
 }
 
 @Component({
-  selector: 'app-property',
-  templateUrl: './property.component.html',
-  styleUrls: ['./property.component.css']
+  selector: 'app-property-edit',
+  templateUrl: './property-edit.component.html',
+  styleUrls: ['./property-edit.component.css']
 })
-export class PropertyComponent implements OnInit {
-
+export class PropertyEditComponent implements OnInit {
+  name: string;
+  description: string;
   address: string;
   latitude: number;
   longitude: number;
@@ -36,13 +38,16 @@ export class PropertyComponent implements OnInit {
   weeklyPrice: number;
   zoom: number;
   form: FormGroup;
+  slug: string;
 
-  @ViewChild("search")
+  @ViewChild("searchLoc")
   searchElementRef: ElementRef;
   propertyCategories: PropertyCategory[];
   property: Property;
 
-  constructor(private router: Router,
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router,
     public auth: AuthService,
     private propertyService: PropertyService,
     private propertyCategoryService: PropertyCategoryService,
@@ -57,19 +62,19 @@ export class PropertyComponent implements OnInit {
   }
 
   ngOnInit() {
+    // Fetch property details
+    this.getPropertyDetails();
+  
     //load categories
     this.loadCategories();
-
-    //set google maps defaults, default location is Helsinki
-    this.zoom = 11;
-    this.latitude = 60.192059;
-    this.longitude = 24.945831;
-
-    //create search FormControl
 
     //set current position
     this.setCurrentPosition();
 
+    // After the view is initialized, this.userProfile will be available
+    this.zoom = 11;
+
+    if(this.property) {
     //load Places Autocomplete
     this.mapsAPILoader.load().then(() => {
       let autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement, {
@@ -95,27 +100,45 @@ export class PropertyComponent implements OnInit {
         });
       });
     });
-
+  }
     //create the form
     this.form = this.formBuilder.group({
-      name: [null, [Validators.required, Validators.minLength(4)]],
+      name: [this.name, [Validators.required, Validators.minLength(4)]],
       dailyPrice: [this.dailyPrice, [Validators.required, priceConfirming]],
       weeklyPrice: [this.weeklyPrice, [Validators.required, priceConfirming]],
       address: [this.address, [Validators.required]],
       category: [null, [Validators.required]],
-      description: [null, [Validators.required, Validators.minLength(5)]],
+      description: [this.description, [Validators.required, Validators.minLength(5)]],
       locationLatitude: [this.latitude],
       locationLongitude: [this.longitude]
     });
   }
 
-  addProperty(property) {
+  getPropertyDetails() {
+    this.slug = this.route.snapshot.params['slug'];
+
+    this.propertyService.getProperty(this.slug)
+      .then((data) => {
+        this.property = data as Property;
+        this.latitude = this.property.locationLatitude;
+        this.longitude = this.property.locationLongitude;
+        this.address = this.property.address;
+        this.name = this.property.name;
+        this.description = this.property.description;
+        this.dailyPrice = this.property.dailyPrice;
+        this.weeklyPrice = this.property.weeklyPrice;
+      })
+      .catch((e) => this.notification.errorResp(e));
+  }
+
+  editProperty(property, id) {
     const propertyObject = property as Property;
-    this.propertyService.addProperty(propertyObject).then(() => {
-      this.notification.success("Property has added successfully!");
+    console.log(property);
+    this.propertyService.editProperty(propertyObject, id).then(() => {
+      this.notification.success("Property has updated successfully!");
       this.router.navigate(['/']);
     }).catch((err) => {
-      this.notification.error('Adding the property failed!');
+      this.notification.error('Updating the property failed!');
       this.notification.error(err);
     });
   }
@@ -137,5 +160,4 @@ export class PropertyComponent implements OnInit {
       });
     }
   }
-
 }

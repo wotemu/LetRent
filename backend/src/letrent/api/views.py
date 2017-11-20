@@ -56,7 +56,7 @@ class UserUpdateProfile(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-class AddProperty(APIView):
+class PropertyModification(APIView):
     """
     Add and delete a property.
     """
@@ -80,6 +80,20 @@ class ControlPropertyView(APIView):
     serializer_class = PropertyDetailSerializer
     permission_classes = (IsAuthenticated,)
     authentication_classes = (JSONWebTokenAuthentication,)
+
+    def put(self, request, pk, format=None):
+        property = Property.objects.deletable_property(pk)
+        update_dict = {}
+
+        for key, value in request.data.items():
+            if value is not None:
+                update_dict[key] = value
+                
+        serializer = PropertyDetailSerializer(property, data=update_dict, partial=True)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(status=status.HTTP_204_NO_CONTENT)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     def delete(self, request, pk, format=None):
         property = Property.objects.deletable_property(pk)

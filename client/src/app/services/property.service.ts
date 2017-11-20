@@ -5,7 +5,7 @@ import { Helper } from '../utils/helper';
 import { AuthHttp } from 'angular2-jwt';
 
 const endpoint = '/api/properties/';
-const endpointAddProperty = '/api/add-property/';
+const endpointAddProperty = '/api/property-modification/';
 const endpointProfileProperty = '/api/profile-properties/';
 
 @Injectable()
@@ -51,6 +51,21 @@ export class PropertyService {
   addProperty(property) {
     return new Promise((resolve, reject) => {
       this.authHttp.post(endpointAddProperty, property)
+        .map((res) => res.json())
+        .subscribe(
+        (data) => {
+          resolve();
+        },
+        (error) => {
+          reject(error);
+        }
+        );
+    });
+  }
+
+  editProperty(property, id) {
+    return new Promise((resolve, reject) => {
+      this.authHttp.put(endpointAddProperty + id + '/', property)
         .map((res) => res.json())
         .subscribe(
         (data) => {
