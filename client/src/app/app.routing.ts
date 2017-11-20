@@ -8,6 +8,7 @@ import { PropertyListComponent } from './components/property-list/property-list.
 import { PropertyDetailComponent } from './components/property-detail/property-detail.component';
 import { BoxedLayoutComponent } from './layouts/boxed/boxed.component';
 import { BoxedWithSidebarLayoutComponent } from './layouts/boxed-with-sidebar/boxed-with-sidebar.component';
+import { ChatsComponent } from './components/chats/chats.component';
 
 const appRoutes: Routes = [
   // Routes with "boxed + sidebar" layout
@@ -19,8 +20,10 @@ const appRoutes: Routes = [
 
   // Routes with "boxed" layout
   {path: '', component: BoxedLayoutComponent, children: [
-    {path: 'search', component: SearchDetailComponent },
-    {path: 'profile', component: ProfileComponent }
+    {path: 'chats/:chatId', component: ChatsComponent},
+    {path: 'chats', component: ChatsComponent},
+    {path: 'search', component: SearchDetailComponent},
+    {path: 'profile', component: ProfileComponent}
   ]},
 
   // Routes with no layout

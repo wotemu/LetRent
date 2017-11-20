@@ -9,11 +9,9 @@ from rest_framework.views import APIView
 from rest_framework_jwt.settings import api_settings
 from rest_framework_jwt.authentication import JSONWebTokenAuthentication
 
-
-from ..models import Account, Property, PropertyCategory
-from ..serializers import PropertySerializer, AccountSerializer, PropertyDetailSerializer, \
+from ..models import Account, Property, PropertyCategory, Chat
+from ..serializers import PropertySerializer, AccountSerializer, PropertyDetailSerializer, ChatSerializer, \
     build_nested_category_tree
-
 
 
 class UserUpdateProfile(APIView):
@@ -96,3 +94,34 @@ class PropertyCategoryView(APIView):
         root_nodes = cache_tree_children(results)
         category_tree = build_nested_category_tree(root_nodes)
         return Response(category_tree)
+
+
+class ChatsHandler(APIView):
+    # permission_classes = []
+    # authentication_classes = []
+    permission_classes = (IsAuthenticated,)
+    # permission_classes = ()
+
+    def get(self, request, **kwargs):
+        # from rest_framework_jwt.authentication import JSONWebTokenAuthentication
+        # user = JSONWebTokenAuthentication().authenticate(request)
+
+        print(request.user)
+        # get_param = lambda key: self.request.GET.get(key)
+
+        # order_by = get_param('order_by')
+        # price_from = int(get_param('priceFrom')) if get_param('priceFrom') else None
+        # price_to = int(get_param('priceTo')) if get_param('priceTo') else None
+        # query = self.request.GET.get("q")
+        # category_ids = get_param('categoryIds')
+        # category_ids = category_ids.split(',') if category_ids else []
+
+        from django.db.models import Q
+        user_id = request.user.id
+        print(user_id)
+        query_set = Chat.objects \
+            .filter((Q(from_user_id=user_id) | Q(to_user_id=user_id))) \
+            .order_by('-created_at')
+
+        data = ChatSerializer(query_set, many=True).data
+        return Response(data)

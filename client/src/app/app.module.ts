@@ -44,6 +44,9 @@ import { ProfileComponent } from './components/profile/profile.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ClickOutsideModule } from 'ng-click-outside';
 import { AuthModule } from './security/auth.module';
+import { ChatsComponent } from './components/chats/chats.component';
+import { ChatService } from './services/chat.service';
+import { StarsDirective } from './components/stars/stars.directive';
 
 @NgModule({
   declarations: [
@@ -66,6 +69,8 @@ import { AuthModule } from './security/auth.module';
     PropertyPricePipe,
     FullnamePipe,
     ProfileComponent,
+    ChatsComponent,
+    StarsDirective,
   ],
   imports: [
     BsDropdownModule.forRoot(),
@@ -92,6 +97,7 @@ import { AuthModule } from './security/auth.module';
   providers: [
     AuthService,
     NotificationService,
+    ChatService,
     PropertyService,
     PropertyCategoryService,
     AccountService,

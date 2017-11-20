@@ -13,6 +13,9 @@ import { Location } from '@angular/common';
 export class PropertyDetailComponent implements OnInit {
   property: Property;
   slug: string;
+  question = '';
+  showLinkToChat = false;
+  isOwner = false;
 
   constructor(private route: ActivatedRoute,
               private notification: NotificationService,
@@ -30,7 +33,17 @@ export class PropertyDetailComponent implements OnInit {
         .catch((e) => this.notification.errorResp(e));
   }
 
-  goBack() {
+  onContactRenter(event): void {
+    // TODO: Send msg
+    console.log(this.question);
+  }
+
+  goToChat(event): void {
+    // TODO: Redirect user to chat
+    event.stopPropagation();
+  }
+
+  goBack(): boolean {
     this.location.back();
     return false;
   }
