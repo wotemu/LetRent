@@ -68,6 +68,12 @@ class PropertyManager(models.Manager):
     def all_with_images(self):
         return self.get_queryset().active()
 
+    def all_user_properties(self,user):
+        return self.get_queryset().filter(owner=user, active=True)
+
+    def deletable_property(self, p_id):
+        return self.get_queryset().get(id=p_id)
+
     def search(self, query=None, category_ids=[], price_from=None, price_to=None, order_by=None):
         q = self.get_queryset().active()
         if query:
@@ -87,8 +93,8 @@ class Property(models.Model):
     name = models.CharField(max_length=150)
     description = models.CharField(max_length=1000)
     address = models.CharField(max_length=150, null=True)
-    location_lat = models.DecimalField(max_digits=9, decimal_places=6)
-    location_lon = models.DecimalField(max_digits=9, decimal_places=6)
+    location_lat = models.DecimalField(max_digits=20, decimal_places=16)
+    location_lon = models.DecimalField(max_digits=20, decimal_places=16)
     daily_price = models.DecimalField(max_digits=10, decimal_places=2, default=None, blank=True, null=True)
     weekly_price = models.DecimalField(max_digits=10, decimal_places=2, default=None, blank=True, null=True)
     slug = models.SlugField(unique=True, blank=True)

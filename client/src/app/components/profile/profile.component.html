@@ -1,99 +1,99 @@
 <div class="container" *ngIf="auth.loggedIn()">
   <div *ngIf="!updateStarted; else notificatonTemplate">
-    <h1>Edit Profile</h1><hr>
+    <h2>
+      <i class="fa fa-pencil" aria-hidden="true"></i> Edit Profile</h2>
+    <hr>
     <div class="row">
-        <!-- left column -->
-        <div class="col-md-3">
-          <div class="text-center">
-            <img src="//placehold.it/100" class="avatar img-circle" alt="avatar">
-            <h6>Upload a different photo...</h6>
-            <input type="file" class="form-control">
+      <div class="col-md-3">
+        <div class="text-center">
+          <img src="//placehold.it/100" class="avatar img-circle" alt="avatar">
+          <h6>Upload a different photo...</h6>
+          <input type="file" class="form-control">
+        </div>
+      </div>
+      <div class="col-md-9 personal-info">
+        <h3>Personal info</h3>
+        <form class="form-horizontal" role="form" (ngSubmit)="updateProfile(form.value)" [formGroup]="form">
+          <div class="form-group">
+            <label class="col-lg-3 control-label">First name:</label>
+            <div class="col-lg-8">
+              <input class="form-control" type="text" formControlName="firstname">
+              <div class="alert alert-danger" *ngIf="form.get('firstname').hasError('required') && form.get('firstname').touched">
+                First name is required.
+              </div>
+              <div class="alert alert-danger" *ngIf="form.get('firstname').hasError('minlength') && form.get('firstname').touched">
+                First name must be at least 2 characters.
+              </div>
+            </div>
           </div>
-        </div>
-        
-        <!-- edit form column -->
-        <div class="col-md-9 personal-info">
-          <h3>Personal info</h3>  
-          <form class="form-horizontal" role="form" (ngSubmit)="updateProfile(form.value)" [formGroup]="form">
-            <div class="form-group">
-              <label class="col-lg-3 control-label">First name:</label>
-              <div class="col-lg-8">
-                <input class="form-control" type="text" formControlName="firstname">
-                <div class="alert alert-danger" *ngIf="form.get('firstname').hasError('required') && form.get('firstname').touched">
-                  First name is required.
-                </div>
-                <div class="alert alert-danger" *ngIf="form.get('firstname').hasError('minlength') && form.get('firstname').touched">
-                  First name must be at least 2 characters.
-                </div>
+          <div class="form-group">
+            <label class="col-lg-3 control-label">Last name:</label>
+            <div class="col-lg-8">
+              <input class="form-control" type="text" formControlName="lastname">
+              <div class="alert alert-danger" *ngIf="form.get('lastname').hasError('required') && form.get('lastname').touched">
+                Last name is required.
+              </div>
+              <div class="alert alert-danger" *ngIf="form.get('lastname').hasError('minlength') && form.get('lastname').touched">
+                Last name must be at least 2 characters.
               </div>
             </div>
-            <div class="form-group">
-              <label class="col-lg-3 control-label">Last name:</label>
-              <div class="col-lg-8">
-                <input class="form-control" type="text" formControlName="lastname">
-                <div class="alert alert-danger" *ngIf="form.get('lastname').hasError('required') && form.get('lastname').touched">
-                  Last name is required.
-                </div>
-                <div class="alert alert-danger" *ngIf="form.get('lastname').hasError('minlength') && form.get('lastname').touched">
-                  Last name must be at least 2 characters.
-                </div>
+          </div>
+          <div class="form-group">
+            <label class="col-lg-3 control-label">Email:</label>
+            <div class="col-lg-8">
+              <input class="form-control" type="text" formControlName="email">
+              <div class="alert alert-danger" *ngIf="form.hasError('email', 'email') && form.get('email').touched">
+                Email is required and must be valid.
               </div>
             </div>
-            <div class="form-group">
-              <label class="col-lg-3 control-label">Email:</label>
-              <div class="col-lg-8">
-                <input class="form-control" type="text" formControlName="email">
-                <div class="alert alert-danger" *ngIf="form.hasError('email', 'email') && form.get('email').touched">
-                  Email is required and must be valid.
-                </div>
+          </div>
+          <div class="form-group">
+            <label class="col-md-3 control-label">Password:</label>
+            <div class="col-md-8">
+              <input class="form-control" type="password" formControlName="password">
+              <div class="alert alert-danger" *ngIf="form.get('password').hasError('required') && form.get('password').touched">
+                Password is required.
+              </div>
+              <div class="alert alert-danger" *ngIf="form.get('password').hasError('minlength') && form.get('password').touched">
+                Password must be at least 4 characters.
               </div>
             </div>
-            <div class="form-group">
-              <label class="col-md-3 control-label">Password:</label>
-              <div class="col-md-8">
-                <input class="form-control" type="password" formControlName="password">
-                <div class="alert alert-danger" *ngIf="form.get('password').hasError('required') && form.get('password').touched">
-                  Password is required.
-                </div>
-                <div class="alert alert-danger" *ngIf="form.get('password').hasError('minlength') && form.get('password').touched">
-                  Password must be at least 4 characters.
-                </div>
+          </div>
+          <div class="form-group">
+            <label class="col-md-3 control-label">Confirm password:</label>
+            <div class="col-md-8">
+              <input class="form-control" type="password" formControlName="confirm_password">
+              <div class="alert alert-danger" *ngIf="form.get('confirm_password').hasError('invalid') && form.get('confirm_password').touched">
+                Passwords must match.
               </div>
             </div>
-            <div class="form-group">
-              <label class="col-md-3 control-label">Confirm password:</label>
-              <div class="col-md-8">
-                <input class="form-control" type="password" formControlName="confirm_password">
-                <div class="alert alert-danger" *ngIf="form.get('confirm_password').hasError('invalid') && form.get('confirm_password').touched">
-                  Passwords must match.
-                </div>
-              </div>
+          </div>
+          <div class="form-group">
+            <label class="col-md-3 control-label"></label>
+            <div class="col-md-8">
+              <button type="submit" class="btn btn-primary" [disabled]="!form.valid">Save Changes</button>
             </div>
-            <div class="form-group">
-              <label class="col-md-3 control-label"></label>
-              <div class="col-md-8">
-                <button type="submit" class="btn btn-primary" [disabled]="!form.valid">Save Changes</button>
-              </div>
-            </div>
-          </form>
-        </div>
+          </div>
+        </form>
+      </div>
     </div>
   </div>
   <ng-template #notificatonTemplate>
     <div *ngIf="updateSucceed; then editingSucceed else editingFailed"></div>
-    <ng-template #editingSucceed>          
+    <ng-template #editingSucceed>
       <div class="editingSucceed">
-          <i class="fa fa-check-circle fa-5x" aria-hidden="true"></i> 
-          <p>Profile updated succesfully!</p>
-          <p>Redirecting to your home page...</p>
+        <i class="fa fa-check-circle fa-5x" aria-hidden="true"></i>
+        <p>Profile updated succesfully!</p>
+        <p>Redirecting to your home page...</p>
       </div>
     </ng-template>
-    <ng-template #editingFailed>          
-        <div class="editingFailed">
-            <i class="fa fa-times-circle fa-5x" aria-hidden="true"></i> 
-            <p>Account with this email already exists.</p>
-            <p>Please go back and try again using <a (click)="goBack()">this</a> link!</p>
-        </div>
+    <ng-template #editingFailed>
+      <div class="editingFailed">
+        <i class="fa fa-times-circle fa-5x" aria-hidden="true"></i>
+        <p>Account with this email already exists.</p>
+        <p>Please go back and try again using
+          <a (click)="goBack()">this</a> link!</p>
+      </div>
     </ng-template>
   </ng-template>
 </div>

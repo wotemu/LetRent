@@ -5,5 +5,7 @@
 
 export const environment = {
   production: false,
-  googleMapApiKey: 'AIzaSyAIJ3NGxrTQarzn3XpYD0A3cEo7TVxmiAA'
+  googleMapApiKey: 'AIzaSyAIJ3NGxrTQarzn3XpYD0A3cEo7TVxmiAA',
+  googleMabLibName: 'places',
+  googleMapLanguage: 'fi'
 };

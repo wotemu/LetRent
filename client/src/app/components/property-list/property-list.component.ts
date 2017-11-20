@@ -28,9 +28,9 @@ export class PropertyListComponent implements OnInit, OnDestroy {
   private previousPriceTo: number;
 
   constructor(private route: ActivatedRoute,
-              private router: Router,
-              private propertyService: PropertyService,
-              private notification: NotificationService) {
+    private router: Router,
+    private propertyService: PropertyService,
+    private notification: NotificationService) {
   }
 
   ngOnInit() {
@@ -61,12 +61,12 @@ export class PropertyListComponent implements OnInit, OnDestroy {
 
   private reloadProperties(filterParams = {}) {
     this.propertyService.getProperties(filterParams)
-        .then((data) => {
-          this.properties = data.results as Property[];
-          this.noRecordsFound = !(data.results.length > 0);
-          this.totalItems = data.count;
-        })
-        .catch((e) => this.notification.errorResp(e));
+      .then((data) => {
+        this.properties = data.results as Property[];
+        this.noRecordsFound = !(data.results.length > 0);
+        this.totalItems = data.count;
+      })
+      .catch((e) => this.notification.errorResp(e));
   }
 
   onPriceFilterFinish(event) {
@@ -91,7 +91,7 @@ export class PropertyListComponent implements OnInit, OnDestroy {
       delete filterParams['page'];
       this.currentPage = 1;
 
-      this.router.navigate(['/properties'], {queryParams: filterParams});
+      this.router.navigate(['/properties'], { queryParams: filterParams });
     }
     console.log('Price filter was changed');
   }
@@ -102,7 +102,7 @@ export class PropertyListComponent implements OnInit, OnDestroy {
     if (params['categoryIds']) {
       routeParams.categoryIds = params['categoryIds'];
     }
-    this.router.navigate(['/properties'], {queryParams: routeParams});
+    this.router.navigate(['/properties'], { queryParams: routeParams });
     return false;
   }
 
@@ -110,9 +110,9 @@ export class PropertyListComponent implements OnInit, OnDestroy {
     if (event.page === 1) {
       const params = this.getCurrentFilterParams();
       delete params['page'];
-      return this.router.navigate(['/properties'], {queryParams: params});
+      return this.router.navigate(['/properties'], { queryParams: params });
     }
-    this.router.navigate(['/properties'], {queryParams: {page: event.page}, queryParamsHandling: 'merge'});
+    this.router.navigate(['/properties'], { queryParams: { page: event.page }, queryParamsHandling: 'merge' });
   }
 
   getCurrentFilterParams() {
