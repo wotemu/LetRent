@@ -43,25 +43,52 @@
 
         <hr>
         <div class="owner-info">
-          <b>Owner information:</b><br>
+          <h4>Owner information:</h4>
+          <!--<b>Owner information:</b><br>-->
           {{ property.owner | fullname }}<br>
           <div class="rating">
-            <div class="stars">
-              <span class="fa fa-star checked"></span>
-              <span class="fa fa-star checked"></span>
-              <span class="fa fa-star checked"></span>
-              <span class="fa fa-star"></span>
-              <span class="fa fa-star"></span>
-            </div>
-            <span class="review-no">5 reviews</span>
+            <app-stars [rating]="'4'" class="stars"></app-stars>
+            (<span class="review-no">5 reviews</span>)
           </div>
         </div>
 
-        <p class="vote"><strong>91%</strong> of renters enjoyed this product! <strong>(87 votes)</strong></p>
+        <ng-container *ngIf="!isOwner">
+          <hr>
+          <h4>Have a Question?</h4>
+          <div id="question-block" *ngIf="!showLinkToChat">
+            <div class="input-group form">
+              <input type="text" #questionInput class="form-control" placeholder="Type Your Question Here"
+                     (keyup.enter)="onContactRenter($event)"
+                     [disabled]="sending" [(ngModel)]="question">
+              <span class="input-group-btn">
+                <button class="btn btn-success" type="submit" [disabled]="sending" (click)="onContactRenter($event)">
+                  Contact Renter
+                </button>
+              </span>
+            </div>
+            <div id="suggestions">
+              <a (click)="onUpdateQuestion($event, 'Hi! Is it still available?')">Is it still available?</a>
+              <a (click)="onUpdateQuestion($event, 'Hi! Is the price negotiable?')">Is the price negotiable?</a>
+              <a (click)="onUpdateQuestion($event, 'Hi! Can I rent it today?')">Can I rent it today?</a>
+            </div>
+          </div>
+          <div *ngIf="showLinkToChat">
+            You can <u><b><a (click)="goToChat($event)" class="go-to-chat">ask questions directly in the chat</a></b></u>.
+            (You already contacted the Renter before)
+          </div>
+        </ng-container>
+
+        <hr>
+        <p class="vote">
+          <strong>91%</strong> of renters enjoyed this product! <strong>(87 votes)</strong> &nbsp;
+          <button class="btn btn-warning btn-xs">Rate!</button>
+        </p>
+
+        <!--<br>
         <div class="action">
           <button class="btn btn-primary">Contact</button>
           <button class="btn btn-warning" title="Add to favorite"><span class="fa fa-heart"></span></button>
-        </div>
+        </div>-->
       </div>
     </div>
 

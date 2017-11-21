@@ -44,10 +44,17 @@ import { ProfileComponent } from './components/profile/profile.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ClickOutsideModule } from 'ng-click-outside';
 import { AuthModule } from './security/auth.module';
+import { ChatsComponent } from './components/chats/chats.component';
+import { ChatService } from './services/chat.service';
+import { StarsDirective } from './components/stars/stars.directive';
+import { UserAvatarUrlPipe } from './utils/pipes/user-avatar-url.pipe';
+import { RelativeTimePipe } from './utils/pipes/relative-time.pipe';
+import { DatePipe } from '@angular/common';
 import { PropertyComponent } from './components/property/property.component';
 import { ProfilePropertiesComponent } from './components/profile-properties/profile-properties.component';
-import {ConfirmationPopoverModule} from 'angular-confirmation-popover';
+import { ConfirmationPopoverModule } from 'angular-confirmation-popover';
 import { PropertyEditComponent } from './components/property-edit/property-edit.component';
+import { AuthGuard } from './security/auth-guard.service';
 
 @NgModule({
   declarations: [
@@ -69,7 +76,11 @@ import { PropertyEditComponent } from './components/property-edit/property-edit.
     PropertyImageUrlPipe,
     PropertyPricePipe,
     FullnamePipe,
+    UserAvatarUrlPipe,
+    RelativeTimePipe,
     ProfileComponent,
+    ChatsComponent,
+    StarsDirective,
     PropertyComponent,
     ProfilePropertiesComponent,
     PropertyEditComponent,
@@ -102,13 +113,16 @@ import { PropertyEditComponent } from './components/property-edit/property-edit.
     ClickOutsideModule
   ],
   providers: [
+    AuthGuard,
     AuthService,
     NotificationService,
+    ChatService,
     PropertyService,
     PropertyCategoryService,
     AccountService,
     {provide: ToastsManager, useClass: ToastsSettingsManager},
     Helper,
+    DatePipe,
   ],
   bootstrap: [AppComponent]
 })

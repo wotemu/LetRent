@@ -64,6 +64,10 @@ export class AuthService {
     return localStorage.getItem('token');
   }
 
+  get userId() {
+    return this.decodeToken().user_id;
+  }
+
   decodeToken() {
     return this.jwtHelper.decodeToken(this.token);
   }
