@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChildren } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PropertyService } from '../../services/property.service';
 import { Property } from '../../models/property';
@@ -21,6 +21,8 @@ export class PropertyDetailComponent implements OnInit {
   showLinkToChat = false;
   isOwner = false;
   sending = false;
+
+  @ViewChildren('questionInput') questionInputVC;
 
   constructor(private route: ActivatedRoute,
               private auth: AuthService,
@@ -62,6 +64,14 @@ export class PropertyDetailComponent implements OnInit {
           this.router.navigate(['/chats', {chatId: this.chat.id}]);
         })
         .catch((e) => this.notification.errorResp(e));
+  }
+
+  onUpdateQuestion(event, newQuestion): void {
+    this.question = newQuestion;
+    event.stopPropagation();
+
+    // Put focus on elnt back
+    this.questionInputVC.first.nativeElement.focus();
   }
 
   goToChat(event): void {

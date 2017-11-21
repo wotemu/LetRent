@@ -23,8 +23,7 @@ export class PropertyService {
         .get(endpoint + slug + '/')
         .toPromise()
         .then((response: Response) => response.json() as Property)
-        // .catch(this.helper.handlePromiseError);
-    ;
+        .catch(this.helper.handlePromiseError);
   }
 
   getProperties(requestParams?: {}): Promise<any> {

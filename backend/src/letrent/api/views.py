@@ -12,7 +12,8 @@ from rest_framework.exceptions import NotAcceptable
 from django.db.models import Q
 
 from ..models import Account, Property, PropertyCategory, Chat, Message, create_message
-from ..serializers import PropertySerializer, AccountSerializer, PropertyDetailSerializer, PropertyModificationSerializer, \
+from ..serializers import AccountSerializer, \
+    PropertySerializer, PropertyDetailSerializer, PropertyModificationSerializer, \
     ChatSerializer, MessageSerializer, \
     build_nested_category_tree
 

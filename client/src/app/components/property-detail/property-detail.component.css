@@ -85,6 +85,9 @@ h4 {
     height: 33px;
 }
 
+#question-block #suggestions {
+    margin-top: 5px;
+}
 #question-block #suggestions a {
     font-size: 12px;
     border-bottom: 1px dotted #748b81;

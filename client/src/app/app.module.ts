@@ -52,8 +52,9 @@ import { RelativeTimePipe } from './utils/pipes/relative-time.pipe';
 import { DatePipe } from '@angular/common';
 import { PropertyComponent } from './components/property/property.component';
 import { ProfilePropertiesComponent } from './components/profile-properties/profile-properties.component';
-import {ConfirmationPopoverModule} from 'angular-confirmation-popover';
+import { ConfirmationPopoverModule } from 'angular-confirmation-popover';
 import { PropertyEditComponent } from './components/property-edit/property-edit.component';
+import { AuthGuard } from './security/auth-guard.service';
 
 @NgModule({
   declarations: [
@@ -112,6 +113,7 @@ import { PropertyEditComponent } from './components/property-edit/property-edit.
     ClickOutsideModule
   ],
   providers: [
+    AuthGuard,
     AuthService,
     NotificationService,
     ChatService,

@@ -34,7 +34,6 @@ export class ChatsComponent implements OnInit, OnDestroy, AfterViewInit {
               private chatService: ChatService,
               private router: Router,
               private notification: NotificationService) {
-    // TODO: If user is not logged in redirect to main page
   }
 
   ngOnInit() {
@@ -103,6 +102,8 @@ export class ChatsComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   onSendMessage(event) {
+    if (!this.message) return;
+
     this.sending = true;
     this.chatService.sendMessage(this.selectedChatId, this.message)
         .then((data) => {

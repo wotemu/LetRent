@@ -47,13 +47,7 @@
           <!--<b>Owner information:</b><br>-->
           {{ property.owner | fullname }}<br>
           <div class="rating">
-            <span class="stars">
-              <span class="fa fa-star checked"></span>
-              <span class="fa fa-star checked"></span>
-              <span class="fa fa-star checked"></span>
-              <span class="fa fa-star"></span>
-              <span class="fa fa-star"></span>
-            </span>
+            <app-stars [rating]="'4'" class="stars"></app-stars>
             (<span class="review-no">5 reviews</span>)
           </div>
         </div>
@@ -63,7 +57,8 @@
           <h4>Have a Question?</h4>
           <div id="question-block" *ngIf="!showLinkToChat">
             <div class="input-group form">
-              <input type="text" class="form-control" placeholder="Hi! Can I rent it today?"
+              <input type="text" #questionInput class="form-control" placeholder="Type Your Question Here"
+                     (keyup.enter)="onContactRenter($event)"
                      [disabled]="sending" [(ngModel)]="question">
               <span class="input-group-btn">
                 <button class="btn btn-success" type="submit" [disabled]="sending" (click)="onContactRenter($event)">
@@ -72,8 +67,9 @@
               </span>
             </div>
             <div id="suggestions">
-              <a (click)="question = 'Hi! Is it still available?'; $event.stopPropagation()">Is it still available?</a>
-              <a (click)="question = 'Hi! Is the price negotiable?'; $event.stopPropagation()">Is the price negotiable?</a>
+              <a (click)="onUpdateQuestion($event, 'Hi! Is it still available?')">Is it still available?</a>
+              <a (click)="onUpdateQuestion($event, 'Hi! Is the price negotiable?')">Is the price negotiable?</a>
+              <a (click)="onUpdateQuestion($event, 'Hi! Can I rent it today?')">Can I rent it today?</a>
             </div>
           </div>
           <div *ngIf="showLinkToChat">

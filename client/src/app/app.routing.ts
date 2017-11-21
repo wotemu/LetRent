@@ -12,6 +12,7 @@ import { PropertyDetailComponent } from './components/property-detail/property-d
 import { BoxedLayoutComponent } from './layouts/boxed/boxed.component';
 import { BoxedWithSidebarLayoutComponent } from './layouts/boxed-with-sidebar/boxed-with-sidebar.component';
 import { ChatsComponent } from './components/chats/chats.component';
+import { AuthGuard } from './security/auth-guard.service';
 
 const appRoutes: Routes = [
   // Routes with "boxed + sidebar" layout
@@ -27,8 +28,8 @@ const appRoutes: Routes = [
     {path: 'profile', component: ProfileComponent},
     {path: 'search', component: SearchDetailComponent },
 
-    {path: 'chats/:chatId', component: ChatsComponent},
-    {path: 'chats', component: ChatsComponent},
+    {path: 'chats/:chatId', component: ChatsComponent, canActivate: [AuthGuard]},
+    {path: 'chats', component: ChatsComponent, canActivate: [AuthGuard]},
 
     {path: 'profile', component: ProfileComponent },
     {path: 'property', component: PropertyComponent },
