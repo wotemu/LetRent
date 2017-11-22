@@ -11,10 +11,10 @@ from rest_framework_jwt.authentication import JSONWebTokenAuthentication
 from rest_framework.exceptions import NotAcceptable
 from django.db.models import Q
 
-from ..models import Account, Property, PropertyCategory, Chat, Message, create_message
+from ..models import Account, Property, PropertyCategory, Chat, Message, create_message, Comment
 from ..serializers import AccountSerializer, \
     PropertySerializer, PropertyDetailSerializer, PropertyModificationSerializer, \
-    ChatSerializer, MessageSerializer, \
+    ChatSerializer, MessageSerializer, CommentSerializer,\
     build_nested_category_tree
 
 
@@ -266,3 +266,37 @@ class CreateChatHandler(generics.ListCreateAPIView):
 
         serializer = ChatSerializer(chat)
         return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+
+class CreateCommentView(APIView):
+    """
+    Create a new comment.
+    """
+    serializer_class = CommentSerializer
+    permission_classes = (IsAuthenticated,)
+    authentication_classes = (JSONWebTokenAuthentication,)
+
+    def post(self, request, *args, **kwargs):
+
+        _property = Property.objects.get(id=request.data['property_id'])
+        message = request.data['message_body'] if 'message_body' in request.data else None
+
+        # Save the comment
+        if message:
+            comment = Comment(property = _property, owner = request.user, message_body = message)
+            comment.save()
+            return Response(status=status.HTTP_201_CREATED)
+        return Response(status=status.HTTP_400_BAD_REQUEST)
+
+class GetCommentView(APIView):
+    """
+    List all comments for a property.
+    """
+    serializer_class = CommentSerializer
+    permission_classes = (AllowAny,)
+
+    def post(self, request, *args, **kwargs):
+        _property = Property.objects.get(id=request.data['property_id'])
+        comments = Comment.objects.filter(property=_property)
+        serializer = CommentSerializer(comments, many=True)
+        return Response(serializer.data)

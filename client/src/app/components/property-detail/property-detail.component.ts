@@ -7,6 +7,7 @@ import { Location } from '@angular/common';
 import { ChatService } from '../../services/chat.service';
 import { Chat } from '../../models/chat';
 import { AuthService } from '../../security/auth.service';
+import { CommentService } from '../../services/comment.service';
 
 @Component({
   selector: 'app-video-detail',
@@ -17,6 +18,7 @@ export class PropertyDetailComponent implements OnInit {
   property: Property;
   slug: string;
   chat: Chat;
+  comments: Comment[];
   question = '';
   showLinkToChat = false;
   isOwner = false;
@@ -25,26 +27,28 @@ export class PropertyDetailComponent implements OnInit {
   @ViewChildren('questionInput') questionInputVC;
 
   constructor(private route: ActivatedRoute,
-              private auth: AuthService,
-              private notification: NotificationService,
-              private location: Location,
-              private router: Router,
-              private chatService: ChatService,
-              private propertyService: PropertyService) {
+    private auth: AuthService,
+    private notification: NotificationService,
+    private location: Location,
+    private router: Router,
+    private chatService: ChatService,
+    private propertyService: PropertyService,
+    private commentService: CommentService) {
   }
 
   ngOnInit() {
     this.slug = this.route.snapshot.params['slug'];
 
     this.propertyService.getProperty(this.slug)
-        .then((data) => {
-          this.property = data as Property;
-          if ('chat' in data) {
-            this.chat = data['chat'] as Chat;
-            this.showLinkToChat = true;
-          }
-        })
-        .catch((e) => this.notification.errorResp(e));
+      .then((data) => {
+        this.property = data as Property;
+        this.getComments(this.property.id);
+        if ('chat' in data) {
+          this.chat = data['chat'] as Chat;
+          this.showLinkToChat = true;
+        }
+      })
+      .catch((e) => this.notification.errorResp(e));
   }
 
   onContactRenter(event): void {
@@ -57,13 +61,12 @@ export class PropertyDetailComponent implements OnInit {
 
     this.sending = true;
     this.chatService.createChat(this.property.id, this.question)
-        .then((data) => {
-          this.sending = false;
-          this.chat = data as Chat;
-
-          this.router.navigate(['/chats', {chatId: this.chat.id}]);
-        })
-        .catch((e) => this.notification.errorResp(e));
+      .then((data) => {
+        this.sending = false;
+        this.chat = data as Chat;
+        this.router.navigate(['/chats', { chatId: this.chat.id }]);
+      })
+      .catch((e) => this.notification.errorResp(e));
   }
 
   onUpdateQuestion(event, newQuestion): void {
@@ -74,15 +77,34 @@ export class PropertyDetailComponent implements OnInit {
     this.questionInputVC.first.nativeElement.focus();
   }
 
+
+  addComment(propertyId: number, comment: string) {
+    this.commentService.createComment(propertyId, comment).then((data) => {
+      this.notification.success("Comment has been added sucesfully");
+      this.getComments(propertyId);
+    })
+      .catch((e) => this.notification.error(e));
+  }
+
   goToChat(event): void {
     event.stopPropagation();
     if (this.chat) {
-      this.router.navigate(['/chats', {chatId: this.chat.id}]);
+      this.router.navigate(['/chats', { chatId: this.chat.id }]);
     }
   }
 
   goBack(): boolean {
     this.location.back();
     return false;
+  }
+
+  private getComments(propertyId: number) {
+    this.commentService.getComments(propertyId)
+      .then((data) => {
+        this.comments = data as Comment[];
+        console.log("Tulokset");
+        console.log(this.comments);
+      })
+      .catch((e) => this.notification.errorResp(e));
   }
 }

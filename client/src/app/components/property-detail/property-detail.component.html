@@ -1,14 +1,14 @@
 <div *ngIf="property; else loading">
   <div id="heading">
     <div class="left">
-      <a href="#" (click)="goBack()" class="go-back pull-left"
-         popover="Go Back" placement="top" triggers="mouseenter:mouseleave">
+      <a href="#" (click)="goBack()" class="go-back pull-left" popover="Go Back" placement="top" triggers="mouseenter:mouseleave">
         <i class="fa fa-angle-double-left fa-2x"></i>
       </a>
     </div>
     <div class="right">
       <h2 class="title pull-left">{{ property.name }}</h2>
-      <div class="posted-date pull-right"><b>Posted on</b> {{ property.createdAt | date:'dd/MM/yyyy' }}</div>
+      <div class="posted-date pull-right">
+        <b>Posted on</b> {{ property.createdAt | date:'dd/MM/yyyy' }}</div>
     </div>
   </div>
   <div id="property">
@@ -21,7 +21,9 @@
             </slide>
             <slide *ngFor="let additionalImage of property.additionalImages">
               <img class="img-main-carousel" [src]="additionalImage.url">
-              <div class="carousel-caption"><h3>{{ additionalImage.name }}</h3></div>
+              <div class="carousel-caption">
+                <h3>{{ additionalImage.name }}</h3>
+              </div>
             </slide>
           </carousel>
         </div>
@@ -34,7 +36,8 @@
         <hr>
         <div class="location">
           <div class="address">
-            <i class="fa fa-map-marker"></i> <b>{{ property.address }}</b>
+            <i class="fa fa-map-marker"></i>
+            <b>{{ property.address }}</b>
           </div>
           <agm-map [latitude]="property.locationLatitude" [longitude]="property.locationLongitude" [zoom]="13">
             <agm-marker [latitude]="property.locationLatitude" [longitude]="property.locationLongitude"></agm-marker>
@@ -45,10 +48,12 @@
         <div class="owner-info">
           <h4>Owner information:</h4>
           <!--<b>Owner information:</b><br>-->
-          {{ property.owner | fullname }}<br>
+          {{ property.owner | fullname }}
+          <br>
           <div class="rating">
             <app-stars [rating]="'4'" class="stars"></app-stars>
-            (<span class="review-no">5 reviews</span>)
+            (
+            <span class="review-no">5 reviews</span>)
           </div>
         </div>
 
@@ -57,9 +62,8 @@
           <h4>Have a Question?</h4>
           <div id="question-block" *ngIf="!showLinkToChat">
             <div class="input-group form">
-              <input type="text" #questionInput class="form-control" placeholder="Type Your Question Here"
-                     (keyup.enter)="onContactRenter($event)"
-                     [disabled]="sending" [(ngModel)]="question">
+              <input type="text" #questionInput class="form-control" placeholder="Type Your Question Here" (keyup.enter)="onContactRenter($event)"
+                [disabled]="sending" [(ngModel)]="question">
               <span class="input-group-btn">
                 <button class="btn btn-success" type="submit" [disabled]="sending" (click)="onContactRenter($event)">
                   Contact Renter
@@ -73,14 +77,19 @@
             </div>
           </div>
           <div *ngIf="showLinkToChat">
-            You can <u><b><a (click)="goToChat($event)" class="go-to-chat">ask questions directly in the chat</a></b></u>.
-            (You already contacted the Renter before)
+            You can
+            <u>
+              <b>
+                <a (click)="goToChat($event)" class="go-to-chat">ask questions directly in the chat</a>
+              </b>
+            </u>. (You already contacted the Renter before)
           </div>
         </ng-container>
 
         <hr>
         <p class="vote">
-          <strong>91%</strong> of renters enjoyed this product! <strong>(87 votes)</strong> &nbsp;
+          <strong>91%</strong> of renters enjoyed this product!
+          <strong>(87 votes)</strong> &nbsp;
           <button class="btn btn-warning btn-xs">Rate!</button>
         </p>
 
@@ -91,7 +100,6 @@
         </div>-->
       </div>
     </div>
-
     <div class="row tabs">
       <div class="col-sm-12">
         <tabset #staticTabs>
@@ -100,8 +108,67 @@
         </tabset>
       </div>
     </div>
+    <hr>
+    <!-- Comments-->
+    <h4>User Comments</h4>
+    <br>
+    <div *ngIf="comments && comments.length > 0; else noCommentNotification">
+      <div *ngFor="let comment of comments">
+        <div class="commmentaPanel">
+          <div class="row">
+            <div class="col-sm-1">
+              <div class="thumbnail">
+                <img class="img-responsive user-photo" src="https://ssl.gstatic.com/accounts/ui/avatar_2x.png">
+              </div>
+            </div>
+            <div class="col-sm-11">
+              <div class="panel panel-default">
+                <div class="panel-heading">
+                  <strong> {{ comment.owner.firstname }}</strong>
+                  <span class="text-muted">{{ comment.createdAt | date }}</span>
+                </div>
+                <div class="panel-body">
+                  {{ comment.messageBody}}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <hr>
+    <!-- Comment Box -->
+    <h4>Leave a Reply</h4>
+    <div *ngIf="auth.loggedIn(); else logInNotification">
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="widget-area no-padding blank">
+            <div class="status-upload">
+              <form>
+                <textarea placeholder="What do you think about the property?" #commentTextArea></textarea>
+                <button type="submit" (click)="addComment(property.id, commentTextArea.value)" class="btn btn-success green">
+                  <i class="fa fa-share"></i> Comment</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
+
+<ng-template #noCommentNotification>
+  <br>
+  <p class="commentNotification">There are no comments for this property!</p>
+  <br>
+</ng-template>
+
+<ng-template #logInNotification>
+  <br>
+  <p class="commentNotification">Please login or register to post comments!</p>
+  <br>
+</ng-template>
+
 <ng-template #loading>
   <app-loader></app-loader>
 </ng-template>

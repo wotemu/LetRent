@@ -55,6 +55,8 @@ import { ProfilePropertiesComponent } from './components/profile-properties/prof
 import { ConfirmationPopoverModule } from 'angular-confirmation-popover';
 import { PropertyEditComponent } from './components/property-edit/property-edit.component';
 import { AuthGuard } from './security/auth-guard.service';
+import { CommentService } from './services/comment.service';
+
 
 @NgModule({
   declarations: [
@@ -117,6 +119,7 @@ import { AuthGuard } from './security/auth-guard.service';
     AuthService,
     NotificationService,
     ChatService,
+    CommentService,
     PropertyService,
     PropertyCategoryService,
     AccountService,
