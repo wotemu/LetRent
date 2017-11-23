@@ -10,7 +10,8 @@
             <div *ngIf="auth.loggedIn();then linksForLoggedInUser else linksForGuest"></div>
             <ng-template #linksForLoggedInUser>
             <ul class="nav navbar-nav navbar-right">
-                <li><span class="badge badge-important">2</span><a href="#"><i class="fa fa-bell-o fa-lg" aria-hidden="true"></i></a></li>
+                <li><span *ngIf="numberOfNotifications && numberOfNotifications > 0" class="badge badge-important">{{ numberOfNotifications }}</span>
+                    <a (click)="onCommentRead()" routerLink="/profile-notifications/"><i class="fa fa-bell-o fa-lg" aria-hidden="true"></i></a></li>
                 <li><a routerLink='/chats/'><i class="fa fa-envelope-o fa-lg" aria-hidden="true"></i></a></li>
                 <li class="dropdown">
                     <div ngbDropdown class="d-inline-block">
@@ -49,7 +50,7 @@
     <footer>
     <div class="footer-container">
         <hr/>
-        <p>Terms and Conditions&emsp; | &emsp;Privacy Policy &emsp; | &emsp;Contact Us</p>
+        <p><a class="buttonLink" routerLink='/privacy/'>Privacy Policy</a> &emsp; | &emsp;<a routerLink='/about/'class="buttonLink">About Us</a></p>
         <span>&copy; LetRent 2017</span>
     </div>
     </footer>

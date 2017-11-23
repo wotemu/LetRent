@@ -43,7 +43,6 @@
             <agm-marker [latitude]="property.locationLatitude" [longitude]="property.locationLongitude"></agm-marker>
           </agm-map>
         </div>
-
         <hr>
         <div class="owner-info">
           <h4>Owner information:</h4>
@@ -85,19 +84,12 @@
             </u>. (You already contacted the Renter before)
           </div>
         </ng-container>
-
         <hr>
         <p class="vote">
           <strong>91%</strong> of renters enjoyed this product!
           <strong>(87 votes)</strong> &nbsp;
           <button class="btn btn-warning btn-xs">Rate!</button>
         </p>
-
-        <!--<br>
-        <div class="action">
-          <button class="btn btn-primary">Contact</button>
-          <button class="btn btn-warning" title="Add to favorite"><span class="fa fa-heart"></span></button>
-        </div>-->
       </div>
     </div>
     <div class="row tabs">
@@ -105,57 +97,56 @@
         <tabset #staticTabs>
           <tab heading="Description">{{ property.description }}</tab>
           <tab heading="Additional Info">Additional Information</tab>
+          <tab heading="Comments">
+              <!-- Comments-->
+              <h4>User Comments</h4>
+              <br>
+              <div *ngIf="comments && comments.length > 0; else noCommentNotification">
+                <div *ngFor="let comment of comments">
+                  <div class="commmentaPanel">
+                    <div class="row">
+                      <div class="col-sm-1">
+                        <div class="thumbnail">
+                          <img class="img-responsive user-photo" src="https://ssl.gstatic.com/accounts/ui/avatar_2x.png">
+                        </div>
+                      </div>
+                      <div class="col-sm-11">
+                        <div class="panel panel-default">
+                          <div class="panel-heading">
+                            <strong> {{ comment.owner.firstname }}</strong>
+                            <span class="text-muted">{{ comment.createdAt | date }}</span>
+                          </div>
+                          <div class="panel-body">
+                            {{ comment.messageBody}}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <hr>
+              <!-- Comment Box -->
+              <h4>Leave a Reply</h4>
+              <div *ngIf="auth.loggedIn(); else logInNotification">
+                <div class="row">
+                  <div class="col-sm-12">
+                    <div class="widget-area no-padding blank">
+                      <div class="status-upload">
+                        <form>
+                          <textarea placeholder="What do you think about the property?" #commentTextArea></textarea>
+                          <button type="submit" (click)="addComment(property.id, commentTextArea.value)" class="btn btn-success green">
+                            <i class="fa fa-share"></i> Comment</button>
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+          </tab>
         </tabset>
       </div>
     </div>
-    <hr>
-    <!-- Comments-->
-    <h4>User Comments</h4>
-    <br>
-    <div *ngIf="comments && comments.length > 0; else noCommentNotification">
-      <div *ngFor="let comment of comments">
-        <div class="commmentaPanel">
-          <div class="row">
-            <div class="col-sm-1">
-              <div class="thumbnail">
-                <img class="img-responsive user-photo" src="https://ssl.gstatic.com/accounts/ui/avatar_2x.png">
-              </div>
-            </div>
-            <div class="col-sm-11">
-              <div class="panel panel-default">
-                <div class="panel-heading">
-                  <strong> {{ comment.owner.firstname }}</strong>
-                  <span class="text-muted">{{ comment.createdAt | date }}</span>
-                </div>
-                <div class="panel-body">
-                  {{ comment.messageBody}}
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <hr>
-    <!-- Comment Box -->
-    <h4>Leave a Reply</h4>
-    <div *ngIf="auth.loggedIn(); else logInNotification">
-      <div class="row">
-        <div class="col-sm-12">
-          <div class="widget-area no-padding blank">
-            <div class="status-upload">
-              <form>
-                <textarea placeholder="What do you think about the property?" #commentTextArea></textarea>
-                <button type="submit" (click)="addComment(property.id, commentTextArea.value)" class="btn btn-success green">
-                  <i class="fa fa-share"></i> Comment</button>
-              </form>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
 
 <ng-template #noCommentNotification>
   <br>

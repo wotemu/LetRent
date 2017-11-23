@@ -8,4 +8,5 @@ class Comment(models.Model):
     property = models.ForeignKey(Property, on_delete=models.CASCADE)
     owner = models.ForeignKey(Account, on_delete=models.CASCADE)
     message_body = models.TextField()
+    is_read = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
