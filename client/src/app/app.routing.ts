@@ -1,4 +1,3 @@
-// https://angular.io/docs/ts/latest/guide/router.html
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { NotFoundComponent } from './components/not-found/not-found.component';
@@ -13,38 +12,50 @@ import { BoxedLayoutComponent } from './layouts/boxed/boxed.component';
 import { BoxedWithSidebarLayoutComponent } from './layouts/boxed-with-sidebar/boxed-with-sidebar.component';
 import { ChatsComponent } from './components/chats/chats.component';
 import { AuthGuard } from './security/auth-guard.service';
+import { ProfileNotificationsComponent } from 'app/components/profile-notifications/profile-notifications.component';
+import { AboutComponent } from 'app/components/about/about.component';
+import { PrivacyComponent } from 'app/components/privacy/privacy.component';
 
 const appRoutes: Routes = [
   // Routes with "boxed + sidebar" layout
-  {path: '', component: BoxedWithSidebarLayoutComponent, children: [
-    {path: '', component: PropertyListComponent, pathMatch: 'full'}, // Homepage
-    {path: 'properties/:slug', component: PropertyDetailComponent},
-    {path: 'properties', component: PropertyListComponent},
-  ]},
+  {
+    path: '', component: BoxedWithSidebarLayoutComponent, children: [
+      { path: '', component: PropertyListComponent, pathMatch: 'full' }, // Homepage
+      { path: 'properties/:slug', component: PropertyDetailComponent },
+      { path: 'properties', component: PropertyListComponent },
+    ]
+  },
 
   // Routes with "boxed" layout
-  {path: '', component: BoxedLayoutComponent, children: [
-    {path: 'search', component: SearchDetailComponent},
-    {path: 'profile', component: ProfileComponent},
-    {path: 'search', component: SearchDetailComponent },
+  {
+    path: '', component: BoxedLayoutComponent, children: [
+      { path: 'profile', component: ProfileComponent },
+      { path: 'profile-notifications', component: ProfileNotificationsComponent },
 
-    {path: 'chats/:chatId', component: ChatsComponent, canActivate: [AuthGuard]},
-    {path: 'chats', component: ChatsComponent, canActivate: [AuthGuard]},
+      { path: 'search', component: SearchDetailComponent },
+      { path: 'search', component: SearchDetailComponent },
 
-    {path: 'profile', component: ProfileComponent },
-    {path: 'property', component: PropertyComponent },
-    {path: 'property-edit/:slug', component: PropertyEditComponent },
-    {path: 'profile-properties', component: ProfilePropertiesComponent }
-  ]},
+      { path: 'chats/:chatId', component: ChatsComponent, canActivate: [AuthGuard] },
+      { path: 'chats', component: ChatsComponent, canActivate: [AuthGuard] },
+
+      { path: 'property', component: PropertyComponent },
+      { path: 'property-edit/:slug', component: PropertyEditComponent },
+      { path: 'profile-properties', component: ProfilePropertiesComponent },
+
+      { path: 'about', component: AboutComponent },
+      { path: 'privacy', component: PrivacyComponent }
+
+    ]
+  },
 
   // Routes with no layout
-  {path: '**', component: NotFoundComponent}
+  { path: '**', component: NotFoundComponent }
 ];
 
 @NgModule({
   imports: [
     RouterModule.forRoot(
-        appRoutes
+      appRoutes
     )
   ],
   exports: [

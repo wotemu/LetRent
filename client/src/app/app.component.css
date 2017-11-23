@@ -3,6 +3,10 @@ a {
     color: white;
 }
 
+.buttonLink {
+    color: black;   
+}
+
 /* NavBar*/
 
 .badge-important {

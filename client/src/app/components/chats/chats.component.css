@@ -22,10 +22,8 @@
 
 /* Left side */
 #left-side {
-    /*background: whitesmoke;*/
-    /*color: black;*/
-    background: #262626;
-    color: white;
+    background: #F4F8FA;
+    color: black;
 }
 #left-side #total-conversations-block i {
     margin-right: 8px;
@@ -41,7 +39,6 @@
     overflow-y: auto;
 }
 #left-side #chats .chat {
-    /*height: 50px;*/
     position: relative;
     padding: 5px 0;
     font-size: 0.9em;

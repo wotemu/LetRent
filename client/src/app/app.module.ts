@@ -56,6 +56,9 @@ import { ConfirmationPopoverModule } from 'angular-confirmation-popover';
 import { PropertyEditComponent } from './components/property-edit/property-edit.component';
 import { AuthGuard } from './security/auth-guard.service';
 import { CommentService } from './services/comment.service';
+import { ProfileNotificationsComponent } from './components/profile-notifications/profile-notifications.component';
+import { PrivacyComponent } from './components/privacy/privacy.component';
+import { AboutComponent } from './components/about/about.component';
 
 
 @NgModule({
@@ -86,6 +89,9 @@ import { CommentService } from './services/comment.service';
     PropertyComponent,
     ProfilePropertiesComponent,
     PropertyEditComponent,
+    ProfileNotificationsComponent,
+    PrivacyComponent,
+    AboutComponent,
   ],
   imports: [
     BsDropdownModule.forRoot(),

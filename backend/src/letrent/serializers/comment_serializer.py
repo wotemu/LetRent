@@ -7,6 +7,7 @@ from ..models import Comment
 
 class CommentSerializer(serializers.ModelSerializer):
     owner = AccountSerializer()
+    property = PropertySerializer()
     messageBody = serializers.CharField(source='message_body')
     createdAt = serializers.DateTimeField(source='created_at')
 
@@ -15,6 +16,8 @@ class CommentSerializer(serializers.ModelSerializer):
         fields = [
             'id',
             'owner',
+            'property',
             'messageBody',
+            'is_read',
             'createdAt',
         ]

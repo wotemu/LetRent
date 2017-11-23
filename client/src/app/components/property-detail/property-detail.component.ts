@@ -102,8 +102,6 @@ export class PropertyDetailComponent implements OnInit {
     this.commentService.getComments(propertyId)
       .then((data) => {
         this.comments = data as Comment[];
-        console.log("Tulokset");
-        console.log(this.comments);
       })
       .catch((e) => this.notification.errorResp(e));
   }

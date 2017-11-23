@@ -1,0 +1,26 @@
+<h2><i class="fa fa-bell-o fa-lg" aria-hidden="true"></i> Notification Center</h2>
+<div class="container" *ngIf="notifications && notifications.length > 0; else noCommentNotifications">
+  <div *ngFor="let notification of notifications">
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="alert-message alert-message-info">
+          <h4>Alert Message Info on <span class="dateSpan"> {{ notification.createdAt | date }}</span></h4>
+          <p>You have received a new feedback from {{ notification.owner.firstname }} for your property {{ notification.property.name
+            }}. Please check it by clicking
+            <a routerLink="/properties/{{ notification.property.slug }}">this</a> link.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #noCommentNotifications>
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="alert-message alert-message-success">
+        <h4>Alert Message Success</h4>
+        <p>Congratulations! You do not have any unread notification.</p>
+      </div>
+    </div>
+  </div>
+</ng-template>

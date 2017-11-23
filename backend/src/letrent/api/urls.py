@@ -3,9 +3,9 @@ from rest_framework_jwt.views import obtain_jwt_token, refresh_jwt_token, verify
 
 from .views import RegisterUser, \
     PropertyList, PropertyDetail, PropertyModification, PropertyCategoryView,\
-    UserUpdateProfile, ProfilePropertyList, ControlPropertyView, CreateCommentView,\
+    UserUpdateProfile, ProfilePropertyList, ControlPropertyView,\
     ChatsListHandler, ChatMessagesHandler, AddMessageToChatHandler, CreateChatHandler, \
-    GetCommentView
+    GetCommentView, CommentControlView, CommentNotificationCountView
 
 urlpatterns = [
     # Login Register
@@ -32,7 +32,8 @@ urlpatterns = [
     url(r'chats/(?P<chat_id>[0-9]+)/add-message/$', AddMessageToChatHandler.as_view()),
 
     # Comments
-    url(r'comment/$', CreateCommentView.as_view()),
-    url(r'get-comments/$', GetCommentView.as_view())
+    url(r'comment/$', CommentControlView.as_view()),
+    url(r'get-comments/$', GetCommentView.as_view()),
+    url(r'get-comment-count/$', CommentNotificationCountView.as_view())
 
 ]

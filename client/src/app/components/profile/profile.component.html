@@ -3,17 +3,17 @@
     <h2>
       <i class="fa fa-pencil" aria-hidden="true"></i> Edit Profile</h2>
     <hr>
-    <div class="row">
-      <div class="col-md-3">
-        <div class="text-center">
-          <img src="//placehold.it/100" class="avatar img-circle" alt="avatar">
-          <h6>Upload a different photo...</h6>
-          <input type="file" class="form-control">
+    <form class="form-horizontal" role="form" (ngSubmit)="updateProfile(form.value)" [formGroup]="form">
+      <div class="row">
+        <div class="col-md-3">
+          <div class="text-center">
+            <img src="//placehold.it/100" class="avatar img-circle" alt="avatar">
+            <h6>Upload a different photo...</h6>
+            <input type="file" class="form-control" formControlName="profileImage" (change)="onFileChange()" #fileInput>
+          </div>
         </div>
-      </div>
-      <div class="col-md-9 personal-info">
-        <h3>Personal info</h3>
-        <form class="form-horizontal" role="form" (ngSubmit)="updateProfile(form.value)" [formGroup]="form">
+        <div class="col-md-9 personal-info">
+          <h3>Personal info</h3>
           <div class="form-group">
             <label class="col-lg-3 control-label">First name:</label>
             <div class="col-lg-8">
@@ -74,9 +74,9 @@
               <button type="submit" class="btn btn-primary" [disabled]="!form.valid">Save Changes</button>
             </div>
           </div>
-        </form>
+        </div>
       </div>
-    </div>
+    </form>
   </div>
   <ng-template #notificatonTemplate>
     <div *ngIf="updateSucceed; then editingSucceed else editingFailed"></div>

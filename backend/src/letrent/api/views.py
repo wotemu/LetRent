@@ -268,13 +268,19 @@ class CreateChatHandler(generics.ListCreateAPIView):
         return Response(serializer.data, status=status.HTTP_201_CREATED)
 
 
-class CreateCommentView(APIView):
+class CommentControlView(APIView):
     """
-    Create a new comment.
+    List all comment notifications or Create a new comment.
     """
     serializer_class = CommentSerializer
     permission_classes = (IsAuthenticated,)
     authentication_classes = (JSONWebTokenAuthentication,)
+
+    def get(self, request, format=None):
+        comments = Comment.objects.filter(is_read=False, property__owner=request.user).exclude(owner=request.user)
+
+        serializer = CommentSerializer(comments, many=True)
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
 
     def post(self, request, *args, **kwargs):
 
@@ -288,6 +294,7 @@ class CreateCommentView(APIView):
             return Response(status=status.HTTP_201_CREATED)
         return Response(status=status.HTTP_400_BAD_REQUEST)
 
+
 class GetCommentView(APIView):
     """
     List all comments for a property.
@@ -300,3 +307,22 @@ class GetCommentView(APIView):
         comments = Comment.objects.filter(property=_property)
         serializer = CommentSerializer(comments, many=True)
         return Response(serializer.data)
+
+
+class CommentNotificationCountView(APIView):
+    """
+    Count number of unread notifications for a user and set them as read.
+    """
+    permission_classes = (IsAuthenticated,)
+    authentication_classes = (JSONWebTokenAuthentication,)
+
+    def post(self, request, *args, **kwargs):
+        comments = Comment.objects.filter(is_read=False)
+        for c in comments:
+            c.is_read = True
+            c.save()
+        return Response(status=status.HTTP_201_CREATED)
+
+    def get(self, request, format=None):
+        comments = Comment.objects.filter(is_read=False, property__owner=request.user).exclude(owner=request.user).count()
+        return Response(comments, status=status.HTTP_201_CREATED)

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { AuthService } from '../../security/auth.service';
 import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms'
 import { Router } from '@angular/router';
@@ -7,38 +7,40 @@ import { NotificationService } from '../../services/notification.service';
 import { AuthHttp } from 'angular2-jwt';
 
 function passwordConfirming(c: AbstractControl): any {
-  if(!c.parent || !c) return;
+  if (!c.parent || !c) return;
   const pwd = c.parent.get('password');
-  const cpwd= c.parent.get('confirm_password')
+  const cpwd = c.parent.get('confirm_password')
 
-  if(!pwd || !cpwd) return ;
+  if (!pwd || !cpwd) return;
   if (pwd.value !== cpwd.value) {
-      return { invalid: true };
+    return { invalid: true };
 
   }
 }
 
- @Component({
-   selector: 'app-profile',
-   templateUrl: './profile.component.html',
-   styleUrls: ['./profile.component.css']
- })
- export class ProfileComponent implements OnInit {
+@Component({
+  selector: 'app-profile',
+  templateUrl: './profile.component.html',
+  styleUrls: ['./profile.component.css']
+})
+export class ProfileComponent implements OnInit {
   form: FormGroup;
   updateStarted: Boolean;
   updateSucceed: Boolean;
   updateFailed: Boolean;
 
+  @ViewChild('fileInput') fileInput;
+
   constructor(public auth: AuthService,
-              private accountService: AccountService,
-              private notification: NotificationService,
-              private router: Router,
-              private formBuilder: FormBuilder) {
-      if (!auth.loggedIn()) {
-        this.router.navigate(['/']);
-        this.notification.error('Please login to see your profile page!');
-      }
-   }
+    private accountService: AccountService,
+    private notification: NotificationService,
+    private router: Router,
+    private formBuilder: FormBuilder) {
+    if (!auth.loggedIn()) {
+      this.router.navigate(['/']);
+      this.notification.error('Please login to see your profile page!');
+    }
+  }
 
   ngOnInit() {
     this.form = this.formBuilder.group({
@@ -47,6 +49,7 @@ function passwordConfirming(c: AbstractControl): any {
       email: [null, [Validators.required, Validators.email]],
       password: [null, [Validators.required, Validators.minLength(4)]],
       confirm_password: [null, [Validators.required, Validators.minLength(4), passwordConfirming]],
+      profileImage: [null,]
     });
   }
   updateProfile(credentials): void {
@@ -59,6 +62,16 @@ function passwordConfirming(c: AbstractControl): any {
     });
   }
 
+  onFileChange(event) {
+    let fi = this.fileInput.nativeElement;
+    if (fi.files && fi.files[0]) {
+      let fileToUpload = fi.files[0];
+      this.form.controls['profileImage'].setValue(fileToUpload)
+      console.log("This is done man!")
+    }
+  }
+
+
   goBack() {
     this.updateStarted = false;
     this.updateSucceed = false;
@@ -68,4 +81,4 @@ function passwordConfirming(c: AbstractControl): any {
     setTimeout(() => this.router.navigate(['']), 3000);
   }
 
- }
+}
