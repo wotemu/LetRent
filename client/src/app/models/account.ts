@@ -5,4 +5,3 @@ export class Account {
   email: string;
   avatarUrl: string;
 }
-

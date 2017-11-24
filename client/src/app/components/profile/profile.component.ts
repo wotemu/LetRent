@@ -1,20 +1,19 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { AuthService } from '../../security/auth.service';
-import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms'
+import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AccountService } from '../../services/account.service';
 import { NotificationService } from '../../services/notification.service';
-import { AuthHttp } from 'angular2-jwt';
+import { Account } from '../../models/account';
 
 function passwordConfirming(c: AbstractControl): any {
-  if (!c.parent || !c) return;
+  if (!c || !c.parent) return;
   const pwd = c.parent.get('password');
-  const cpwd = c.parent.get('confirm_password')
+  const cpwd = c.parent.get('confirm_password');
 
   if (!pwd || !cpwd) return;
   if (pwd.value !== cpwd.value) {
-    return { invalid: true };
-
+    return {invalid: true};
   }
 }
 
@@ -25,6 +24,8 @@ function passwordConfirming(c: AbstractControl): any {
 })
 export class ProfileComponent implements OnInit {
   form: FormGroup;
+  user: Account;
+  avatar: File;
   updateStarted: Boolean;
   updateSucceed: Boolean;
   updateFailed: Boolean;
@@ -32,14 +33,10 @@ export class ProfileComponent implements OnInit {
   @ViewChild('fileInput') fileInput;
 
   constructor(public auth: AuthService,
-    private accountService: AccountService,
-    private notification: NotificationService,
-    private router: Router,
-    private formBuilder: FormBuilder) {
-    if (!auth.loggedIn()) {
-      this.router.navigate(['/']);
-      this.notification.error('Please login to see your profile page!');
-    }
+              private accountService: AccountService,
+              private notification: NotificationService,
+              private router: Router,
+              private formBuilder: FormBuilder) {
   }
 
   ngOnInit() {
@@ -49,28 +46,50 @@ export class ProfileComponent implements OnInit {
       email: [null, [Validators.required, Validators.email]],
       password: [null, [Validators.required, Validators.minLength(4)]],
       confirm_password: [null, [Validators.required, Validators.minLength(4), passwordConfirming]],
-      profileImage: [null,]
+      avatar: [null],
     });
+    this.getUserProfileInfo();
   }
-  updateProfile(credentials): void {
-    this.updateStarted = true;
-    this.accountService.updateProfile(credentials).then(() => {
-      this.updateSucceed = true;
-      this.goHomePage();
-    }).catch((err) => {
-      this.updateFailed = false;
+
+  updateProfile(): void {
+    const formData = new FormData();
+    Object.getOwnPropertyNames(this.form.value).map((key: string) => {
+      formData.append(key, this.form.value[key]);
     });
+
+    if (this.avatar) {
+      formData.append('avatar', this.avatar, this.avatar.name);
+    }
+
+    this.updateStarted = true;
+    this.accountService.updateProfile(formData)
+        .then(() => {
+          this.updateSucceed = true;
+          this.goHomePage();
+          this.getUserProfileInfo();
+        })
+        .catch((err) => {
+          this.updateFailed = false;
+        });
+  }
+
+  getUserProfileInfo(): void {
+    this.accountService.getUserProfileInfo()
+        .then((account: Account) => {
+          this.user = account;
+          this.form.controls['firstname'].setValue(account.firstname);
+          this.form.controls['lastname'].setValue(account.lastname);
+          this.form.controls['email'].setValue(account.email);
+        })
+        .catch((e) => this.notification.errorResp(e));
   }
 
   onFileChange(event) {
     let fi = this.fileInput.nativeElement;
     if (fi.files && fi.files[0]) {
-      let fileToUpload = fi.files[0];
-      this.form.controls['profileImage'].setValue(fileToUpload)
-      console.log("This is done man!")
+      this.avatar = fi.files[0];
     }
   }
-
 
   goBack() {
     this.updateStarted = false;
@@ -80,5 +99,4 @@ export class ProfileComponent implements OnInit {
   goHomePage() {
     setTimeout(() => this.router.navigate(['']), 3000);
   }
-
 }

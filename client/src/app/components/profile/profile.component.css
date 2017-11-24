@@ -20,6 +20,11 @@ a { cursor: pointer;}
     -o-animation: fadein 3s; /* Opera */
 }
 
+img.avatar {
+    width: 100px;
+    height: 100px;
+}
+
 @keyframes fadein {
     from {
         opacity:0;

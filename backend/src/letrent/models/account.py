@@ -1,11 +1,17 @@
+import os.path
+
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
+from django.core.files.storage import FileSystemStorage
 from django.db import models
+
+from ..utils import media_url
 
 # Tutorials:
 # https://afropolymath.svbtle.com/authentication-using-django-rest-framework
 # https://medium.com/@ramykhuffash/django-authentication-with-just-an-email-and-password-no-username-required-33e47976b517
 
 _property = property
+fs = FileSystemStorage()
 
 
 class AccountManager(BaseUserManager):
@@ -56,6 +62,12 @@ class Account(AbstractBaseUser):
     @_property
     def is_staff(self):
         return self.is_admin
+
+    def avatar_url(self):
+        full_path = os.path.join('profile_avatars', '%s.jpg' % self.id)
+        if fs.exists(full_path):
+            return media_url('profile_avatars/' + ('%s.jpg' % self.id))
+        return None
 
     def has_perm(self, perm, obj=None):
         return self.is_admin

@@ -1,15 +1,14 @@
 <div class="container" *ngIf="auth.loggedIn()">
   <div *ngIf="!updateStarted; else notificatonTemplate">
-    <h2>
-      <i class="fa fa-pencil" aria-hidden="true"></i> Edit Profile</h2>
+    <h2><i class="fa fa-pencil"></i> Edit Profile</h2>
     <hr>
-    <form class="form-horizontal" role="form" (ngSubmit)="updateProfile(form.value)" [formGroup]="form">
+    <form class="form-horizontal" role="form" (ngSubmit)="updateProfile(form)" [formGroup]="form" enctype="multipart/form-data">
       <div class="row">
         <div class="col-md-3">
           <div class="text-center">
-            <img src="//placehold.it/100" class="avatar img-circle" alt="avatar">
+            <img src="{{ user | userAvatarUrl }}" class="avatar img-circle" alt="Avatar" *ngIf="user">
             <h6>Upload a different photo...</h6>
-            <input type="file" class="form-control" formControlName="profileImage" (change)="onFileChange()" #fileInput>
+            <input type="file" class="form-control" formControlName="avatar" (change)="onFileChange(event)" #fileInput>
           </div>
         </div>
         <div class="col-md-9 personal-info">
@@ -91,8 +90,7 @@
       <div class="editingFailed">
         <i class="fa fa-times-circle fa-5x" aria-hidden="true"></i>
         <p>Account with this email already exists.</p>
-        <p>Please go back and try again using
-          <a (click)="goBack()">this</a> link!</p>
+        <p>Please go back and try again using <a (click)="goBack()">this</a> link!</p>
       </div>
     </ng-template>
   </ng-template>

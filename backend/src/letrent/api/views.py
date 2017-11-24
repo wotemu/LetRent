@@ -1,8 +1,11 @@
+import os.path
 from mptt.templatetags.mptt_tags import cache_tree_children
 from rest_framework import generics
 from rest_framework import status
 from rest_framework.generics import CreateAPIView
 from rest_framework.pagination import PageNumberPagination
+from django.core.files.storage import FileSystemStorage
+from rest_framework.parsers import FileUploadParser
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -54,11 +57,29 @@ class UserUpdateProfile(APIView):
     authentication_classes = (JSONWebTokenAuthentication,)
 
     def post(self, request, *args, **kwargs):
-        serializer = self.serializer_class(request.user,data=request.data)
+        data = request.data
+        avatar_file = request.FILES['avatar'] if 'avatar' in request.FILES else None
+
+        serializer = self.serializer_class(request.user, data=data)
         if serializer.is_valid():
             serializer.save()
+            if avatar_file:
+                fs = FileSystemStorage()
+                full_path = os.path.join('profile_avatars', '%s.jpg' % request.user.id)
+                fs.delete(full_path)  # Overwrite if already exists
+                fs.save(full_path, avatar_file)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class ProfileInfoHandler(generics.RetrieveAPIView):
+    serializer_class = AccountSerializer
+    permission_classes = (IsAuthenticated,)
+    authentication_classes = (JSONWebTokenAuthentication,)
+
+    def retrieve(self, request, *args, **kwargs):
+        serializer = self.get_serializer(request.user)
+        return Response(serializer.data)
 
 
 class PropertyModification(APIView):
@@ -266,6 +287,20 @@ class CreateChatHandler(generics.ListCreateAPIView):
 
         serializer = ChatSerializer(chat)
         return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+
+class TotalNotificationsHandler(APIView):
+    permission_classes = (IsAuthenticated,)
+
+    def get(self, request):
+        user_id = request.user.id
+        total_notifications = Message.objects \
+            .filter((Q(chat__from_user_id=user_id) | Q(chat__to_user_id=user_id))
+                    & Q(is_read=False)
+                    & ~Q(from_user_id=user_id)) \
+            .count()
+        data = {'totalNotifications': total_notifications}
+        return Response(data)
 
 
 class CommentControlView(APIView):

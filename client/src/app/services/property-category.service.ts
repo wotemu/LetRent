@@ -15,7 +15,6 @@ export class PropertyCategoryService {
     return this.http
         .get(this.endpoint)
         .toPromise()
-        .then((response: Response) => response.json() as PropertyCategory[])
-        .catch(this.helper.handlePromiseError);
+        .then((response: Response) => response.json() as PropertyCategory[]);
   }
 }

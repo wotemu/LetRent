@@ -158,6 +158,13 @@ backend/src/static-root/admin
 backend/src/static/ang
 backend/static-root
 backend/src/static-root/*
+backend/src/uploads/profile_avatars/*
+backend/src/uploads/properties/*
+
+# Exclusions
+!backend/src/uploads/profile_avatars/dummyfile
+!backend/src/uploads/properties/dummyfile
+
 
 # Database
 backend/src/db.sqlite3

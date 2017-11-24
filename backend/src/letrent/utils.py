@@ -2,6 +2,8 @@ import random
 import string
 from django.utils.text import slugify
 from django.contrib.staticfiles.templatetags.staticfiles import static
+from django.conf import settings
+from django.conf.urls.static import static
 
 no_property_img_url = static("static/images/no_image.png")
 
@@ -36,3 +38,7 @@ def unique_slug_generator(instance, new_slug=None):
 
 def glue_slugs(parent_full_slug, node_slug):
     return node_slug if not parent_full_slug else '/'.join([parent_full_slug, node_slug])
+
+
+def media_url(path):
+    return settings.MEDIA_URL + path

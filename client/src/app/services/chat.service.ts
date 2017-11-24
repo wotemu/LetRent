@@ -13,12 +13,20 @@ export class ChatService {
               private helper: Helper) {
   }
 
+  getTotalNotifications(): Promise<any> {
+    return this.authHttp
+        .get(endpoint + 'total-notifications/')
+        .toPromise()
+        .then((response: Response) => {
+          return response.json()['totalNotifications'];
+        });
+  }
+
   getChat(chatId: number): Promise<Chat> {
     return this.authHttp
         .get(endpoint + chatId + '/')
         .toPromise()
-        .then((response: Response) => response.json() as Chat)
-        .catch(this.helper.handlePromiseError);
+        .then((response: Response) => response.json() as Chat);
   }
 
   getChats(): Promise<any> {
@@ -27,9 +35,7 @@ export class ChatService {
         .toPromise()
         .then((response: Response) => {
           return response.json();
-        })
-        // .catch(this.helper.handlePromiseError);
-        ;
+        });
   }
 
   getMessages(chatId: number): Promise<any> {
@@ -38,8 +44,7 @@ export class ChatService {
         .toPromise()
         .then((response: Response) => {
           return response.json();
-        })
-        .catch(this.helper.handlePromiseError);
+        });
   }
 
   sendMessage(chatId: number, message: string): Promise<any> {
@@ -50,8 +55,7 @@ export class ChatService {
         .toPromise()
         .then((response: Response) => {
           return response.json();
-        })
-        .catch(this.helper.handlePromiseError);
+        });
   }
 
   createChat(propertyId: number, message?: string): Promise<any> {
@@ -63,7 +67,6 @@ export class ChatService {
         .toPromise()
         .then((response: Response) => {
           return response.json();
-        })
-        .catch(this.helper.handlePromiseError);
+        });
   }
 }

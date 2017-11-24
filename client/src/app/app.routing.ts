@@ -27,26 +27,23 @@ const appRoutes: Routes = [
   },
 
   // Routes with "boxed" layout
-  {
-    path: '', component: BoxedLayoutComponent, children: [
-      { path: 'profile', component: ProfileComponent },
-      { path: 'profile-notifications', component: ProfileNotificationsComponent },
+  {path: '', component: BoxedLayoutComponent, children: [
+    {path: 'search', component: SearchDetailComponent},
 
-      { path: 'search', component: SearchDetailComponent },
-      { path: 'search', component: SearchDetailComponent },
+    {path: 'chats/:chatId', component: ChatsComponent, canActivate: [AuthGuard]},
+    {path: 'chats', component: ChatsComponent, canActivate: [AuthGuard]},
 
-      { path: 'chats/:chatId', component: ChatsComponent, canActivate: [AuthGuard] },
-      { path: 'chats', component: ChatsComponent, canActivate: [AuthGuard] },
+    {path: 'property', component: PropertyComponent},
+    {path: 'property-edit/:slug', component: PropertyEditComponent},
 
-      { path: 'property', component: PropertyComponent },
-      { path: 'property-edit/:slug', component: PropertyEditComponent },
-      { path: 'profile-properties', component: ProfilePropertiesComponent },
+    {path: 'profile', component: ProfileComponent, canActivate: [AuthGuard]},
+    {path: 'profile-properties', component: ProfilePropertiesComponent},
+    {path: 'profile-notifications', component: ProfileNotificationsComponent},
 
-      { path: 'about', component: AboutComponent },
-      { path: 'privacy', component: PrivacyComponent }
-
-    ]
-  },
+    // Custom pages
+    {path: 'about', component: AboutComponent},
+    {path: 'privacy', component: PrivacyComponent}
+  ]},
 
   // Routes with no layout
   { path: '**', component: NotFoundComponent }

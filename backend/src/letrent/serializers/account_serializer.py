@@ -8,6 +8,7 @@ class AccountSerializer(serializers.ModelSerializer):
     confirm_password = serializers.CharField(write_only=True, required=True)
     user_id = serializers.CharField(source='id', required=False)
     username = serializers.CharField(source='email', required=False)
+    avatarUrl = serializers.CharField(source='avatar_url', read_only=True)
 
     class Meta:
         model = Account
@@ -15,6 +16,7 @@ class AccountSerializer(serializers.ModelSerializer):
             'id',
             'user_id',
             'username',
+            'avatarUrl',
             'email',
             'firstname',
             'lastname',

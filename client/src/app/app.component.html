@@ -1,57 +1,67 @@
 <div class="main-container">
-    <nav class="navbar cusnav">
+  <nav class="navbar cusnav">
     <div class="container">
-        <!-- Brand and toggle get grouped for better mobile display -->
-        <div class="navbar-header"><a class="navbar-brand" routerLink='/' routerLinkActive="active">LetRent</a></div>
-        <!-- Right nav-bar -->
-        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <!-- Brand and toggle get grouped for better mobile display -->
+      <div class="navbar-header"><a class="navbar-brand" routerLink='/' routerLinkActive="active">LetRent</a></div>
+      <!-- Right nav-bar -->
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <app-search [passedQuery]='query'></app-search>
         <ul class="nav navbar-nav navbar-right">
-            <div *ngIf="auth.loggedIn();then linksForLoggedInUser else linksForGuest"></div>
-            <ng-template #linksForLoggedInUser>
+          <div *ngIf="auth.loggedIn();then linksForLoggedInUser else linksForGuest"></div>
+          <ng-template #linksForLoggedInUser>
             <ul class="nav navbar-nav navbar-right">
-                <li><span *ngIf="numberOfNotifications && numberOfNotifications > 0" class="badge badge-important">{{ numberOfNotifications }}</span>
-                    <a (click)="onCommentRead()" routerLink="/profile-notifications/"><i class="fa fa-bell-o fa-lg" aria-hidden="true"></i></a></li>
-                <li><a routerLink='/chats/'><i class="fa fa-envelope-o fa-lg" aria-hidden="true"></i></a></li>
-                <li class="dropdown">
-                    <div ngbDropdown class="d-inline-block">
-                        <div class="dropdown-in">
-                            <a class="dropdownlink" id="dropdownBasic1" ngbDropdownToggle>
-                                    <span class="user-avatar pull-left">
-                                        <img src="https://lut.im/7JCpw12uUT/mY0Mb78SvSIcjvkf.png" class="img-responsive img-circle">
-                                    </span>
-                                    <span class="user-name"> {{auth.getUserInformation()}} </span>
-                                    <b class="caret"></b></a>
-                            <div class="dropdown-content" ngbDropdownMenu>  
-                                <a class="dropdown-item" routerLink='/profile-properties/' routerLinkActive="active">My Properties</a>
-                                <a class="dropdown-item" routerLink='/profile/' routerLinkActive="active">My Profile</a>
-                                <a (click)="auth.logout()" class="dropdown-item">Logout</a>
-                            </div>
-                        </div>
+              <li>
+                <span *ngIf="totalCommentNotifications && totalCommentNotifications > 0" class="badge badge-important">{{ totalCommentNotifications }}</span>
+                <a (click)="onCommentRead()" routerLink="/profile-notifications/"><i class="fa fa-bell-o fa-lg"></i></a>
+              </li>
+              <li>
+                <span class="badge badge-new-messages" *ngIf="totalMessageNotifications">{{ totalMessageNotifications }}</span>
+                <a routerLink='/chats/'><i class="fa fa-envelope-o fa-lg"></i></a>
+              </li>
+              <li class="dropdown">
+                <div ngbDropdown class="d-inline-block">
+                  <div class="dropdown-in">
+                    <a class="dropdownlink" id="user-dropdown" ngbDropdownToggle>
+                      <span class="user-avatar pull-left">
+                          <img src="{{ auth.user | userAvatarUrl }}" class="img-responsive img-circle" *ngIf="auth.user">
+                      </span>
+                      <span class="user-name"> {{ auth.getUserInformation() }} </span>
+                      <b class="caret"></b>
+                    </a>
+                    <div class="dropdown-content" ngbDropdownMenu>
+                      <a class="dropdown-item" routerLink='/profile-properties/' routerLinkActive="active">My Properties</a>
+                      <a class="dropdown-item" routerLink='/profile/' routerLinkActive="active">My Profile</a>
+                      <a (click)="auth.logout()" class="dropdown-item">Logout</a>
                     </div>
-                </li>
-                <li><a routerLink='/property/' routerLinkActive="active"><i class="fa fa-camera" aria-hidden="true"></i> Rent Out</a></li>                                    
+                  </div>
+                </div>
+              </li>
+              <li><a routerLink='/property/' routerLinkActive="active"><i class="fa fa-camera" aria-hidden="true"></i>
+                Rent Out</a></li>
             </ul>
-            </ng-template>
-            <ng-template #linksForGuest>
-                <li><a (click)="showAndHideLogin()"><i class="fa fa-sign-in fa-lg" aria-hidden="true"></i> Login</a></li>
-                <li><a (click)="showAndHideRegistration()"><i class="fa fa-user-plus fa-lg" aria-hidden="true"></i> Registration</a></li>
-                <li><a routerLink='/property/' routerLinkActive="active"><i class="fa fa-camera" aria-hidden="true"></i> Rent Out</a></li>                
-            </ng-template>
-        </ul>   
-        </div>
+          </ng-template>
+          <ng-template #linksForGuest>
+            <li><a (click)="showAndHideLogin()"><i class="fa fa-sign-in fa-lg"></i> Login</a></li>
+            <li><a (click)="showAndHideRegistration()"><i class="fa fa-user-plus fa-lg"></i>Registration</a></li>
+            <li><a routerLink='/property/' routerLinkActive="active"><i class="fa fa-camera"></i>Rent Out</a></li>
+          </ng-template>
+        </ul>
+      </div>
     </div>
-    </nav>
-    <div class='container main-container'>
-        <router-outlet></router-outlet>
-    </div>
-    <app-login *ngIf="showLogin" (onLoginClosed)="changeLoginStatus($event)"></app-login>
-    <app-registration *ngIf="showRegistration" (onRegistrationClosed)="changeRegistrationStatus($event)"></app-registration>
-    <footer>
+  </nav>
+  <div class='container main-container'>
+    <router-outlet></router-outlet>
+  </div>
+  <app-login *ngIf="showLogin" (onLoginClosed)="changeLoginStatus($event)"></app-login>
+  <app-registration *ngIf="showRegistration" (onRegistrationClosed)="changeRegistrationStatus($event)"></app-registration>
+  <footer>
     <div class="footer-container">
-        <hr/>
-        <p><a class="buttonLink" routerLink='/privacy/'>Privacy Policy</a> &emsp; | &emsp;<a routerLink='/about/'class="buttonLink">About Us</a></p>
-        <span>&copy; LetRent 2017</span>
+      <hr/>
+      <p>
+        <a class="buttonLink" routerLink='/privacy/'>Privacy Policy</a> &emsp; | &emsp;
+        <a routerLink='/about/' class="buttonLink">About Us</a>
+      </p>
+      <span>&copy; LetRent 2017{{ (currentYear == 2017 ? '' : '-' + currentYear) }}</span>
     </div>
-    </footer>
+  </footer>
 </div>

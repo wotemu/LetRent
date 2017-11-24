@@ -2,8 +2,9 @@ import { Component, OnInit, OnDestroy, ViewContainerRef } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { AuthService } from './security/auth.service';
 import { ToastsManager } from 'ng2-toastr';
+import { ChatService } from './services/chat.service';
+import { NotificationService } from './services/notification.service';
 import { CommentService } from 'app/services/comment.service';
-import { NotificationService } from 'app/services/notification.service';
 
 @Component({
   selector: 'app-root',
@@ -11,31 +12,33 @@ import { NotificationService } from 'app/services/notification.service';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit, OnDestroy {
-
   private routeSub: any;
   query: string;
-  numberOfNotifications: number;
+  totalCommentNotifications: number;
+  totalMessageNotifications: number;
   showLogin = false;
   showRegistration = false;
+  currentYear = new Date().getFullYear();
 
   constructor(public auth: AuthService,
-    private toastManager: ToastsManager,
-    private vcr: ViewContainerRef,
-    private route: ActivatedRoute,
-    private commentService: CommentService,
-    private notificationService: NotificationService) {
+              private notification: NotificationService,
+              private chatService: ChatService,
+              private toastManager: ToastsManager,
+              private vcr: ViewContainerRef,
+              private route: ActivatedRoute,
+              private commentService: CommentService) {
     this.toastManager.setRootViewContainerRef(vcr);
   }
 
   ngOnInit() {
-    this.getComments();
     this.routeSub = this.route.params.subscribe((params) => {
       this.query = params['q'];
     });
-  }
 
-  ngOnDestroy() {
-    this.routeSub.unsubscribe();
+    if (this.auth.loggedIn()) {
+      this.getMessageNotificationsCount();
+      this.getCommentNotificationsCount();
+    }
   }
 
   /**
@@ -43,11 +46,8 @@ export class AppComponent implements OnInit, OnDestroy {
    * @param status: Status of form
    */
   changeLoginStatus(status: boolean) {
-    this.commentService.getCommentNotificationCount()
-      .then((data) => {
-        this.numberOfNotifications = data;
-      })
-      .catch((e) => this.notificationService.errorResp(e));
+    this.getMessageNotificationsCount();
+    this.getCommentNotificationsCount();
     this.showLogin = status;
   }
 
@@ -77,13 +77,26 @@ export class AppComponent implements OnInit, OnDestroy {
    * Set notifications as read.
    */
   onCommentRead() {
-    this.numberOfNotifications = 0;
+    this.totalCommentNotifications = 0;
   }
 
-  private getComments() {
+  getMessageNotificationsCount(): void {
+    this.chatService.getTotalNotifications()
+        .then((data) => {
+          this.totalMessageNotifications = data as number;
+        })
+        .catch((e) => this.notification.errorResp(e));
+  }
+
+  getCommentNotificationsCount() {
     this.commentService.getCommentNotificationCount()
-      .then((data) => {
-        this.numberOfNotifications = data;
-      });
+        .then((data) => {
+          this.totalCommentNotifications = data;
+        })
+        .catch((e) => this.notification.errorResp(e));
+  }
+
+  ngOnDestroy() {
+    this.routeSub.unsubscribe();
   }
 }
