@@ -6,7 +6,7 @@ import { PropertyCategoryService } from '../../services/property-category.servic
 import { PropertyService } from '../../services/property.service';
 import { PropertyCategory } from '../../models/property-category';
 import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms'
-import { } from 'googlemaps';
+import {} from 'googlemaps';
 import { MapsAPILoader } from '@agm/core';
 import { Property } from '../../models/property';
 
@@ -18,7 +18,7 @@ function priceConfirming(c: AbstractControl): any {
   if (dPrice.value || wPrice.value) {
     return;
   } else {
-    return { invalid: true };
+    return {invalid: true};
   }
 }
 
@@ -27,7 +27,7 @@ function priceConfirming(c: AbstractControl): any {
   templateUrl: './property.component.html',
   styleUrls: ['./property.component.css']
 })
-export class PropertyComponent implements OnInit {
+export class AddPropertyComponent implements OnInit {
 
   address: string;
   latitude: number;
@@ -43,17 +43,13 @@ export class PropertyComponent implements OnInit {
   property: Property;
 
   constructor(private router: Router,
-    public auth: AuthService,
-    private propertyService: PropertyService,
-    private propertyCategoryService: PropertyCategoryService,
-    private formBuilder: FormBuilder,
-    private notification: NotificationService,
-    private mapsAPILoader: MapsAPILoader,
-    private ngZone: NgZone) {
-    if (!auth.loggedIn()) {
-      this.router.navigate(['/']);
-      this.notification.error('Please login to see your profile page!');
-    }
+              public auth: AuthService,
+              private propertyService: PropertyService,
+              private propertyCategoryService: PropertyCategoryService,
+              private formBuilder: FormBuilder,
+              private notification: NotificationService,
+              private mapsAPILoader: MapsAPILoader,
+              private ngZone: NgZone) {
   }
 
   ngOnInit() {
@@ -122,10 +118,10 @@ export class PropertyComponent implements OnInit {
 
   private loadCategories() {
     this.propertyCategoryService.getPropertyCategories()
-      .then((data) => {
-        this.propertyCategories = data as PropertyCategory[];
-      })
-      .catch((e) => this.notification.errorResp(e));
+        .then((data) => {
+          this.propertyCategories = data as PropertyCategory[];
+        })
+        .catch((e) => this.notification.errorResp(e));
   }
 
   private setCurrentPosition() {

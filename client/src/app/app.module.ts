@@ -50,7 +50,7 @@ import { StarsDirective } from './components/stars/stars.directive';
 import { UserAvatarUrlPipe } from './utils/pipes/user-avatar-url.pipe';
 import { RelativeTimePipe } from './utils/pipes/relative-time.pipe';
 import { DatePipe } from '@angular/common';
-import { PropertyComponent } from './components/property/property.component';
+import { AddPropertyComponent } from './components/property/property.component';
 import { ProfilePropertiesComponent } from './components/profile-properties/profile-properties.component';
 import { ConfirmationPopoverModule } from 'angular-confirmation-popover';
 import { PropertyEditComponent } from './components/property-edit/property-edit.component';
@@ -86,7 +86,7 @@ import { AboutComponent } from './components/about/about.component';
     ProfileComponent,
     ChatsComponent,
     StarsDirective,
-    PropertyComponent,
+    AddPropertyComponent,
     ProfilePropertiesComponent,
     PropertyEditComponent,
     ProfileNotificationsComponent,

@@ -3,7 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { NotFoundComponent } from './components/not-found/not-found.component';
 import { SearchDetailComponent } from './components/search-detail/search-detail.component';
 import { ProfileComponent } from './components/profile/profile.component';
-import { PropertyComponent } from './components/property/property.component';
+import { AddPropertyComponent } from './components/property/property.component';
 import { PropertyEditComponent } from './components/property-edit/property-edit.component';
 import { ProfilePropertiesComponent } from './components/profile-properties/profile-properties.component';
 import { PropertyListComponent } from './components/property-list/property-list.component';
@@ -33,8 +33,8 @@ const appRoutes: Routes = [
     {path: 'chats/:chatId', component: ChatsComponent, canActivate: [AuthGuard]},
     {path: 'chats', component: ChatsComponent, canActivate: [AuthGuard]},
 
-    {path: 'property', component: PropertyComponent},
-    {path: 'property-edit/:slug', component: PropertyEditComponent},
+    {path: 'add-property', component: AddPropertyComponent, canActivate: [AuthGuard]},
+    {path: 'property-edit/:slug', component: PropertyEditComponent, canActivate: [AuthGuard]},
 
     {path: 'profile', component: ProfileComponent, canActivate: [AuthGuard]},
     {path: 'profile-properties', component: ProfilePropertiesComponent, canActivate: [AuthGuard]},
