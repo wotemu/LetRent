@@ -44,7 +44,7 @@ export class AddPropertyComponent implements OnInit {
 
   @ViewChild('search') searchElementRef: ElementRef;
   @ViewChild('primaryImageInput') primaryImageInput;
-  @ViewChild('additionalImagesInput') additionalImagesInput;
+  // @ViewChild('additionalImagesInput') additionalImagesInput;
 
   constructor(private router: Router,
               public auth: AuthService,
@@ -108,13 +108,13 @@ export class AddPropertyComponent implements OnInit {
     if (this.primaryImage) {
       formData.append('primaryImage', this.primaryImage, this.primaryImage.name);
     }
-    if (this.additionalImages && this.additionalImages.length) {
-      for (let i = 0; i < this.additionalImages.length; i++) {
-        let img = this.additionalImages[i];
-        // formData.append('additionalImages[' + i + ']', img, img.name);
-        formData.append('additionalImages[]', img, img.name);
-      }
-    }
+    // if (this.additionalImages && this.additionalImages.length) {
+    //   for (let i = 0; i < this.additionalImages.length; i++) {
+    //     let img = this.additionalImages[i];
+    //     // formData.append('additionalImages[' + i + ']', img, img.name);
+    //     formData.append('additionalImages[]', img, img.name);
+    //   }
+    // }
 
     this.propertyService.addProperty(formData).then(() => {
       this.notification.success('Property has added successfully!');

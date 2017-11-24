@@ -43,8 +43,10 @@
             <div class="col-md-6" *ngIf="propertyCategories; else loading">
               <div class="form-group">
                 <label for="subject">Category</label>
-                <select id="subject" name="subject" class="form-control" formControlName="category">
-                  <option *ngFor="let category of propertyCategories" [value]="category.id">{{category.name}}</option>
+                <select id="subject" name="subject" class="form-control" formControlName="category" [(ngModel)]="categoryId">
+                  <option *ngFor="let category of propertyCategories" [value]="category.id">
+                    {{ category.name }}
+                  </option>
                 </select>
                 <div class="alert alert-danger" *ngIf="form.get('category').hasError('required') && form.get('category').touched">
                   Category is required.

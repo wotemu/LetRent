@@ -65,6 +65,9 @@ export class AuthService {
   }
 
   get userId() {
+    if (!this.loggedIn()) {
+      return null;
+    }
     return this.decodeToken().user_id;
   }
 

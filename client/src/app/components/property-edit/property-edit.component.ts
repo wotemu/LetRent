@@ -37,6 +37,7 @@ export class PropertyEditComponent implements OnInit {
   longitude: number;
   dailyPrice: number;
   weeklyPrice: number;
+  categoryId: number;
   form: FormGroup;
   slug: string;
   zoom = 11; // for google map
@@ -131,6 +132,8 @@ export class PropertyEditComponent implements OnInit {
           this.longitude = this.property.locationLongitude;
           this.form.controls['locationLatitude'].setValue(this.latitude);
           this.form.controls['locationLongitude'].setValue(this.longitude);
+          this.form.controls['category'].setValue(this.property.categoryId);
+          this.categoryId = this.property.categoryId;
           this.address = this.property.address;
           this.name = this.property.name;
           this.description = this.property.description;

@@ -6,6 +6,7 @@ from ..serializers import PropertyImageSerializer
 
 
 class PropertySerializer(serializers.ModelSerializer):
+    ownerId = serializers.IntegerField(source='owner_id')
     primaryImage = PropertyImageSerializer(source='primary_image')
     dailyPrice = serializers.DecimalField(source='daily_price', max_digits=10, decimal_places=5)
     weeklyPrice = serializers.DecimalField(source='weekly_price', max_digits=10, decimal_places=5)
@@ -15,6 +16,7 @@ class PropertySerializer(serializers.ModelSerializer):
         model = Property
         fields = [
             'id',
+            'ownerId',
             'name',
             'description',
             'slug',
@@ -28,6 +30,7 @@ class PropertySerializer(serializers.ModelSerializer):
 
 
 class PropertyDetailSerializer(serializers.ModelSerializer):
+    categoryId = serializers.IntegerField(source='category_id')
     owner = AccountSerializer()
     primaryImage = PropertyImageSerializer(source='primary_image')
     additionalImages = PropertyImageSerializer(source='additional_images', many=True, required=False)
@@ -41,6 +44,7 @@ class PropertyDetailSerializer(serializers.ModelSerializer):
         model = Property
         fields = [
             'id',
+            'categoryId',
             'owner',
             'name',
             'description',

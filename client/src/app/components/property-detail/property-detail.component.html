@@ -46,14 +46,14 @@
         <hr>
         <div class="owner-info">
           <h4>Owner information:</h4>
-          <!--<b>Owner information:</b><br>-->
-          {{ property.owner | fullname }}
-          <br>
-          <div class="rating">
+          <div *ngIf="!isOwner">{{ property.owner | fullname }}</div>
+          <div *ngIf="isOwner"><b>This property belongs to you (you are owner).</b></div>
+
+          <!-- NOT IMPLEMENTED -->
+          <!--<br> <div class="rating">
             <app-stars [rating]="'4'" class="stars"></app-stars>
-            (
-            <span class="review-no">5 reviews</span>)
-          </div>
+            (<span class="review-no">5 reviews</span>)
+          </div>-->
         </div>
 
         <ng-container *ngIf="!isOwner">
@@ -76,20 +76,18 @@
             </div>
           </div>
           <div *ngIf="showLinkToChat">
-            You can
-            <u>
-              <b>
-                <a (click)="goToChat($event)" class="go-to-chat">ask questions directly in the chat</a>
-              </b>
-            </u>. (You already contacted the Renter before)
+            You can <u><b><a (click)="goToChat($event)" class="go-to-chat">ask questions directly in the chat</a></b></u>.
+            (You already contacted the Renter before)
           </div>
         </ng-container>
-        <hr>
+
+        <!-- NOT IMPLEMENTED -->
+        <!-- <hr>
         <p class="vote">
           <strong>91%</strong> of renters enjoyed this product!
           <strong>(87 votes)</strong> &nbsp;
           <button class="btn btn-warning btn-xs">Rate!</button>
-        </p>
+        </p>-->
       </div>
     </div>
     <div class="row tabs">
@@ -147,6 +145,8 @@
         </tabset>
       </div>
     </div>
+  </div>
+</div>
 
 <ng-template #noCommentNotification>
   <br>

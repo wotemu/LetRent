@@ -47,6 +47,9 @@ export class PropertyDetailComponent implements OnInit {
             this.chat = data['chat'] as Chat;
             this.showLinkToChat = true;
           }
+          if (this.property.owner.id == this.auth.userId) {
+            this.isOwner = true;
+          }
         })
         .catch((e) => this.notification.errorResp(e));
   }

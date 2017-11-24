@@ -1,7 +1,9 @@
 import { PropertyImage } from './property-image';
+import { Account } from './account';
 
 export class Property {
   id: number;
+  owner: Account;
   name: string;
   description: string;
   slug: string;
@@ -11,7 +13,7 @@ export class Property {
   active: boolean;
   dailyPrice: number;
   weeklyPrice: number;
-  category: number;
+  categoryId: number;
   primaryImage: PropertyImage;
   //additionalImages: PropertyImage[];
   //createdAt: Date;

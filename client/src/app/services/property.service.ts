@@ -31,16 +31,14 @@ export class PropertyService {
           search: Helper.buildURLSearchParamsFromDict(requestParams)
         })
         .toPromise()
-        .then((response: Response) => response.json())
-        .catch(this.helper.handlePromiseError);
+        .then((response: Response) => response.json());
   }
 
   getProfileProperties(): Promise<any> {
     return this.authHttp
         .get(endpointProfileProperty)
         .toPromise()
-        .then((response: Response) => response.json())
-        .catch(this.helper.handlePromiseError);
+        .then((response: Response) => response.json());
   }
 
   search(query: string) {
