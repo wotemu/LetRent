@@ -27,28 +27,28 @@ export class PropertyDetailComponent implements OnInit {
   @ViewChildren('questionInput') questionInputVC;
 
   constructor(private route: ActivatedRoute,
-    private auth: AuthService,
-    private notification: NotificationService,
-    private location: Location,
-    private router: Router,
-    private chatService: ChatService,
-    private propertyService: PropertyService,
-    private commentService: CommentService) {
+              private auth: AuthService,
+              private notification: NotificationService,
+              private location: Location,
+              private router: Router,
+              private chatService: ChatService,
+              private propertyService: PropertyService,
+              private commentService: CommentService) {
   }
 
   ngOnInit() {
     this.slug = this.route.snapshot.params['slug'];
 
     this.propertyService.getProperty(this.slug)
-      .then((data) => {
-        this.property = data as Property;
-        this.getComments(this.property.id);
-        if ('chat' in data) {
-          this.chat = data['chat'] as Chat;
-          this.showLinkToChat = true;
-        }
-      })
-      .catch((e) => this.notification.errorResp(e));
+        .then((data) => {
+          this.property = data as Property;
+          this.getComments(this.property.id);
+          if ('chat' in data) {
+            this.chat = data['chat'] as Chat;
+            this.showLinkToChat = true;
+          }
+        })
+        .catch((e) => this.notification.errorResp(e));
   }
 
   onContactRenter(event): void {
@@ -61,12 +61,12 @@ export class PropertyDetailComponent implements OnInit {
 
     this.sending = true;
     this.chatService.createChat(this.property.id, this.question)
-      .then((data) => {
-        this.sending = false;
-        this.chat = data as Chat;
-        this.router.navigate(['/chats', { chatId: this.chat.id }]);
-      })
-      .catch((e) => this.notification.errorResp(e));
+        .then((data) => {
+          this.sending = false;
+          this.chat = data as Chat;
+          this.router.navigate(['/chats', {chatId: this.chat.id}]);
+        })
+        .catch((e) => this.notification.errorResp(e));
   }
 
   onUpdateQuestion(event, newQuestion): void {
@@ -77,19 +77,23 @@ export class PropertyDetailComponent implements OnInit {
     this.questionInputVC.first.nativeElement.focus();
   }
 
-
   addComment(propertyId: number, comment: string) {
+    if (!comment) {
+      this.notification.warning('Please, enter the comment');
+      return;
+    }
+
     this.commentService.createComment(propertyId, comment).then((data) => {
-      this.notification.success("Comment has been added sucesfully");
+      this.notification.success('Comment has been added sucesfully');
       this.getComments(propertyId);
     })
-      .catch((e) => this.notification.error(e));
+        .catch((e) => this.notification.error(e));
   }
 
   goToChat(event): void {
     event.stopPropagation();
     if (this.chat) {
-      this.router.navigate(['/chats', { chatId: this.chat.id }]);
+      this.router.navigate(['/chats', {chatId: this.chat.id}]);
     }
   }
 
@@ -100,9 +104,9 @@ export class PropertyDetailComponent implements OnInit {
 
   private getComments(propertyId: number) {
     this.commentService.getComments(propertyId)
-      .then((data) => {
-        this.comments = data as Comment[];
-      })
-      .catch((e) => this.notification.errorResp(e));
+        .then((data) => {
+          this.comments = data as Comment[];
+        })
+        .catch((e) => this.notification.errorResp(e));
   }
 }
