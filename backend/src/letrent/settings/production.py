@@ -24,7 +24,7 @@ SECRET_KEY = os.environ['PROD_SECRET_KEY']
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['letrentdjango.herokuapp.com', '.djangonfire.com']
+ALLOWED_HOSTS = ['letrent.herokuapp.com', 'localhost', '127.0.0.1']
 
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_HOST_USER = 'youremail@gmail.com'

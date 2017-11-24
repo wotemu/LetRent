@@ -28,7 +28,8 @@ SECRET_KEY = 'y^i6nm#67)^6ap(g69zk1zsvz&_7cr0!_1awm7d5yd)60e&o31'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+# ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['letrent.herokuapp.com', 'localhost', '127.0.0.1']
 
 # Application definition
 INSTALLED_APPS = [

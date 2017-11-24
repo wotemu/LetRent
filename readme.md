@@ -33,6 +33,22 @@
 - Go to */backend/src/* and run:  
 	`python3 manage.py runserver`
 
+## Initial Deploy on Heroku
+Before running commands with `heroku`, you must have installed [Heroku CLI](https://cli.heroku.com/).
+
+Then run the following commands for the fresh deployment on Heroku:  
+ `cd backend/src/`  
+ `git init`  
+ `heroku login`  
+ `heroku git:remote -a letrent`  
+ `git add .`   
+ `git commit -m "Commit name...`  
+ `git push heroku master`
+  `heroku run python manage.py migrate --run-syncdb` (Synchronize remote database)
+Open in browser: `heroku open`.
+    
+If you want to deploy app in your account, run `heroku create` to create new app and add it as remote repository to your backend local repository `heroku git:remote -a newly_created_appname` 
+
 ## Additional information
 ### Fake data (Fixtures)
 - Export fixtures:  

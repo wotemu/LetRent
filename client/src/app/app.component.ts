@@ -101,7 +101,6 @@ export class AppComponent implements OnInit, OnDestroy {
       this.notification.error('Please login to see your profile page!');
       event.stopPropagation();
     }
-    //   this.router.navigate(['/']);
   }
 
   ngOnDestroy() {
