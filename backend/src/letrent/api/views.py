@@ -14,11 +14,14 @@ from rest_framework_jwt.authentication import JSONWebTokenAuthentication
 from rest_framework.exceptions import NotAcceptable
 from django.db.models import Q
 
+from ..models.property_image import PropertyImage
 from ..models import Account, Property, PropertyCategory, Chat, Message, create_message, Comment
 from ..serializers import AccountSerializer, \
     PropertySerializer, PropertyDetailSerializer, PropertyModificationSerializer, \
     ChatSerializer, MessageSerializer, CommentSerializer,\
     build_nested_category_tree
+
+fs = FileSystemStorage()
 
 
 class RegisterUser(CreateAPIView):
@@ -64,7 +67,6 @@ class UpdateProfile(APIView):
         if serializer.is_valid():
             serializer.save()
             if avatar_file:
-                fs = FileSystemStorage()
                 full_path = os.path.join('profile_avatars', '%s.jpg' % request.user.id)
                 fs.delete(full_path)  # Overwrite if already exists
                 fs.save(full_path, avatar_file)
@@ -88,11 +90,21 @@ class AddProperty(APIView):
     authentication_classes = (JSONWebTokenAuthentication,)
 
     def post(self, request, *args, **kwargs):
-        serializer = self.serializer_class(data=request.data)
-        category_obj = PropertyCategory.objects.get(id=request.data['category'])
+        data = request.data
+        # del data['primaryImage'], data['additionalImages']
 
+        category_obj = PropertyCategory.objects.get(id=request.data['category'])
+        serializer = self.serializer_class(data=data, partial=True)
         if serializer.is_valid():
             serializer.save(category=category_obj, owner=request.user)
+            property_id = serializer.data['id']
+
+            primary_image = request.FILES['primaryImage'] if 'primaryImage' in request.FILES else []
+            if primary_image:
+                path_to_folder = os.path.join(os.path.join('properties', str(property_id)), primary_image.name)
+                file_path = fs.save(path_to_folder, primary_image)
+                PropertyImage.objects.create(property_id=property_id, file_path=file_path, is_primary=True)
+
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
@@ -106,21 +118,33 @@ class EditDeleteProperty(APIView):
     authentication_classes = (JSONWebTokenAuthentication,)
 
     def put(self, request, pk, format=None):
-        property = Property.objects.deletable_property(pk)
+        _property = Property.objects.deletable_property(pk)
         update_dict = {}
 
         for key, value in request.data.items():
             if value is not None:
                 update_dict[key] = value
 
-        primary_image = request.FILES['primaryImage'] if 'primaryImage' in request.FILES else []
         additional_images = request.FILES['additionalImages'] if 'additionalImages' in request.FILES else []
         # serializer.additionalImages.save(request.FILES['primaryImage'].name, request.FILES['primaryImage'])
         del update_dict['primaryImage'], update_dict['additionalImages']
 
-        serializer = PropertyDetailSerializer(property, data=update_dict, partial=True)
+        serializer = PropertyDetailSerializer(_property, data=update_dict, partial=True)
         if serializer.is_valid():
             serializer.save()
+
+            primary_image = request.FILES['primaryImage'] if 'primaryImage' in request.FILES else []
+            if primary_image:
+                # Remove existing primary image
+                primary_image_in_db = PropertyImage.objects.filter(property=_property, is_primary=True).first()
+                if primary_image_in_db:
+                    fs.delete(primary_image_in_db.url()[1:])  # remove leading slash
+                    primary_image_in_db.delete()
+
+                path_to_folder = os.path.join(os.path.join('properties', pk), primary_image.name)
+                file_path = fs.save(path_to_folder, primary_image)
+                PropertyImage.objects.create(property=_property, file_path=file_path, is_primary=True)
+
             return Response(status=status.HTTP_204_NO_CONTENT)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 

@@ -12,7 +12,7 @@ export class Property {
   dailyPrice: number;
   weeklyPrice: number;
   category: number;
-  //primaryImage: PropertyImage;
+  primaryImage: PropertyImage;
   //additionalImages: PropertyImage[];
   //createdAt: Date;
 }

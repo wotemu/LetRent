@@ -58,8 +58,8 @@ class PropertyDetailSerializer(serializers.ModelSerializer):
 
 
 class PropertyModificationSerializer(serializers.ModelSerializer):
-    primaryImage = PropertyImageSerializer(source='primary_image', required=False) # TODO! Make this true, after upload image feature
-    additionalImages = PropertyImageSerializer(source='additional_images', many=True, required=False)
+    # primaryImage = PropertyImageSerializer(source='primary_image', required=False) # TODO! Make this true, after upload image feature
+    # additionalImages = PropertyImageSerializer(source='additional_images', many=True, required=False)
     dailyPrice = serializers.DecimalField(source='daily_price', max_digits=10, decimal_places=5)
     weeklyPrice = serializers.DecimalField(source='weekly_price', max_digits=10, decimal_places=5)
     locationLatitude = serializers.DecimalField(source='location_lat', max_digits=20, decimal_places=16)
@@ -76,6 +76,6 @@ class PropertyModificationSerializer(serializers.ModelSerializer):
             'locationLongitude',
             'dailyPrice',
             'weeklyPrice',
-            'additionalImages',
-            'primaryImage'
+            # 'additionalImages',
+            # 'primaryImage'
         ]
