@@ -1,6 +1,6 @@
 <h2>My Properties</h2>
 <div class="row">
-  <div *ngIf="properties; else loading" class="properties">
+  <div *ngIf="properties; else loading" id="properties">
     <ng-container *ngFor="let property of properties">
       <div class="property col-xs-12 col-sm-6 col-md-3">
         <div class="thumbnail">
@@ -10,19 +10,28 @@
             </a>
           </div>
           <div class="details">
-            <h4 class="group inner list-group-item-heading">
+            <h4 class="title">
               <a routerLink="/properties/{{ property.slug }}">{{ property.name }}</a>
             </h4>
             <div class="price">{{ property | propertyPrice }}</div>
-            <div class="controlPanel">
-              <span><a routerLink="/properties/{{ property.slug }}" class="btn btn-success">View</a></span>
-              <span><a routerLink="/property-edit/{{ property.slug }}" class="btn btn-warning">Edit</a></span>                            
-              <span><a mwlConfirmationPopover
-                [title]="alertTitle"
-                [message]="alertMessage"
-                placement="bottom"
-                (confirm)="deleteProperty(property.id, property.name)"                
-                (cancel)="alertCancelClicked = true" class="btn btn-danger">Delete</a></span>              
+            <div class="buttons text-right">
+              <span class="pull-left">
+                <a routerLink="/properties/{{ property.slug }}" class="btn btn-default">
+                 <i class="fa fa-eye"></i> View
+              </a>
+              </span>
+              <span class="pull-left">
+                <a routerLink="/property-edit/{{ property.slug }}" class="btn btn-default">
+                  <i class="fa fa-pencil fa-fw"></i> Edit
+                </a>
+              </span>
+              <span>
+                <a mwlConfirmationPopover [title]="alertTitle" [message]="alertMessage" placement="bottom"
+                   (confirm)="deleteProperty(property.id, property.name)"
+                   (cancel)="alertCancelClicked = true" class="btn btn-danger" [popoverClass]="'remove-popover'">
+                  <i class="fa fa-remove"></i>
+                </a>
+              </span>
             </div>
           </div>
         </div>

@@ -1,3 +1,22 @@
-.controlPanel span {
+#properties {
+    flex-wrap: wrap;
+    display: flex;
+}
+.property {
+    position: relative;
+    padding: 5px;
+}
+.property > .thumbnail {
+    padding: 15px;
+    margin-bottom: 0;
+}
+.property .details h4.title {
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+.property .buttons {
+    margin-top: 5px;
+}
+.property .buttons span {
     margin-right: 5px;
 }

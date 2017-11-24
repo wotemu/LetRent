@@ -37,8 +37,8 @@ const appRoutes: Routes = [
     {path: 'property-edit/:slug', component: PropertyEditComponent},
 
     {path: 'profile', component: ProfileComponent, canActivate: [AuthGuard]},
-    {path: 'profile-properties', component: ProfilePropertiesComponent},
-    {path: 'profile-notifications', component: ProfileNotificationsComponent},
+    {path: 'profile-properties', component: ProfilePropertiesComponent, canActivate: [AuthGuard]},
+    {path: 'profile-notifications', component: ProfileNotificationsComponent, canActivate: [AuthGuard]},
 
     // Custom pages
     {path: 'about', component: AboutComponent},
