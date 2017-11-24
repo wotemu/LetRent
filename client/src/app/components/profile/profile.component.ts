@@ -85,9 +85,9 @@ export class ProfileComponent implements OnInit {
   }
 
   onFileChange(event) {
-    let fi = this.fileInput.nativeElement;
-    if (fi.files && fi.files[0]) {
-      this.avatar = fi.files[0];
+    const fileInput = this.fileInput.nativeElement;
+    if (fileInput.files && fileInput.files[0]) {
+      this.avatar = fileInput.files[0];
     }
   }
 

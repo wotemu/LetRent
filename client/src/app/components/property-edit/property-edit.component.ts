@@ -6,10 +6,11 @@ import { NotificationService } from '../../services/notification.service';
 import { PropertyCategoryService } from '../../services/property-category.service';
 import { PropertyService } from '../../services/property.service';
 import { PropertyCategory } from '../../models/property-category';
-import { } from 'googlemaps';
+import {} from 'googlemaps';
 import { MapsAPILoader } from '@agm/core';
 import { Property } from '../../models/property';
 import { ActivatedRoute } from '@angular/router';
+import { Helper } from '../../utils/helper';
 
 function priceConfirming(c: AbstractControl): any {
   if (!c.parent || !c) return;
@@ -19,7 +20,7 @@ function priceConfirming(c: AbstractControl): any {
   if (dPrice.value || wPrice.value) {
     return;
   } else {
-    return { invalid: true };
+    return {invalid: true};
   }
 }
 
@@ -36,72 +37,58 @@ export class PropertyEditComponent implements OnInit {
   longitude: number;
   dailyPrice: number;
   weeklyPrice: number;
-  zoom: number;
   form: FormGroup;
   slug: string;
-
-  @ViewChild("searchLoc")
-  searchElementRef: ElementRef;
+  zoom = 11; // for google map
   propertyCategories: PropertyCategory[];
   property: Property;
+  primaryImage: File;
+  additionalImages: File[];
 
-  constructor(
-    private route: ActivatedRoute,
-    private router: Router,
-    public auth: AuthService,
-    private propertyService: PropertyService,
-    private propertyCategoryService: PropertyCategoryService,
-    private formBuilder: FormBuilder,
-    private notification: NotificationService,
-    private mapsAPILoader: MapsAPILoader,
-    private ngZone: NgZone) {
-    if (!auth.loggedIn()) {
-      this.router.navigate(['/']);
-      this.notification.error('Please login to see your profile page!');
-    }
+  @ViewChild('searchLoc') searchElementRef: ElementRef;
+  @ViewChild('primaryImageInput') primaryImageInput;
+  @ViewChild('additionalImagesInput') additionalImagesInput;
+
+  constructor(private route: ActivatedRoute,
+              private router: Router,
+              private auth: AuthService,
+              private helper: Helper,
+              private propertyService: PropertyService,
+              private propertyCategoryService: PropertyCategoryService,
+              private formBuilder: FormBuilder,
+              private notification: NotificationService,
+              private mapsAPILoader: MapsAPILoader,
+              private ngZone: NgZone) {
   }
 
   ngOnInit() {
-    // Fetch property details
     this.getPropertyDetails();
-  
-    //load categories
     this.loadCategories();
+    this.setCurrentUserLocation();
 
-    //set current position
-    this.setCurrentPosition();
-
-    // After the view is initialized, this.userProfile will be available
-    this.zoom = 11;
-
-    if(this.property) {
-    //load Places Autocomplete
-    this.mapsAPILoader.load().then(() => {
-      let autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement, {
-        types: ["address"]
-      });
-      autocomplete.addListener("place_changed", () => {
-        this.ngZone.run(() => {
-          //get the place result
-          let place: google.maps.places.PlaceResult = autocomplete.getPlace();
-
-          //verify result
-          if (place.geometry === undefined || place.geometry === null) {
-            return;
-          }
-          //set latitude, longitude and zoom
-          this.address = place.formatted_address;
-          this.latitude = place.geometry.location.lat();
-          this.longitude = place.geometry.location.lng();
-          //set form values
-          this.form.controls['locationLatitude'].setValue(this.latitude);
-          this.form.controls['locationLongitude'].setValue(this.longitude);
-          this.zoom = 12;
+    if (this.property) {
+      // Load Places Autocomplete
+      this.mapsAPILoader.load().then(() => {
+        const autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement, {
+          types: ['address']
+        });
+        autocomplete.addListener('place_changed', () => {
+          this.ngZone.run(() => {
+            // get the place result
+            const place: google.maps.places.PlaceResult = autocomplete.getPlace();
+            if (place.geometry === undefined || place.geometry === null) {
+              return;
+            }
+            this.address = place.formatted_address;
+            this.latitude = place.geometry.location.lat();
+            this.longitude = place.geometry.location.lng();
+            this.form.controls['locationLatitude'].setValue(this.latitude);
+            this.form.controls['locationLongitude'].setValue(this.longitude);
+            this.zoom = 12;
+          });
         });
       });
-    });
-  }
-    //create the form
+    }
     this.form = this.formBuilder.group({
       name: [this.name, [Validators.required, Validators.minLength(4)]],
       dailyPrice: [this.dailyPrice, [Validators.required, priceConfirming]],
@@ -110,32 +97,65 @@ export class PropertyEditComponent implements OnInit {
       category: [null, [Validators.required]],
       description: [this.description, [Validators.required, Validators.minLength(5)]],
       locationLatitude: [this.latitude],
-      locationLongitude: [this.longitude]
+      locationLongitude: [this.longitude],
+      primaryImage: [],
+      additionalImages: [],
     });
+  }
+
+  onPrimaryImageChange(event) {
+    const fileInput = this.primaryImageInput.nativeElement;
+    if (fileInput.files && fileInput.files[0]) {
+      this.primaryImage = fileInput.files[0];
+    }
+  }
+
+  onAdditionalImagesChange(event) {
+    const fileInput = this.additionalImagesInput.nativeElement;
+    this.additionalImages = [];
+    if (fileInput.files && fileInput.files) {
+      for (let i = 0; i < fileInput.files.length; i++) {
+        if (fileInput.files[i]) {
+          this.additionalImages.push(fileInput.files[i]);
+        }
+      }
+    }
   }
 
   getPropertyDetails() {
     this.slug = this.route.snapshot.params['slug'];
 
     this.propertyService.getProperty(this.slug)
-      .then((data) => {
-        this.property = data as Property;
-        this.latitude = this.property.locationLatitude;
-        this.longitude = this.property.locationLongitude;
-        this.address = this.property.address;
-        this.name = this.property.name;
-        this.description = this.property.description;
-        this.dailyPrice = this.property.dailyPrice;
-        this.weeklyPrice = this.property.weeklyPrice;
-      })
-      .catch((e) => this.notification.errorResp(e));
+        .then((data) => {
+          this.property = data as Property;
+          this.latitude = this.property.locationLatitude;
+          this.longitude = this.property.locationLongitude;
+          this.address = this.property.address;
+          this.name = this.property.name;
+          this.description = this.property.description;
+          this.dailyPrice = this.property.dailyPrice;
+          this.weeklyPrice = this.property.weeklyPrice;
+        })
+        .catch((e) => this.notification.errorResp(e));
   }
 
-  editProperty(property, id) {
-    const propertyObject = property as Property;
-    console.log(property);
-    this.propertyService.editProperty(propertyObject, id).then(() => {
-      this.notification.success("Property has updated successfully!");
+  editProperty() {
+    const formData = this.helper.objectToFormData(this.form.value);
+
+    if (this.primaryImage) {
+      formData.append('primaryImage', this.primaryImage, this.primaryImage.name);
+    }
+    if (this.additionalImages && this.additionalImages.length) {
+      for (let i = 0; i < this.additionalImages.length; i++) {
+        let img = this.additionalImages[i];
+        // formData.append('additionalImages[' + i + ']', img, img.name);
+        console.log(img);
+        formData.append('additionalImages[]', img, img.name);
+      }
+    }
+
+    this.propertyService.editProperty(formData, this.property.id).then(() => {
+      this.notification.success('Property has updated successfully!');
       this.router.navigate(['/']);
     }).catch((err) => {
       this.notification.error('Updating the property failed!');
@@ -145,14 +165,14 @@ export class PropertyEditComponent implements OnInit {
 
   private loadCategories() {
     this.propertyCategoryService.getPropertyCategories()
-      .then((data) => {
-        this.propertyCategories = data as PropertyCategory[];
-      })
-      .catch((e) => this.notification.errorResp(e));
+        .then((data) => {
+          this.propertyCategories = data as PropertyCategory[];
+        })
+        .catch((e) => this.notification.errorResp(e));
   }
 
-  private setCurrentPosition() {
-    if ("geolocation" in navigator) {
+  private setCurrentUserLocation() {
+    if ('geolocation' in navigator) {
       navigator.geolocation.getCurrentPosition((position) => {
         this.latitude = position.coords.latitude;
         this.longitude = position.coords.longitude;

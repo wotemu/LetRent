@@ -1,14 +1,14 @@
-<a class="backIcon"routerLink='/profile-properties/' popover="Go Back"><i class="fa fa-angle-double-left fa-2x"></i></a>
-<h2><i class="fa fa-pencil-square-o" aria-hidden="true"></i>Edit Property</h2>
+<a class="backIcon"routerLink='/profile-properties/' popover="Go Back"><i class="fa fa-angle-double-left fa-2x"></i></a> &nbsp;
+<h2>Edit Property</h2>
 <div class="container" *ngIf="property; else loading">
   <div class="row">
     <div class="col-md-12">
       <div class="well well-sm">
-        <form [formGroup]="form" (ngSubmit)="editProperty(form.value, property.id)">
+        <form [formGroup]="form" (ngSubmit)="editProperty()" enctype="multipart/form-data">
           <div class="row">
             <div class="col-md-6">
               <div class="form-group">
-                <label for="title">Property Name</label>
+                <label for="name">Property Name</label>
                 <input type="text" class="form-control" id="name" placeholder="Property name" formControlName="name" value="{{ property.name }}"/>
                 <div class="alert alert-danger" *ngIf="form.get('name').hasError('required') && form.get('name').touched">
                   Name is required.
@@ -27,9 +27,10 @@
               </div>
               <div class="form-group">
                 <div class="form-group">
-                  <label for="location">Location</label>
-                  <input placeholder="search for an address" autocorrect="off" autocapitalize="off" spellcheck="off" type="text" 
-                    class="form-control" #searchLoc formControlName="address" [(ngModel)]="address">
+                  <label>Location</label>
+                  <input type="text" placeholder="search for an address" autocorrect="off" autocapitalize="off"
+                         class="form-control" spellcheck="off"
+                         #searchLoc formControlName="address" [(ngModel)]="address">
                   <div class="alert alert-danger" *ngIf="form.get('address').hasError('required') && form.get('address').touched">
                     Location is required.
                   </div>
@@ -52,8 +53,17 @@
               <div class="form-group">
                 <div class="text-center">
                   <img src="//placehold.it/100" class="avatar img-circle" alt="avatar">
-                  <h6>Upload a different photo...</h6>
-                  <input type="file" class="form-control">
+                  <h6>Upload a primary photo...</h6>
+                  <input type="file" class="form-control" formControlName="primaryImage"
+                         (change)="onPrimaryImageChange(event)" #primaryImageInput>
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="text-center">
+                  <!--<img src="//placehold.it/100" class="avatar img-circle" alt="avatar">-->
+                  <h6>Upload additional photos...</h6>
+                  <input type="file" class="form-control" formControlName="additionalImages"
+                         (change)="onAdditionalImagesChange(event)" #additionalImagesInput multiple>
                 </div>
               </div>
               <div class="form-group">

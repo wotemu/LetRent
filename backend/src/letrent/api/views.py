@@ -48,7 +48,7 @@ class RegisterUser(CreateAPIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-class UserUpdateProfile(APIView):
+class UpdateProfile(APIView):
     """
     Update an user instance.
     """
@@ -72,7 +72,7 @@ class UserUpdateProfile(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-class ProfileInfoHandler(generics.RetrieveAPIView):
+class ProfileInfo(generics.RetrieveAPIView):
     serializer_class = AccountSerializer
     permission_classes = (IsAuthenticated,)
     authentication_classes = (JSONWebTokenAuthentication,)
@@ -82,10 +82,7 @@ class ProfileInfoHandler(generics.RetrieveAPIView):
         return Response(serializer.data)
 
 
-class PropertyModification(APIView):
-    """
-    Add and delete a property.
-    """
+class AddProperty(APIView):
     serializer_class = PropertyModificationSerializer
     permission_classes = (IsAuthenticated,)
     authentication_classes = (JSONWebTokenAuthentication,)
@@ -100,7 +97,7 @@ class PropertyModification(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-class ControlPropertyView(APIView):
+class EditDeleteProperty(APIView):
     """
     Edit and delete a property.
     """
@@ -115,6 +112,11 @@ class ControlPropertyView(APIView):
         for key, value in request.data.items():
             if value is not None:
                 update_dict[key] = value
+
+        primary_image = request.FILES['primaryImage'] if 'primaryImage' in request.FILES else []
+        additional_images = request.FILES['additionalImages'] if 'additionalImages' in request.FILES else []
+        # serializer.additionalImages.save(request.FILES['primaryImage'].name, request.FILES['primaryImage'])
+        del update_dict['primaryImage'], update_dict['additionalImages']
 
         serializer = PropertyDetailSerializer(property, data=update_dict, partial=True)
         if serializer.is_valid():
@@ -170,7 +172,7 @@ class ProfilePropertyList(generics.ListAPIView):
         return Property.objects.all_user_properties(self.request.user)
 
 
-class PropertyDetail(generics.RetrieveAPIView):
+class ViewProperty(generics.RetrieveAPIView):
     """
     Lists property details properties.
     """
@@ -208,7 +210,7 @@ class PropertyCategoryView(APIView):
         return Response(category_tree)
 
 
-class ChatsListHandler(APIView):
+class ChatsList(APIView):
     permission_classes = (IsAuthenticated,)
 
     def get(self, request, **kwargs):
@@ -218,7 +220,7 @@ class ChatsListHandler(APIView):
         return Response(data)
 
 
-class ChatMessagesHandler(APIView):
+class ChatMessagesList(APIView):
     permission_classes = (IsAuthenticated,)
 
     def get(self, request, chat_id):
@@ -240,7 +242,7 @@ class ChatMessagesHandler(APIView):
         return Response(data)
 
 
-class AddMessageToChatHandler(generics.ListCreateAPIView):
+class AddMessageToChat(generics.ListCreateAPIView):
     model = Message
     serializer_class = MessageSerializer
     permission_classes = (IsAuthenticated,)
@@ -260,7 +262,7 @@ class AddMessageToChatHandler(generics.ListCreateAPIView):
         return Response(serializer.data, status=status.HTTP_201_CREATED)
 
 
-class CreateChatHandler(generics.ListCreateAPIView):
+class CreateChat(generics.ListCreateAPIView):
     model = Chat
     serializer_class = ChatSerializer
     permission_classes = (IsAuthenticated,)
@@ -289,7 +291,7 @@ class CreateChatHandler(generics.ListCreateAPIView):
         return Response(serializer.data, status=status.HTTP_201_CREATED)
 
 
-class TotalNotificationsHandler(APIView):
+class TotalChatNotifications(APIView):
     permission_classes = (IsAuthenticated,)
 
     def get(self, request):

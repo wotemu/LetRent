@@ -35,4 +35,12 @@ export class Helper {
     this.notification.error(error);
     return Observable.throw(errMsg);
   }
+
+  public objectToFormData(obj: Object): FormData {
+    const formData = new FormData();
+    Object.getOwnPropertyNames(obj).map((key: string) => {
+      formData.append(key, obj[key]);
+    });
+    return formData;
+  }
 }

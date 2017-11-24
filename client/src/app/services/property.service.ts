@@ -6,7 +6,6 @@ import { AuthHttp } from 'angular2-jwt';
 import { AuthService } from '../security/auth.service';
 
 const endpoint = '/api/properties/';
-const endpointAddProperty = '/api/property-modification/';
 const endpointProfileProperty = '/api/profile-properties/';
 
 @Injectable()
@@ -28,71 +27,59 @@ export class PropertyService {
 
   getProperties(requestParams?: {}): Promise<any> {
     return this.http
-      .get(endpoint, {
-        search: Helper.buildURLSearchParamsFromDict(requestParams)
-      })
-      .toPromise()
-      .then((response: Response) => response.json())
-      .catch(this.helper.handlePromiseError);
+        .get(endpoint, {
+          search: Helper.buildURLSearchParamsFromDict(requestParams)
+        })
+        .toPromise()
+        .then((response: Response) => response.json())
+        .catch(this.helper.handlePromiseError);
   }
 
   getProfileProperties(): Promise<any> {
     return this.authHttp
-      .get(endpointProfileProperty)
-      .toPromise()
-      .then((response: Response) => response.json())
-      .catch(this.helper.handlePromiseError);
+        .get(endpointProfileProperty)
+        .toPromise()
+        .then((response: Response) => response.json())
+        .catch(this.helper.handlePromiseError);
   }
 
   search(query: string) {
     const queryString = `?q=${query}`;
     return this.http.get(endpoint + queryString)
-      .map((response) => response.json())
-      .catch(this.helper.handleObservableError);
+        .map((response) => response.json())
+        .catch(this.helper.handleObservableError);
   }
 
-  addProperty(property) {
+  addProperty(formData) {
     return new Promise((resolve, reject) => {
-      this.authHttp.post(endpointAddProperty, property)
-        .map((res) => res.json())
-        .subscribe(
-        (data) => {
-          resolve();
-        },
-        (error) => {
-          reject(error);
-        }
-        );
+      this.authHttp.post(endpoint + 'add/', formData)
+          .map((res) => res.json())
+          .subscribe(
+              (data) => resolve(),
+              (error) => reject(error)
+          );
     });
   }
 
-  editProperty(property, id) {
+  editProperty(formData, id) {
     return new Promise((resolve, reject) => {
-      this.authHttp.put(endpointAddProperty + id + '/', property)
-        .map((res) => res.json())
-        .subscribe(
-        (data) => {
-          resolve();
-        },
-        (error) => {
-          reject(error);
-        }
-        );
+      this.authHttp.put(endpoint + id + '/update/', formData)
+          .map((res) => res.json())
+          .subscribe(
+              (data) => resolve(),
+              (error) => reject(error)
+          );
     });
   }
 
   deleteProperty(id: number) {
     return new Promise((resolve, reject) => {
-      this.authHttp.delete(endpointAddProperty + id + '/')
-        .map((res) => res.json())
-        .subscribe(
-        (data) => {
-          resolve();
-        },
-        (error) => {
-          reject(error);
-        }
-        );
+      this.authHttp.delete(endpoint + id + '/delete/')
+          .map((res) => res.json())
+          .subscribe(
+              (data) => resolve(),
+              (error) => reject(error)
+          );
     });
   }
 }
